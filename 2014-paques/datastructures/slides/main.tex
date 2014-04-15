@@ -1,0 +1,968 @@
+\documentclass[10pt,svgnames,usenames,table]{beamer} %,handout si version papier
+\input{header_presentation}
+\usepackage{pdflscape} %% portrait
+\usepackage[french]{varioref} % \vpageref
+\usepackage{pgfplots}
+
+\usetikzlibrary{arrows,matrix,decorations.pathreplacing,positioning,chains,fit,shapes,calc} %Voir 1.3.8
+
+\graphicspath{{img/}}
+\definecolor{gris}{RGB}{228,228,228}
+\definecolor{bleu}{RGB}{34,148,255}
+\definecolor{darkgray}{rgb}{0.3,0.3,0.3}
+
+\newcommand{\bigoh}{\mathcal{O}}
+
+
+\institute{beOI}
+\title{\textbf{Formation beOI}\\Data structures}
+\author{\and Benoît \textsc{Legat}}
+
+\begin{document}
+
+%%%%%%%%%%%% SIDA
+\begin{landscape}
+\begin{frame}[noframenumbering,plain]
+	\vspace{-.5cm}
+	\hspace*{.1mm}
+	\includegraphics[page=1,width=\paperheight]{dontpanic.jpg}
+\end{frame}
+\end{landscape}
+%%%%%%%%%%%%
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{\insertsection}
+     \tableofcontents[hideothersubsections]
+     \end{frame}
+  }
+
+\section{Introduction}
+\subsection{Pedagogy}
+\begin{frame}
+\frametitle{What is pedagogy}
+
+\begin{description}
+  \item[Noob] Just tell them to listen.
+    \vspace{0.5cm}
+  \item[Pro] Don't answer question they didn't ask. If they don't ask question, give them problems.
+    \vspace{0.5cm}
+  \item[Expert (WIP)] Give them problems and don't answer their question.
+\end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Being competitive}
+  \begin{itemize}
+    \item Know your classics !
+    \item Master the STL.
+    \item Master \lstinline|iostream| AND \lstinline|stdio|.
+    \item Avoid common coding guidance.
+    \item Don't allocate with \lstinline|malloc|, \lstinline|new|,
+      do static allocation of the worst case (you need to pass it anyway).
+    \item Don't optimize the easy cases
+    \item Don't do useless optimisation
+    \item Beware time waster problems! They might kill you while you are trying to kill them.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{GDB}
+  \begin{lstlisting}[language=sh]
+$ gdb a.out
+NO WARRANTY this program won't work !
+>> run
+>> run < input
+# Once it runs
+>> break 42
+>> break gridland # Break the function gridland
+>> break 42 if n == 2
+# Once it is stopped
+>> step # Goes inside functions
+>> next # Doesn't
+>> continue
+>> bt
+>> bt full
+>> frame 3
+>> info locals
+>> quit
+  \end{lstlisting}
+\end{frame}
+
+\section{Useful data structures}
+\subsection{STL}
+\begin{frame}[fragile]
+  \frametitle{Problème piège -- 10226}
+  \begin{itemize}
+    \item Si vous voulez le faire en C,
+      ça vous prend \SI{1}{h}, vous avez perdu un temps précieux !
+    \item Avec la STL, vous avez fini en \SI{5}{min} !
+  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Input}
+        \begin{verbatim}
+Don't Panic
+Mostly Harmless
+42
+Don't Panic
+The Hitchhiker's Guide
+        \end{verbatim}
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Output}
+        \begin{verbatim}
+42 20.0000
+Don't Panic 40.0000
+Mostly Harmless 20.0000
+The Hitchhiker's Guide 20.0000
+        \end{verbatim}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \begin{itemize}
+    \item Exactly 4 decimals \lstinline|cout << setiosflags(ios::fixed) << setprecision(4)|
+    \item Strings with spaces \lstinline|std::getline|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Let's do some shopping!}
+  \begin{block}{Unique key}
+    \begin{center}
+      \begin{tabular}{lll}
+        & sorted & unsorted\\
+        existence & \lstinline|std::set| & \lstinline|std::unordered_set|\\
+        association & \lstinline|std::map| & \lstinline|std::unsorted_map|\\
+        complexity & $\bigoh(\log(n))$ & $\bigoh(1)$ on average
+      \end{tabular}
+    \end{center}
+  \end{block}
+  \begin{block}{Different elements can have the same key}
+    \begin{center}
+      \begin{tabular}{lll}
+        & sorted & unsorted\\
+        existence & \lstinline|std::multiset| & \lstinline|std::unordered_multiset|\\
+        association & \lstinline|std::multimap| & \lstinline|std::unsorted_multimap|\\
+        complexity & $\bigoh(\log(n))$ & $\bigoh(1)$ on average
+      \end{tabular}
+    \end{center}
+  \end{block}
+\end{frame}
+\tikzset{
+  %Define standard arrow tip
+  >=stealth',
+  %Define style for boxes
+  punkt/.style={
+    rectangle,
+    rounded corners,
+    draw=black, very thick,
+    text width=6.5em,
+    minimum height=2em,
+  text centered},
+  % Define arrow style
+  pil/.style={
+    ->,
+    thick,
+    shorten <=2pt,
+  shorten >=2pt,}
+}
+
+\subsection{Hash Map}
+\begin{frame}[allowframebreaks]
+  \frametitle{Hash Map}
+  \begin{block}{Principle}
+    There is a number $N$ of buckets. The key is mapped to a bucket by hashing it to a number between $0$ and $N-1$.
+    \begin{enumerate}
+      \item Transform the key to a number $k$ of type \lstinline|size_t|;
+      \item Get that number between $0$ and $N-1$ (e.g. $k \pmod{N}$);
+      \item Access the bucket with that index.
+    \end{enumerate}
+    For now, $\bigoh(1)$ !
+  \end{block}
+  \begin{tikzpicture}
+    \foreach \i in {1,...,5} {
+      \draw node [below] at (\i-0.5,0) {$\i$};
+    }
+    \draw[step=1.0,black,very thick] (0,0) grid (5,1);
+    \node at (4,2) (idx) {3}
+    edge[pil] (2.5,1);
+    \node at (-2,2) (hc) {0x244224};
+    \draw (hc.east) edge[pil] (idx.west);
+    \node at (-4,0.5) (dt) {``Deep Thought''}
+    edge[pil,bend left=45] (hc.west);
+  \end{tikzpicture}
+  \begin{block}{Collision}
+    But there can be collision so it is $\bigoh(1)$ on average !
+    In case of collision, 2 solutions
+    \begin{itemize}
+      \item Store in each bucket all the collisions;
+      \item Probe a empty spot (linear probing, quadratic probing, ...).
+    \end{itemize}
+  \end{block}
+  It is only $\bigoh(1)$ on average if the load factor is good (e.g. $\ll 1$).
+  When load factor get close to 1, increase $N$.
+\end{frame}
+
+\subsection{Binary Search Tree}
+
+\tikzstyle{vertex}=[draw,fill=black!15,circle,minimum size=18pt,inner sep=0pt]
+\tikzstyle{vertexfocus}=[draw,fill=blue!42,circle,minimum size=18pt,inner sep=0pt]
+\tikzstyle{vertexchange}=[draw,fill=red!42,circle,minimum size=18pt,inner sep=0pt]
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle{Binary Search Tree}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.9,very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+    \node [vertex] (r){$17$}
+    child {
+      node [vertex] (a) {$9$}
+      child {
+        node [vertex] {$3$}
+        child {
+          node [vertex] {$-3$}
+          child {node [vertex] {$-4$}}
+          child {
+            node [vertex] {$2$}
+          }
+        }
+        child {
+          node [vertex] {$8$}
+          child {
+            node [vertex] {$6$}
+            child {
+              node [vertex] {$5$}
+            }
+            child {
+              node [vertex] {$7$}
+            }
+          }
+        }
+      }
+      child {
+        node [vertex] {$11$}
+        child {
+          node [vertex] {$17$}
+          child {
+            node [vertex] {$17$}
+          }
+        }
+      }
+    }
+    child {
+      node [vertex] {$19$}
+      child {
+        node [vertex] {$20$}
+      }
+    };
+  \end{tikzpicture}
+\end{center}
+  \framebreak
+
+  To get $\bigoh(\log(n))$
+  \begin{itemize}
+    \item Balanced
+    \item Comparison in $\bigoh(1)$ (strings have $\bigoh(m\log(n))$ where $m$ is their length)
+    \item Balancing operation in $\log(n)$
+  \end{itemize}
+  Balanced trees are tricky to code ! Use \lstinline|std::set| and \lstinline|std::map| !
+
+  \begin{block}{When to use a BST or a hash map}
+    \begin{itemize}
+      \item When you want an array to be indexed by another thing than an int % 10226
+      \item When an array is too small and you don't need all % 11572, 11286
+      \item (\emph{BST only})
+        When you want a structure to e
+        \begin{itemize}
+          \item an array to get $\bigoh(\log(n))$ binary search access time
+          \item a linked list to get $\bigoh(1)$ insertion time
+        \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interesting example}
+  Longest Increasing Subsequence: LIS, a classic !
+  \begin{itemize}
+    \item Find an $\bigoh(n^2)$ algorithm.
+    \item Improve it to $\bigoh(n\log(n))$.
+    \item Solve problem $481$ in uva with it (even if $\bigoh(n^2)$ is enough).
+  \end{itemize}
+\end{frame}
+
+\subsection{Heap}
+\begin{frame}
+  \frametitle{Let's do a problem, shall we ?}
+  Do problem 10954 from uva !
+\end{frame}
+\begin{frame}
+  \frametitle{Heap}
+  If we are only interested by the minimum, the BST is simplified and much faster and easier to code.
+  Still $\bigoh(\log(n))$ though.
+
+  The tree can be always complete !
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] (r){$2$}
+      child {
+        node [vertex] (a) {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$10$}
+      };
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+\begin{frame}[allowframebreaks]
+  \frametitle{Push}
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] (r){$2$}
+      child {
+        node [vertex] (a) {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$10$}
+        child {
+          node [vertexchange] {$9$}
+        }
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] (r){$2$}
+      child {
+        node [vertex] (a) {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertexfocus] {$10$}
+        child {
+          node [vertexfocus] {$9$}
+        }
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] (r){$2$}
+      child {
+        node [vertex] (a) {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertexchange] {$9$}
+        child {
+          node [vertexchange] {$10$}
+        }
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertexfocus] (r){$2$}
+      child {
+        node [vertex] (a) {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertexfocus] {$9$}
+        child {
+          node [vertex] {$10$}
+        }
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] (r){$2$}
+      child {
+        node [vertex] (a) {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$9$}
+        child {
+          node [vertex] {$10$}
+        }
+      };
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+\begin{frame}[allowframebreaks]
+  \frametitle{Pop}
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertexfocus] (top) {$2$}
+      child {
+        node [vertex] {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$9$}
+        child {
+          node [vertexfocus] (end) {$10$}
+        }
+      };
+      \draw (end.east) edge[pil,bend right=60] (top.east);
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertexchange] {$10$}
+      child {
+        node [vertex] {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$9$}
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertexfocus] {$10$}
+      child {
+        node [vertexfocus] {$4$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertexfocus] {$9$}
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertexchange] {$4$}
+      child {
+        node [vertexchange] {$10$}
+        child {
+          node [vertex] {$7$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$9$}
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] {$4$}
+      child {
+        node [vertexfocus] {$10$}
+        child {
+          node [vertexfocus] {$7$}
+        }
+        child {
+          node [vertexfocus] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$9$}
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] {$4$}
+      child {
+        node [vertexchange] {$7$}
+        child {
+          node [vertexchange] {$10$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$9$}
+      };
+    \end{tikzpicture}
+  \end{center}
+  \framebreak
+  \begin{center}
+    \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
+      \node [vertex] {$4$}
+      child {
+        node [vertex] {$7$}
+        child {
+          node [vertex] {$10$}
+        }
+        child {
+          node [vertex] {$11$}
+        }
+      }
+      child {
+        node [vertex] {$9$}
+      };
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle{Implémentation}
+  \begin{lstlisting}
+int hsize;
+int hid[MAX]; // give id from index
+int hval[MAX]; // give val from index
+int hlookup[MAX]; // give index from id
+
+void heap_swap (int a, int b) { // a and b are the indexes
+	int tmp = hval[a];
+	hval[a] = hval[b];
+	hval[b] = tmp;
+
+	hlookup[hid[a]] = b;
+	hlookup[hid[b]] = a;
+
+	tmp = hid[a];
+	hid[a] = hid[b];
+	hid[b] = tmp;
+}
+
+void heap_up (int a) { // a is the index
+  int up = (a-1)/2;
+	if (0 < a && hval[a] < hval[up]) {
+		heap_swap(a, up);
+		heap_up(up);
+	}
+}
+
+void heap_down (int a) { // a is the index
+	int left = 2*a+1, right = 2*a+2;
+	if (left < hsize && (hsize <= right || hval[left] < hval[right]) && hval[left] < hval[a]) {
+		heap_swap(a, left);
+		heap_down(left);
+	}
+	else if (right < hsize && hval[right] < hval[a]) {
+		heap_swap(a, right);
+		heap_down(right);
+	}
+}
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Union find}
+\subsubsection{Problem}
+\begin{frame}
+  \frametitle{A wild problem appear}
+  $n$ objects $0, \ldots, n-1$ are initially alone in a set.
+  We have two types of query
+  \begin{itemize}
+    \item We merge 2 sets designated by 2 respecitve members
+    \item We ask if 2 objects are in the same set
+  \end{itemize}
+  \begin{align*}
+    && \{1\} && \{2\} && \{3\} && \{4\} && \{5\}\\
+    (1,5) && \{1,5\} && \{2\} && \{3\} && \{4\}\\
+    (2,4) && \{1,5\} && \{2,4\} && \{3\}\\
+    (2,3) && \{1,5\} && \{2,3,4\}\\
+    (3,4) && \{1,5\} && \{2,3,4\}\\
+    (4,5) && \{1,2,3,4,5\}
+  \end{align*}
+\end{frame}
+\subsubsection{Algorithme}
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle{Union find solution}
+  \begin{lstlisting}
+class UnionFind {
+  int rank[MAX_N];
+  int leader[MAX_N];
+  UnionFind(int n) {
+    memset(rank, 0, n * sizeof(int));
+    for(int i = 0; i < n; i++) leader[i] = i;
+  }
+  int find(int a) {
+    if(a != leader[a])
+      leader[a] = find(leader[a]);
+    return leader[a];
+  }
+  void union(int a, int b) {
+    int leaderA = find(a);
+    int leaderB = find(b);
+    if(leaderA == leaderB) return;
+    if(rank[leaderA] > rank[leaderB]) {
+      union(leaderB, leaderA); return;
+    }
+    leader[leaderA] = leaderB;
+    if (rank[leaderA] == rank[leaderB])
+      rank[leaderB]++;
+  }
+};
+  \end{lstlisting}
+  \framebreak
+  \begin{block}{Complexity}
+    \begin{description}
+      \item[time] Amortized $\bigoh(\alpha(n))$.
+      \item[space] $\bigoh(n)$.
+    \end{description}
+  \end{block}
+\end{frame}
+
+\subsubsection{Exemples}
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle{Example: gridland}
+  Grid $n \times m$ avec $1 \leq n, m \leq \num{1e3}$.
+  Two squares are connected if they are activated and their is a path of activated square from one to the other.
+  Initially, squares are only connected to themselves.
+
+  There is $1 \leq q \leq \num{1e6}$ queries
+  \begin{description}
+    \item[add] \verb|a x y| activate the square at $(x, y)$
+    \item[connected?] \verb|c xa ya xb yb| see if $(xa, ya)$ and $(xb, yb)$ are connected.
+  \end{description}
+  \framebreak
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+      \begin{verbatim}
+5 5 15
+a 1 1
+a 2 3
+a 2 4
+a 2 5
+a 3 3
+a 4 2
+a 5 2
+a 5 1
+c 2 5 5 1
+>> 0
+      \end{verbatim}
+      %\begin{center}
+        \begin{tikzpicture}[scale=0.3]
+          \draw[step=1.0,black,very thick] (0,0) grid (5,5);
+          \foreach \i in {1,...,5} {
+            \draw node [below] at (\i-0.5,0) {$\i$};
+          }
+          \foreach \i in {1,...,5} {
+            \draw node [left] at (0,\i-0.5) {$\i$};
+          }
+          \fill [black] (0,0) rectangle (1,1);
+          \fill [black] (1,2) rectangle (2,3);
+          \fill [black] (1,3) rectangle (2,4);
+          \fill [black] (1,4) rectangle (2,5);
+          \fill [black] (2,2) rectangle (3,3);
+          \fill [black] (3,1) rectangle (4,2);
+          \fill [black] (4,1) rectangle (5,2);
+          \fill [black] (4,0) rectangle (5,1);
+          \fill [blue] (1.2,4.2) rectangle (1.8,4.8);
+          \fill [blue] (4.2,0.2) rectangle (4.8,0.8);
+        \end{tikzpicture}
+      %\end{center}
+    \end{column}
+
+    \begin{column}{0.3\textwidth}
+      \begin{verbatim}
+a 4 3
+c 2 3 4 2
+>> 1
+      \end{verbatim}
+      %\begin{center}
+        \begin{tikzpicture}[scale=0.3]
+          \draw[step=1.0,black,very thick] (0,0) grid (5,5);
+          \foreach \i in {1,...,5} {
+            \draw node [below] at (\i-0.5,0) {$\i$};
+          }
+          \foreach \i in {1,...,5} {
+            \draw node [left] at (0,\i-0.5) {$\i$};
+          }
+          \fill [black] (0,0) rectangle (1,1);
+          \fill [black] (1,2) rectangle (2,3);
+          \fill [black] (1,3) rectangle (2,4);
+          \fill [black] (1,4) rectangle (2,5);
+          \fill [black] (2,2) rectangle (3,3);
+          \fill [black] (3,2) rectangle (4,3);
+          \fill [black] (3,1) rectangle (4,2);
+          \fill [black] (4,1) rectangle (5,2);
+          \fill [black] (4,0) rectangle (5,1);
+          \fill [blue] (1.2,2.2) rectangle (1.8,2.8);
+          \fill [blue] (3.2,1.2) rectangle (3.8,1.8);
+        \end{tikzpicture}
+      %\end{center}
+      \begin{verbatim}
+c 2 1 5 5
+>> 0
+      \end{verbatim}
+      %\begin{center}
+        \begin{tikzpicture}[scale=0.3]
+          \draw[step=1.0,black,very thick] (0,0) grid (5,5);
+          \foreach \i in {1,...,5} {
+            \draw node [below] at (\i-0.5,0) {$\i$};
+          }
+          \foreach \i in {1,...,5} {
+            \draw node [left] at (0,\i-0.5) {$\i$};
+          }
+          \fill [black] (0,0) rectangle (1,1);
+          \fill [blue] (1.2,0.2) rectangle (1.8,0.8);
+          \fill [black] (1,2) rectangle (2,3);
+          \fill [black] (1,3) rectangle (2,4);
+          \fill [black] (1,4) rectangle (2,5);
+          \fill [black] (2,2) rectangle (3,3);
+          \fill [black] (3,2) rectangle (4,3);
+          \fill [black] (3,1) rectangle (4,2);
+          \fill [black] (4,1) rectangle (5,2);
+          \fill [black] (4,0) rectangle (5,1);
+          \fill [blue] (4.2,4.2) rectangle (4.8,4.8);
+        \end{tikzpicture}
+      %\end{center}
+    \end{column}
+
+    \begin{column}{0.3\textwidth}
+      \begin{verbatim}
+c 4 4 4 4
+>> 1
+      \end{verbatim}
+      %\begin{center}
+        \begin{tikzpicture}[scale=0.3]
+          \draw[step=1.0,black,very thick] (0,0) grid (5,5);
+          \foreach \i in {1,...,5} {
+            \draw node [below] at (\i-0.5,0) {$\i$};
+          }
+          \foreach \i in {1,...,5} {
+            \draw node [left] at (0,\i-0.5) {$\i$};
+          }
+          \fill [black] (0,0) rectangle (1,1);
+          \fill [black] (1,2) rectangle (2,3);
+          \fill [black] (1,3) rectangle (2,4);
+          \fill [black] (1,4) rectangle (2,5);
+          \fill [black] (2,2) rectangle (3,3);
+          \fill [black] (3,2) rectangle (4,3);
+          \fill [black] (3,1) rectangle (4,2);
+          \fill [black] (4,1) rectangle (5,2);
+          \fill [black] (4,0) rectangle (5,1);
+          \fill [blue] (4.1,4.1) rectangle (4.9,4.9);
+        \end{tikzpicture}
+      %\end{center}
+      \begin{verbatim}
+a 5 5
+c 4 5 5 5
+>> 0
+      \end{verbatim}
+      %\begin{center}
+        \begin{tikzpicture}[scale=0.3]
+          \draw[step=1.0,black,very thick] (0,0) grid (5,5);
+          \foreach \i in {1,...,5} {
+            \draw node [below] at (\i-0.5,0) {$\i$};
+          }
+          \foreach \i in {1,...,5} {
+            \draw node [left] at (0,\i-0.5) {$\i$};
+          }
+          \fill [black] (0,0) rectangle (1,1);
+          \fill [black] (1,2) rectangle (2,3);
+          \fill [black] (1,3) rectangle (2,4);
+          \fill [black] (1,4) rectangle (2,5);
+          \fill [black] (2,2) rectangle (3,3);
+          \fill [black] (3,2) rectangle (4,3);
+          \fill [black] (3,1) rectangle (4,2);
+          \fill [black] (4,1) rectangle (5,2);
+          \fill [black] (4,0) rectangle (5,1);
+          \fill [black] (4,4) rectangle (5,5);
+          \fill [blue] (3.2,4.2) rectangle (3.8,4.8);
+          \fill [blue] (4.2,4.2) rectangle (4.8,4.8);
+        \end{tikzpicture}
+      %\end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Other examples}
+  \begin{itemize}
+    \item \url{uhunt.felix-halim.net} 2.4.2.
+    \item Connected componentents (overkill), Kruskal (impossible to get $\bigoh(n\log(n))$ without it) (see next day !)
+  \end{itemize}
+\end{frame}
+
+\subsection{Segment Trees}
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle{Segment Tree}
+  Range Minimum Query
+  \begin{lstlisting}
+class SegmentTree {
+  int[] st, A;
+  int n;
+  int left (int p) { return p << 1; }
+  int right(int p) { return (p << 1) + 1; }
+
+  void build(int p, int L, int R) {
+    if (L == R)
+      st[p] = L; // or R
+    else {
+      int mid = (L + R) / 2;
+      build(left(p) , L      , mid);
+      build(right(p), mid + 1, R);
+      int p1 = st[left(p)], p2 = st[right(p)];
+      st[p] = (A[p1] <= A[p2]) ? p1 : p2;
+  } }
+
+  int rmq(int p, int L, int R, int i, int j) { // O(log n)
+    if (i >  R || j <  L) return -1;    // outside query  range
+    if (i <= L && R <= j) return st[p]; // inside  query  range
+    int mid = (L + R) / 2;
+    int p1 = rmq(left(p) , L      , mid, i, j);
+    int p2 = rmq(right(p), mid + 1, R  , i, j);
+
+    if (p1 == -1) return p2;            // outside query  range
+    if (p2 == -1) return p1;
+    return (A[p1] <= A[p2]) ? p1 : p2; }
+
+  int update(int p, int L, int R, int i, int j, int v) {
+    if (i > R || j < L)                 // outside update range
+      return st[p];
+    //if (i <= L && R <= j) // could be lazy here !! Depends on application
+    if (L == R) {
+      A[i] = v;
+      return st[p] = L; // or R
+    }
+    int mid = (L + R) / 2;
+    int p1 = update(left(p) , L      , mid, i, j, v);
+    int p2 = update(right(p), mid + 1, R  , i, j, v);
+    return st[p] = (A[p1] <= A[p2]) ? p1 : p2;
+  }
+
+  public:
+
+  SegmentTree(int[] _A) {
+    A = _A; n = A.length;
+    st = new int[4 * n];
+    for (int i = 0; i < 4 * n; i++) st[i] = 0;
+    build(1, 0, n - 1);
+  }
+  int rmq(int i, int j) { return rmq(1, 0, n - 1, i, j); }
+  int update_point(int i, int v) {
+    return update(1, 0, n - 1, i, i, v); }
+  int update_interval(int i, int j, int v) {
+    return update(1, 0, n-1, i, j, v); }
+};
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Fenwick Tree}
+\begin{frame}[allowframebreaks,fragile]
+  \frametitle{Fenwick Tree}
+  Dynamic Range Sum Query
+  \framebreak
+  \begin{lstlisting}
+class FenwickTree {
+  int *ft;
+  int n;
+  int LSOne(int S) { return (S & (-S)); }
+  public:
+  FenwickTree(int n) { // ignore index 0
+    this->n = n;
+    ft = new int[n+1];
+    for (int i = 0; i <= n; i++) ft[n] = 0;
+  }
+  int rsq(int b) { // returns RSQ(1, b)        PRE 1 <= b <= n
+    int sum = 0; for (; b > 0; b -= LSOne(b)) sum += ft[b];
+    return sum;
+  }
+  int rsq(int a, int b) { // returns RSQ(a, b) PRE 1 <= a,b <= n
+    return rsq(b) - (a == 1 ? 0 : rsq(a - 1));
+  }
+  void adjust(int k, int v) { // n = ft.size() - 1    PRE 1 <= k <= n
+    for (; k <= n; k += LSOne(k)) ft[k] += v;
+  }
+};
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Sparse table}
+\begin{frame}
+  \frametitle{Sparse Table}
+  Static Range Minimum Query
+
+  $m[i][j]$ stores the smallest of $[i;i+2^j[$.
+
+  $\min([a; b[) = \min(m[a][k], m[b-2^k][k])$ for $k$ such that
+  $$2^{k-1} < b-a \leq 2^k$$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tricky example}
+  Get a tree flat with DFS then apply RSQ and RMQ.
+  \begin{itemize}
+    \item Least Common Ancestor: LCA
+    \item \url{http://codeforces.com/contest/383/problem/C}
+  \end{itemize}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+  \begin{itemize}
+    \item Codeforces
+    \item Codechef
+    \item Usaco
+    \item UVa online judge
+    \item Competitive Programming 3: \url{https://sites.google.com/site/stevenhalim/}
+    \item \url{uhunt.felix-halim.net}
+    \item IOI syllabus: \url{http://people.ksp.sk/~misof/ioi-syllabus/}
+  \end{itemize}
+\end{frame}
+
+\end{document}

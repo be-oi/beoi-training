@@ -1,0 +1,144 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\usetheme[compress]{Singapore} % theme
+
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amsthm,amssymb}        % un packages mathématiques
+\usepackage{xcolor}         % pour définir plus de couleurs
+\usepackage{graphicx}       % pour insérer des figures
+\usepackage{lmodern}
+\usepackage{url}
+	\urlstyle{sf}
+\usepackage{lastpage}
+\usepackage{endnotes}
+
+\usepackage{listings}
+\usepackage{listingsutf8}
+
+\usepackage{siunitx}
+\usepackage{circuitikz}
+\usepackage{chemfig}
+\usepackage[version=3]{mhchem}
+
+\usepackage[french]{varioref}
+\usepackage{wrapfig}
+\usepackage{pdfpages}
+\usepackage{verbatim}
+\usepackage{graphicx}
+
+%\usepackage[svgnames]{color}
+%\definecolor{webdarkblue}{rgb}{0,0,0.4}
+%\definecolor{webgreen}{rgb}{0,0.3,0}
+%\definecolor{webblue}{rgb}{0,0,0.8}
+
+\setbeamercolor{section in head/foot}{use=structure,bg=structure.fg!25!bg} % "Amélioration du jeu de couleur"
+%\useoutertheme[subsection=true]{smoothbars} % Pour avoir un rappel de la subsection
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamertemplate{frametitle}[default][center] % Titre centré et bien placé.
+
+
+% "Fioriture de style" : qd <x-> dans les item, les autres en gris clair
+\beamertemplatetransparentcovered
+
+
+% Comportement des itemize
+\setbeamertemplate{itemize item}[ball]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}[circle]
+
+%\renewcommand\sfdefault{cmss} % Polices
+
+% Les block arrondis et ombrés dans la couleur que je veux
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\definecolor{normalBlockColor}{RGB}{255,255,255}
+\definecolor{normalTitleBlockColor}{RGB}{0,0,102}
+\definecolor{normalBlockTextColor}{RGB}{0,0,0}
+\definecolor{normalBlockTitleTextColor}{RGB}{255,255,255}
+\definecolor{exampleBlockColor}{RGB}{202,251,197}
+\definecolor{exampleTitleBlockColor}{RGB}{166,241,158}
+\definecolor{exampleBlockTextColor}{RGB}{0,0,0}
+\definecolor{exampleBlockTitleTextColor}{RGB}{0,120,0}
+\definecolor{alertBlockColor}{RGB}{248,218,218}
+\definecolor{alertTitleBlockColor}{RGB}{244,108,108}
+\definecolor{alertBlockTextColor}{RGB}{0,0,0}
+\definecolor{alertBlockTitleTextColor}{RGB}{120,0,0}
+\setbeamercolor*{block title}{fg=normalBlockTitleTextColor,bg=normalTitleBlockColor}
+\setbeamercolor*{block body}{fg=normalBlockTextColor,bg=normalBlockColor}
+\setbeamercolor*{block title alerted}{fg=alertBlockTitleTextColor,bg=alertTitleBlockColor}
+\setbeamercolor*{block body alerted}{fg=alertBlockTextColor,bg=alertBlockColor}
+\setbeamercolor*{block title example}{fg=exampleBlockTitleTextColor,bg=exampleTitleBlockColor}
+\setbeamercolor*{block body example}{fg=exampleBlockTextColor,bg=exampleBlockColor}
+\setbeamerfont{block title}{size={}}
+
+
+
+%------------ fin style beamer -------------------
+
+% Faire apparaître un sommaire avant chaque section
+% \AtBeginSection[]{
+%   \begin{frame}
+%   \frametitle{Plan}
+%   \medskip
+%   %%% affiche en début de chaque section, les noms de sections et
+%   %%% noms de sous-sections de la section en cours.
+%   \small \tableofcontents[currentsection, hideothersubsections]
+%   \end{frame}
+% }
+
+
+% Pour personnaliser la barre de navigation du dessous
+\setbeamertemplate{navigation symbols}{
+	%\insertslidenavigationsymbol
+	%\insertframenavigationsymbol
+	%\insertsubsectionnavigationsymbol
+	\quad\textbf{\insertframenumber/\inserttotalframenumber} % Numéro de page
+	%\insertsectionnavigationsymbol
+	%\insertdocnavigationsymbol
+	%\insertbackfindforwardnavigationsymbol
+}
+% Supprimer les icones de navigation (pour les transparents)
+%\setbeamertemplate{navigation symbols}{}
+
+% Mettre les icones de navigation en mode vertical (pour projection)
+% \setbeamertemplate{navigation symbols}[vertical]
+
+\newenvironment{itemize2}%
+	{ \begin{list}%
+		{$\bullet$}%
+		{\setlength{\labelwidth}{30pt}%
+		 \setlength{\leftmargin}{35pt}%
+		 \setlength{\itemsep}{\parsep}}}%
+	{ \end{list} }
+
+\def\siecle#1{\textsc{\romannumeral #1}\textsuperscript{e}~siècle} % => le \siecle{19}
+
+\definecolor{codeBlue}{rgb}{0,0,1}
+\definecolor{webred}{rgb}{0.5,0,0}
+\definecolor{codeGreen}{rgb}{0,0.5,0}
+\definecolor{codeGrey}{rgb}{0.6,0.6,0.6}
+\definecolor{webdarkblue}{rgb}{0,0,0.4}
+\definecolor{webgreen}{rgb}{0,0.3,0}
+\definecolor{webblue}{rgb}{0,0,0.8}
+\definecolor{orange}{rgb}{0.7,0.1,0.1}
+\lstset{
+      language=C++,
+      flexiblecolumns=true,
+      numbers=left,
+      stepnumber=1,
+      numberstyle=\ttfamily\tiny,
+      keywordstyle=\ttfamily\textcolor{blue},
+      stringstyle=\ttfamily\textcolor{red},
+      commentstyle=\ttfamily\textcolor{codeGreen},
+      breaklines=true,
+      extendedchars=true,
+      basicstyle=\ttfamily\scriptsize,
+      showstringspaces=false,
+      morekeywords={usepackage,documentclass,begin,textbf,textit,texttt,ref,includegraphics,caption,label,setlength,mathbb,notag,frac,num,si,ang,SI,textwidth,percent,meter,ohm,joule,second,more,section,subsection,tableofcontents,setstretch,TeX,LaTeX,huge,sffamily,emph,chemfig,pageref,vpageref},
+      frame=single,
+      extendedchars=true,
+      inputencoding=utf8x
+    }
+\lstset{inputencoding=utf8/latin1}
