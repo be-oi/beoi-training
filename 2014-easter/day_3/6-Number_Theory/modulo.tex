@@ -1,0 +1,47 @@
+\subsection{Modulo}
+In modulo arithmetic, numbers are compared to each other using only their remainder after division with a certain number.
+Consider $a \equiv b \mod{k}$. That means that $a$ and $b$ have the same remainder when divided by $k$. These numbers are considered equivalent modulo $k$.
+
+\paragraph{Addition and multiplication} are easy in modulo arithmetic. The remainder of the sum (resp multiplication) of the two when divided by $k$ can easily be calculated.
+
+\begin{lstlisting}
+ function mod_sum(a, b, k)
+  return (a+b)%k
+ function mod_mult(a, b, k)
+  return (a*b)%k
+\end{lstlisting}
+
+Beware of integer overflow! Make sure $0 \leq a, b < k$ and $k^2$ doesn't exceed the maximum value of the used datatype.
+
+\begin{lstlisting}
+ function mod_sum(a, b, k)
+  return (a%k+b%k)%k
+ function mod_mult(a, b, k)
+  return ((a%k)*(b%k))%k
+\end{lstlisting}
+
+The power function in modulo arithmetic can be written as
+\begin{lstlisting}
+ function mod_pow(base, exp, p)
+  if exp == 0
+    return 1
+  tmp = pow(base, exp/2)
+  tmp *= tmp
+  tmp = tmp % p
+  if base % 2 == 1
+    tmp *= base
+  return tmp % p
+\end{lstlisting}
+
+
+
+
+\paragraph{Division} is somewhat more difficult in modulo arithmetic. 
+
+The inverse of $5 \equiv 2 \mod{3}$ is $2$ because $2*5 \equiv 10 \equiv 1 \mod{3}$.
+
+Let's try to find the inverse of $12 \equiv 3 \mod{9}$. 
+We need to find a number $k$ such that $k*3 \equiv 1 \mod{9}$. There doesn't exist an integer number that can fulfill this requirement.
+
+By Fermat's little theorem, we know that when $k$ is a prime number $a^n \equiv a \mod{k}$. When dividing both sides by $a^{-2}$, we get $1/a \equiv a^{k-2} \mod{k}$. As we've seen in a previous paragraph, this can be calculated in $ \mathcal{O}{\left(\log{N}\right)} $.
+Many problem statements on Codeforces, Codechef ask you to calculate a number modulo a prime. That means that you can use this theorem to do modulo divisions.
