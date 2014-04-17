@@ -28,13 +28,20 @@ The power function in modulo arithmetic can be written as
   tmp = pow(base, exp/2)
   tmp *= tmp
   tmp = tmp % p
-  if base % 2 == 1
+  if exp % 2 == 1
     tmp *= base
   return tmp % p
 \end{lstlisting}
 
-
-
+\paragraph{Subtraction} is a bit more complicated because we can get negative numbers.
+An easy way to subtract two numbers in modulo arithmetic is the following one:
+\begin{lstlisting}
+ function mod_subtract(a, b, k)
+  a = a%k
+  b = b%k
+  minb = k-b
+  return mod_sum(a,minb, k)
+\end{lstlisting}
 
 \paragraph{Division} is somewhat more difficult in modulo arithmetic. 
 
@@ -43,5 +50,5 @@ The inverse of $5 \equiv 2 \mod{3}$ is $2$ because $2*5 \equiv 10 \equiv 1 \mod{
 Let's try to find the inverse of $12 \equiv 3 \mod{9}$. 
 We need to find a number $k$ such that $k*3 \equiv 1 \mod{9}$. There doesn't exist an integer number that can fulfill this requirement.
 
-By Fermat's little theorem, we know that when $k$ is a prime number $a^n \equiv a \mod{k}$. When dividing both sides by $a^{-2}$, we get $1/a \equiv a^{k-2} \mod{k}$. As we've seen in a previous paragraph, this can be calculated in $ \mathcal{O}{\left(\log{N}\right)} $.
+By Fermat's little theorem, we know that when $k$ is a prime number $a^k \equiv a \mod{k}$. When dividing both sides by $a^{-2}$, we get $1/a \equiv a^{k-2} \mod{k}$. As we've seen in a previous paragraph, this can be calculated in $ \mathcal{O}{\left(\log{N}\right)} $.
 Many problem statements on Codeforces, Codechef ask you to calculate a number modulo a prime. That means that you can use this theorem to do modulo divisions.

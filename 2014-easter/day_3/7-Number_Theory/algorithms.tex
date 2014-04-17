@@ -26,7 +26,7 @@ function pow(base, exp)
 		return 1
 	tmp = pow(base, exp/2)
 	tmp *= tmp
-	if base % 2 == 1
+	if exp % 2 == 1
 		tmp *= base
 	return tmp
 \end{lstlisting}
