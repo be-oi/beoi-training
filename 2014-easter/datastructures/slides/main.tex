@@ -99,9 +99,9 @@ NO WARRANTY this program won't work !
 \begin{frame}[fragile]
   \frametitle{Problème piège -- 10226}
   \begin{itemize}
-    \item Si vous voulez le faire en C,
-      ça vous prend \SI{1}{h}, vous avez perdu un temps précieux !
-    \item Avec la STL, vous avez fini en \SI{5}{min} !
+    \item If you want to do it in C,
+      it will take you \SI{1}{h}, you loose a precious time.
+    \item With the STL, you kill it in \SI{5}{min} !
   \end{itemize}
   \begin{columns}
     \begin{column}{0.5\textwidth}
@@ -278,7 +278,7 @@ The Hitchhiker's Guide 20.0000
       \item When you want an array to be indexed by another thing than an int % 10226
       \item When an array is too small and you don't need all % 11572, 11286
       \item (\emph{BST only})
-        When you want a structure to e
+        When you want a structure to be
         \begin{itemize}
           \item an array to get $\bigoh(\log(n))$ binary search access time
           \item a linked list to get $\bigoh(1)$ insertion time
@@ -840,7 +840,7 @@ c 4 5 5 5
 \subsection{Segment Trees}
 \begin{frame}[fragile,allowframebreaks]
   \frametitle{Segment Tree}
-  Range Minimum Query
+  Dynamic Range Minimum Query
   \begin{lstlisting}
 class SegmentTree {
   int[] st, A;
@@ -905,6 +905,30 @@ class SegmentTree {
 \begin{frame}[allowframebreaks,fragile]
   \frametitle{Fenwick Tree}
   Dynamic Range Sum Query
+
+  What are the numbers smaller that $1011001000$ ?
+  \begin{itemize}
+    \item $1011000???$
+    \item $1010??????$
+    \item $100???????$
+    \item $0?????????$
+  \end{itemize}
+  \begin{multline*}
+    \mathsf{rsq}(1011001000)
+    = \mathsf{ft}(1011001000)
+    + \mathsf{ft}(1011000000)\\
+    + \mathsf{ft}(1010000000)
+    + \mathsf{ft}(1000000000)
+  \end{multline*}
+
+  \begin{lstlisting}
+    adjust(01011001000,1):
+        ft[01011010000]++
+        ft[01011100000]++
+        ft[01100000000]++
+        ft[10000000000]++
+  \end{lstlisting}
+
   \framebreak
   \begin{lstlisting}
 class FenwickTree {
@@ -917,14 +941,14 @@ class FenwickTree {
     ft = new int[n+1];
     for (int i = 0; i <= n; i++) ft[n] = 0;
   }
-  int rsq(int b) { // returns RSQ(1, b)        PRE 1 <= b <= n
+  int rsq(int b) {        // returns RSQ(1, b)     PRE 1 <= b <= n
     int sum = 0; for (; b > 0; b -= LSOne(b)) sum += ft[b];
     return sum;
   }
-  int rsq(int a, int b) { // returns RSQ(a, b) PRE 1 <= a,b <= n
+  int rsq(int a, int b) { // returns RSQ(a, b)     PRE 1 <= a,b <= n
     return rsq(b) - (a == 1 ? 0 : rsq(a - 1));
   }
-  void adjust(int k, int v) { // n = ft.size() - 1    PRE 1 <= k <= n
+  void adjust(int k, int v) { // n = ft.size() - 1 PRE 1 <= k <= n
     for (; k <= n; k += LSOne(k)) ft[k] += v;
   }
 };
