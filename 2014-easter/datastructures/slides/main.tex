@@ -840,7 +840,11 @@ c 4 5 5 5
 \subsection{Segment Trees}
 \begin{frame}[fragile,allowframebreaks]
   \frametitle{Segment Tree}
-  Dynamic Range Minimum Query
+  \begin{itemize}
+    \item Dynamic Range Minimum Query
+    \item Dynamic Range Sum Query (Fenwick Tree is simpler)
+    \item Dynamic Range Anyfunction Query (e.g. IOI-2013 day 2: ``game'')
+  \end{itemize}
   \begin{lstlisting}
 class SegmentTree {
   int[] st, A;
