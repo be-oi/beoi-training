@@ -1,0 +1,57 @@
+\subsection{Determining complexity}
+
+\subsubsection{Rigorous method}
+
+Let us study this simple program that computes the power $a^n$
+for some integers $a$ and $n$:
+
+\begin{verbatim}
+int power(int a, int n)
+{
+    int p = 1;
+    for(int i=0; i<n; i++)
+    {
+        p *= a;
+    }
+    return p;
+}
+\end{verbatim}
+
+To calculate the complexity,
+we will assume every operation runs in the same time.
+We have to find a function $f$ that gives the number of operations
+the program will execute.
+
+In our example, the operations are:
+\begin{itemize}
+    \item \texttt{int p = 1;}
+    \item \texttt{int i=0;}
+    \item \texttt{i<n;} ($n$ times)
+    \item \texttt{i++} ($n$ times)
+    \item \texttt{p *= a;} ($n$ times)
+    \item \texttt{return p;}
+\end{itemize}
+Thus, in total we have $f(n) = 3n+3$ operations.
+
+To find the time complexity, we just take the fastest-growing term,
+$3n$, and then remove any constant factor, $3n \rightarrow n$.
+So the complexity is $O(n)$.
+
+To find the space complexity, we can use a similar method
+with the number of memory locations the program uses.
+
+
+\subsubsection{Intuition}
+
+In many cases, we can look at the number of nested loops:
+\begin{itemize}
+    \item no loop: $O(1)$,
+    \item one loop: $O(n)$,
+    \item two nested loops: $O(n^2)$, etc.
+\end{itemize}
+If the operation in the most nested loop takes non-constant time,
+just multiply by the complexity of that operation.
+
+We will see some trickier cases in the next sections.
+
+

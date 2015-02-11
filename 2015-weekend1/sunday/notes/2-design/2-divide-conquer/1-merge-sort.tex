@@ -1,0 +1,146 @@
+\subsubsection{Merge sort}
+
+Merge sort is probably the best-known example of divide and conquer.
+It sorts the elements of an array of numbers in increasing order.
+
+It does so by first separating the array in two halves,
+then sorting each individual half,
+and then merging both sorted halves into the full sorted array.
+
+To sort the halves, the function will recursively call itself
+until the bits all have length one.
+(A nice property of arrays of one element is that they are always sorted.)
+
+Here is an illustration of how the algorithm splits the array
+and then merges it back:
+\begin{center}
+    \begin{tabu}{|c|c|c|c|c|c|c|c|}
+        \hline 4&7&5&1&3&8&6&2 \\ \hline
+    \end{tabu}
+
+
+    \begin{tabu}{|c|c|c|c|}
+        \hline 4&7&5&1 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|c|c|}
+        \hline 3&8&6&2 \\ \hline
+    \end{tabu}
+
+
+    \begin{tabu}{|c|c|}
+        \hline 4&7 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 5&1 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 3&8 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 6&2 \\ \hline
+    \end{tabu}
+    
+    
+    \begin{tabu}{|c|}
+        \hline 4 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|}
+        \hline 7 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|}
+        \hline 5 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|}
+        \hline 1 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|}
+        \hline 3 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|}
+        \hline 8 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|}
+        \hline 6 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|}
+        \hline 2 \\ \hline
+    \end{tabu}
+    
+    
+    \begin{tabu}{|c|c|}
+        \hline 4&7 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 1&5 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 3&8 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 2&6 \\ \hline
+    \end{tabu}
+    
+    
+    \begin{tabu}{|c|c|c|c|}
+        \hline 1&4&5&7 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|c|c|}
+        \hline 2&3&6&8 \\ \hline
+    \end{tabu}
+    
+    
+    \begin{tabu}{|c|c|c|c|c|c|c|c|}
+        \hline 1&2&3&4&5&6&7&8 \\ \hline
+    \end{tabu}
+\end{center}
+
+We can see that at every step the length of the parts is divided by two,
+so the algorithm has $\log_2 n$ ``levels''.
+
+For the actual merging part, the idea is to iterate through both halves
+at the same time, each time selecting the smaller of the two numbers
+to go into the merged array:
+
+\begin{verbatim}
+vector<int> merge(vector<int> a, vector<int> b)
+{
+    vector<int> merged;
+    int i=0, j=0;
+    while(i < a.size() || j < b.size())
+    {
+        if(j == b.size() || (i < a.size() && a[i] < b[j]))
+        {
+            merged.push_back(a[i]);
+            i++;
+        }
+        else
+        {
+            merged.push_back(b[j]);
+            j++;
+        }
+    }
+    return merged;
+}
+\end{verbatim}
+
+This merging algorithm can be used in other algorithms,
+and is worth remembering.
+
+Since the merging runs in linear time, and for each of the $\log_2 n$ levels
+the total length to be merged is $n$, the algorithm has $O(n \log n)$
+time complexity.

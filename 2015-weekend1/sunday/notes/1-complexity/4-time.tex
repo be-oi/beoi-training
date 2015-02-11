@@ -1,0 +1,34 @@
+\subsection{Running time}
+
+Typical time complexities are (in increasing order):
+\[
+    O(1) \quad O(\log n) \quad O(\sqrt{n}) \quad O(n) \quad O(n\log n)
+    \quad O(n^2) \quad O(n^3) \quad O(k^n) \quad O(n!)
+\]
+They are often called mentioned with their common names:
+$O(1)$ is \emph{constant},
+$O(\log n)$ is \emph{logarithmic},
+$O(n)$ is \emph{linear},
+%$O(n \log n)$ is \emph{linearithmic} or \emph{quasilinear},
+$O(n^2)$ is \emph{quadratic},
+$O(k^n)$ is \emph{exponential} and
+$O(n!)$ is \emph{factorial}.
+
+Modern computers can execute about one billion ($10^9$) actions
+per second, a little more if well-optimized.
+Most contests have a time limit of a few seconds.
+To determine if your program can run within the time limit, just do the math:
+if the number of operations in the worst case exceeds one billion
+or is very close, then most
+likely your program won't make it.
+
+Let's apply this principle for the most common cases (with a little margin):
+\begin{itemize}
+    \item $O(1)$ and $O(\log n)$ work for $n$ as large as they can read.
+    \item $O(n)$ typically works up to $n=100\,\mega$.
+    \item $O(n \log n)$ typically works up to $10\,\mega$.
+    \item $O(n^2)$ typically works up to $n=10\,\kilo$.
+    \item $O(n^3)$ typically works up to $n=400$.
+    \item $O(2^n)$, or $O(n\cdot2^n)$ can hardly pass $n=20$.
+    \item $O(n!)$ is usually limited to $n=10$.
+\end{itemize}

@@ -1,0 +1,22 @@
+\subsection{Complete search}
+
+Complete search is the brute-force, try-them-all method of to find the answer.
+It is based on the ``Keep It Simple, Stupid'' (KISS) principle.
+That is, your goal is to find an algorithm that works within the time limit,
+not the fastest algorithm.
+If the stupid way works, implement the stupid way.
+
+You should always check if complete search works before anything else.
+If you can try all possibilities, then just check them all to find the answer.
+However, it is not always obvious that it is possible.
+
+The $O(\sqrt{n})$ factorization algorithm above is a good example of
+smart complete search:
+the naive approach is to check every integer below $n$ to see if it is a divisor
+of $n$, but the observation that divisors above $\sqrt{n}$
+don't have to be checked dramatically shrinks the number of cases to check.
+
+The next example also shows how one can reduce the pool of different cases
+using a bit of insight.
+
+\input{./2-design/1-complete-search/1-queens.tex}

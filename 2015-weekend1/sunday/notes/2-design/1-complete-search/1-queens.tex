@@ -1,0 +1,26 @@
+\subsubsection{Eight queens puzzle}
+
+The eight queens puzzle is the problem of placing eight queens on a chess board
+so that no two queens attack each other.
+As a reminder, queens in chess can move any distance
+horizontally, vertically or diagonally.
+
+The naive approach is to test every position for every queen and then check
+if they attack each other.
+That gives $64^8 \approx 3\cdot 10^{14}$ possibilities,
+way too much to check them all.
+
+But we weren't very clever, we checked many situations multiple times,
+and sometimes there were multiple queens at the same place.
+Checking every way to place eight queens in no specific order, at distinct
+positions takes $\binom{64}{8} \approx 4\cdot 10^9$ possibilities.
+Better, but still too much.
+
+Now if we choose only one queen per row, we can take the number of combinations
+down to $8^8 = 12\,777\,216$ which is still a bit too big since checking
+a single configuration can take some time.
+
+Finally, we can take this idea further by generating all possible sets
+of the columns they are placed in, so that no two queens are in the same column.
+The number of permutations is $8! = 40\,320$,
+so you can now apply complete search.

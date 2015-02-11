@@ -1,0 +1,43 @@
+\subsubsection{Euclid's algorithm}
+
+The following function, called Euclid's algorithm,
+gives the GCD (greatest common divisor)
+of positive integers $a$ and $b$:
+
+\begin{verbatim}
+int gcd(int a, int b)
+{
+    if(b == 0)
+        return a;
+    else
+        return gcd(b, a%b);
+}
+\end{verbatim}
+
+Proving that the algorithm is correct requires some knowledge of arithmetic.
+We will only determine the complexity here.
+
+The usual tricks are uneffective.
+There is no loop, and the number of times the function will call itself depends
+on $a$ and $b$.
+
+However, we notice that in the \texttt{gcd(b, a\%b)} call, $b$ is always
+bigger than $a\mod b$.
+Thus, we can assume $a > b$ after the first recursive call.
+
+There are two cases:
+\begin{itemize}
+    \item If $b > a/2$, then $a\mod b = a-b < a/2$.
+    \item If $b \leq a/2$, then $a\mod b < b \leq a/2$,
+        by the definition of modulo.
+\end{itemize}
+
+We see that in both cases, $a\mod b < a/2$. Since $a\mod b$ is the $a$-parameter
+of the function two calls later, that parameter is divided by two every two
+calls.
+This implies that after at most $2\log_2 n$ recursive calls,
+$a$ will drop to zero.
+But it cannot do so because of the \texttt{if} clause.
+
+From this we conclude the function will terminate after less
+than $2\log_2 n$ calls, so it has $O(\log n)$ time complexity.

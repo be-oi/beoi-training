@@ -1,0 +1,42 @@
+\subsubsection{Binary search}
+
+Although it is not a proper application of divide and conquer,
+binary search is similar in the approach.
+
+When searching for an element in a list, look at one element in the middle.
+If you can tell if the element is to the left or to the right of it,
+then you can look for it in that half and forget about the other one
+completely.
+
+This way you cut the range in two repeatedly until there is only one element
+left: the one you are searching for.
+
+If the operation that determines which side to go runs in constant time,
+then the time complexity of the whole search is $O(\log n)$.
+
+This is binary search applied to finding the position of an element
+in a sorted array:
+
+\begin{verbatim}
+int find_pos(vector<int> a, int k)
+{
+    int lower = 0;
+    int upper = a.size();
+
+    while(lower+1 < upper)
+    {
+        int middle = (lower+upper)/2;
+        if(a[middle] <= k)
+            lower = middle;
+        else
+            upper = middle;
+    }
+    return lower;
+}
+\end{verbatim}
+
+(Here, \texttt{lower} and \texttt{upper} are the inclusive lower bound
+and exclusive upper bound of the possible location of $k$.)
+
+Binary search is very powerful in any problem where you can tell
+in which direction the solution must be.
