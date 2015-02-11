@@ -1,0 +1,100 @@
+\subsection{George and Number}
+
+George is a cat, so he really likes to play.
+Most of all he likes to play with his array of positive integers b.
+During the game, George modifies the array by using special changes.
+Let's mark George's current array as $b_1,b_2,\ldots,b_{|b|}$
+(record $|b|$ denotes the current length of the array).
+Then one change is a sequence of actions: 
+\begin{itemize}
+    \item Choose two distinct indexes $i$ and $j$
+        ($1\leq i,j \leq |b|,\ i \neq j$), such that $b_i \geq b_j$.
+    \item Get number $v$ = concat$(b_i,b_j)$,
+        where concat$(x,y)$ is a number obtained by adding number $y$
+        to the end of the decimal record of number $x$.
+        For example, concat$(500,10)=50010$, concat$(2,2)=22$.
+    \item Add number $v$ to the end of the array.
+        The length of the array will increase by one.
+    \item Remove from the array numbers with indexes $i$ and $j$.
+        The length of the array will decrease by two,
+        and elements of the array will become re-numbered
+        from 1 to current length of the array.
+\end{itemize}
+George played for a long time with his array $b$ and received from array $b$
+an array consisting of exactly one number $p$.
+Now George wants to know: what is the maximum number of elements array $b$
+could contain originally?
+Help him find this number.
+Note that originally the array could contain only \emph{positive} integers.
+
+\subsubsection*{Input}
+The first line of the input contains a single integer $p$
+($1 \leq p < 10^{100000}$).
+It is guaranteed that number $p$ doesn't contain any leading zeroes.
+
+\subsubsection*{Output}
+Print an integer --- the maximum number of elements array $b$
+could contain originally.
+
+\subsubsection*{Limits}
+\begin{itemize}
+    \item Time limit: 1\,sec
+    \item Memory limit: 256\,MB
+\end{itemize}
+
+\subsubsection*{Examples}
+\begin{verbatim}
+Input:
+9555
+Output:
+4
+
+Input:
+10000000005
+Output:
+2
+
+Input:
+800101
+Output:
+3
+
+Input:
+45
+Output:
+1
+
+Input:
+1000000000000001223300003342220044555
+Output:
+17
+
+Input:
+19992000
+Output:
+1
+
+Input:
+310200
+Output:
+2
+\end{verbatim}
+
+\subsubsection*{Notes}
+Let's consider the test examples:
+\begin{itemize}
+    \item Originally array b can be equal to $\{5,9,5,5\}$.
+        The sequence of George's changes could have been:
+        $\{5,9,5,5\}\rightarrow\{5,5,95\}\rightarrow\{95,55\}
+        \rightarrow\{9555\}$.
+    \item Originally array $b$ could be equal to $\{1000000000,5\}$.
+        Please note that the array $b$ cannot contain zeros.
+    \item Originally array $b$ could be equal to $\{800,10,1\}$.
+    \item Originally array $b$ could be equal to $\{45\}$.
+        It cannot be equal to $\{4,5\}$,
+        because George can get only array $\{45\}$ from this array
+        in one operation.
+\end{itemize}
+Note that the numbers can be very large.
+
+\subsubsection*{Source} \url{http://codeforces.com/problemset/problem/387/C}

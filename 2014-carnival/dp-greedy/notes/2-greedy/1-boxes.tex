@@ -1,0 +1,37 @@
+\subsection{Box stacking}
+
+See complete statement in the notes for day 1.
+
+We have to put $n$ boxes in as few piles a possible with a constraint:
+some boxes have a maximum number of boxes that can be put on top of them.
+
+The greedy algorithm that was proposed by a few students went like this:
+first we sort the boxes in increasing strength, then we always add them
+under existing stacks. If all piles are full, we create a new stack.
+
+At first sight, it's not obvious \emph{why}, but it seems to work on a
+few examples.
+
+In practice that will be enough to begin implementing.
+Since this is no math olympiad, we only need to be \emph{fairly sure}
+that the algorithm works in all cases, depending on the time it will take
+to implement.
+
+To prove the correctness, we notice two things:
+\begin{itemize}
+    \item There is always an optimal solution with increasing strength
+        in all piles from top to bottom.
+        If it is not the case, just swap boxes until it is.
+        So we can reach an optimal solution by placing the boxes in order.
+    \item When we begin placing the boxes of strength $s$ with this algorithm,
+        only two things matter: the number of existing piles and the number
+        of boxes already placed.
+        If some lower-strength box is placed in
+        one pile instead of another, it will not change the number of places
+        the $s$-boxes can fill.
+\end{itemize}
+But both the number of existing piles and the number of boxes placed
+will not depend on the way the smaller boxes are placed.
+So all partial solutions with the best number of piles are equivalent,
+and since the beginning of the complete optimal solution is one of them,
+then we can be sure this algorithm will achieve an optimal solution as well.

@@ -1,0 +1,40 @@
+\subsection{Fibonacci sequence}
+
+This is a simple example of how memorization can dramatically speed up
+calculations.
+We want to find the $n$-th Fibonacci number.
+If we just implement the definition of the Fibonacci sequence, we get:
+\begin{verbatim}
+int fibo(int n)
+{
+    if(n==0)
+        return 0;
+    else if(n==1)
+        return 1;
+    else
+        return fibo(n-1) + fibo(n-2);
+}
+\end{verbatim}
+However, since \texttt{fibo(n)} calls both \texttt{fibo(n-1)} and
+\texttt{fibo(n-2)}, the running time of that function will about double
+every time $n$ increases by 1.
+So the complexity is $O(2^n)$, which is quite crappy.
+
+(Actually, it's more like $O(\phi^n)$, but it doesn't affect the crappiness.)
+
+And that's because we compute the same thing \emph{many} times.
+To avoid that, we just have to remember the solutions to the sub-problems,
+that is, the previous Fibonacci numbers, in an array.
+Then we can just fill up the array progressively, which is easier than
+putting the results in throughout the algorithm as we find them.
+\begin{verbatim}
+int fibo(int n)
+{
+    vector<int> f;
+    f.push_back(0);
+    f.push_back(1);
+    for(int i=2; i<=n; i++)
+        f.push_back(f[i-1] + f[i-2]);
+    return f[n];
+}
+\end{verbatim}

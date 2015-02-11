@@ -1,0 +1,36 @@
+\subsection{Change-making problem}
+
+In some far away land, there are $n$ types of coins, with values $c_i$.
+How can you add them up to an amount of money $m$ using the least coins
+possible? You can assume one of the coins is 1.
+
+The intuitive method for that problem is to take the biggest coin
+not bigger than the amount, then the biggest coin not bigger than the rest, etc.
+After all, it works quite well in real life.
+
+But that approach is not always correct.
+For example, with coins $\{1,5,8,10\}$ and $m=13$, this algorithm would find
+$10+1+1+1$ while the best solution is $5+8$.
+It actually depends on the coin system that is used, and ours works fine
+($\{1,2,5,10,\ldots\}$).
+
+Actually, since we can find the solution from a few of the solutions
+with lower $m$, we can use DP to compute the minimum number of coins
+to make all amounts from 1 to $m$.
+The complexity is $O(nm)$:
+\begin{verbatim}
+int best(vector<int> c, int m)
+{
+    vector<int> num_coins;
+    for(int i=0; i<=m; i++)
+    {
+        num_coins.push_back(i);
+        for(int j=0; j<c.size(); j++)
+            if(i >= c[j])
+                num_coins[i] = min(num_coins[i],
+                                   num_coins[i-c[j]]+1);
+    }
+}
+\end{verbatim}
+Again, the algorithm can be slightly tweaked to return the actual
+set of coins that is needed.
