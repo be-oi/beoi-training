@@ -3,6 +3,7 @@
 \usepackage{pdflscape} %% portrait
 \usepackage[french]{varioref} % \vpageref
 \usepackage{pgfplots}
+\usepackage{multirow}
 
 \usetikzlibrary{arrows,matrix,decorations.pathreplacing,positioning,chains,fit,shapes,calc} %Voir 1.3.8
 
@@ -75,6 +76,27 @@
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Fast IO in Java}
+  \begin{lstlisting}
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		StringTokenizer st = new StringTokenizer(in.readLine());
+		int tests = Integer.parseInt(st.nextToken());
+		for (int test = 1; test <= tests; test++) {
+			st = new StringTokenizer(in.readLine());
+			int n = Integer.parseInt(st.nextToken());
+            ...
+		}
+		in.close();
+		out.close(); // don't forget me
+	}
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{GDB}
   \begin{lstlisting}[language=sh]
 $ gdb a.out
@@ -98,9 +120,54 @@ NO WARRANTY this program won't work !
 \end{frame}
 
 \section{Useful data structures}
+\subsection{Basic data structures}
+\begin{frame}
+  \frametitle{Array}
+  \begin{itemize}
+    \item Keys : $\{0, \ldots, n-1\}$
+    \item Access in $\bigoh(1)$
+    \item Modify in $\bigoh(1)$
+  \end{itemize}
+  With dynamic array (\lstinline|ArrayList| or \lstinline|std::vector|), $n$ is not fixed.
+  \begin{itemize}
+    \item Add in amortized $\bigoh(1)$
+    \item Remove in $\bigoh(n)$ if not at the end
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Linked list}
+  \begin{itemize}
+    \item Access  and modify in $\bigoh(n)$
+    \item Modify and modify in $\bigoh(1)$ at extremities
+    \item Add and remove in $\bigoh(1)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Stack and Queue}
+  Specific Linked List (a bit faster and limited capability)
+  \begin{description}
+    \item[Stack] LIFO, Last in First out.
+      \begin{lstlisting}
+Stack<Integer> s = new Stack<Integer>();
+q.push(1);
+int top = q.peek(); // just watch
+top = q.pop();
+      \end{lstlisting}
+    \item[Queue] FIFO, First in First out.
+      \begin{lstlisting}
+Queue<Integer> q = new LinkedList<Integer>();
+q.add(1);
+int first = q.peek(); // just watch
+fitst = q.poll();
+      \end{lstlisting}
+  \end{description}
+\end{frame}
+
 \subsection{STL}
 \begin{frame}[fragile]
-  \frametitle{Problème piège -- 10226}
+  \frametitle{Trap problem -- 10226}
   \begin{itemize}
     \item If you want to do it in C,
       it will take you \SI{1}{h}, you loose a precious time.
@@ -130,6 +197,7 @@ The Hitchhiker's Guide 20.0000
     \end{column}
   \end{columns}
   \begin{itemize}
+    \item \lstinline|System.out.printf("%s %.4f\n", s, p)|
     \item Exactly 4 decimals \lstinline|cout << setiosflags(ios::fixed) << setprecision(4)|
     \item Strings with spaces \lstinline|std::getline|
   \end{itemize}
@@ -141,8 +209,10 @@ The Hitchhiker's Guide 20.0000
     \begin{center}
       \begin{tabular}{lll}
         & sorted & unsorted\\
-        existence & \lstinline|std::set| & \lstinline|std::unordered_set|\\
-        association & \lstinline|std::map| & \lstinline|std::unsorted_map|\\
+        \multirow{2}{*}{existence} & \lstinline|std::set| & \lstinline|std::unordered_set|\\
+                  & \lstinline|TreeSet|  & \lstinline|HashSet|\\
+        \multirow{2}{*}{association} & \lstinline|std::map| & \lstinline|std::unsorted_map|\\
+                    & \lstinline|TreeMap|  & \lstinline|HashMap|\\
         complexity & $\bigoh(\log(n))$ & $\bigoh(1)$ on average
       \end{tabular}
     \end{center}
@@ -274,7 +344,7 @@ The Hitchhiker's Guide 20.0000
     \item Comparison in $\bigoh(1)$ (strings have $\bigoh(m\log(n))$ where $m$ is their length)
     \item Balancing operation in $\log(n)$
   \end{itemize}
-  Balanced trees are tricky to code ! Use \lstinline|std::set| and \lstinline|std::map| !
+  Balanced trees are tricky to code ! Use \lstinline|std::set|, \lstinline|TreeSet| and \lstinline|std::map|, \lstinline|TreeMap| !
 
   \begin{block}{When to use a BST or a hash map}
     \begin{itemize}
@@ -846,7 +916,7 @@ c 4 5 5 5
   \begin{itemize}
     \item Dynamic Range Minimum Query
     \item Dynamic Range Sum Query (Fenwick Tree is simpler)
-    \item Dynamic Range Anyfunction Query (e.g. IOI-2013 day 2: ``game'')
+    \item Dynamic Range Anyfunction Query
   \end{itemize}
   \begin{lstlisting}
 class SegmentTree {
@@ -906,6 +976,10 @@ class SegmentTree {
     return update(1, 0, n-1, i, j, v); }
 };
   \end{lstlisting}
+  \begin{itemize}
+    \item IOI-2013 day 2: ``game''
+    \item \url{http://codeforces.com/problemset/problem/474/E}
+  \end{itemize}
 \end{frame}
 
 \subsection{Fenwick Tree}
@@ -936,6 +1010,13 @@ class SegmentTree {
         ft[10000000000]++
   \end{lstlisting}
 
+  \begin{lstlisting}
+x             00000000000000000010010110100000
+~x            11111111111111111101101001011111
+-x or (~x)+1  11111111111111111101101001100000
+x & (-x)      00000000000000000000000000100000
+  \end{lstlisting}
+
   \framebreak
   \begin{lstlisting}
 class FenwickTree {
@@ -960,9 +1041,12 @@ class FenwickTree {
   }
 };
   \end{lstlisting}
+  \framebreak
   Exemples:
   \begin{itemize}
     \item NWERC 2011 Problem C
+    \item \url{http://codeforces.com/contest/504/problem/B}
+    \item \url{http://codeforces.com/problemset/problem/459/D}
   \end{itemize}
 \end{frame}
 
