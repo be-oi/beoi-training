@@ -1,0 +1,37 @@
+\subsection{Dijkstra's algorithm}
+
+Dijkstra's algorithm is the counterpart of BFS for weighted graphs,
+and like BFS, it gives the shortest path from one node to all other nodes.
+
+It will process all the nodes in increasing order of their distance
+to the starting point.
+In order to determine that distance, it will keep an array,
+\texttt{dist[i]},
+that will keep the shortest distance found \emph{so far}
+from the starting point to vertice $i$.
+
+At each step it will follow this procedure:
+\begin{itemize}
+    \item find the smallest node in \texttt{dist[]} not yet visited;
+    \item process the node;
+    \item update \texttt{dist[]} for its neighbours.
+\end{itemize}
+
+This approach is correct but not optimal:
+for each node you have to go through all the elements of \texttt{dist[]}
+and find the minimum, so the complexity is $O(n^2)$.
+As before, $n$ is the number of nodes and $m$ is the number of edges.
+
+We can do better by using a heap (priority queue)
+that keeps the smallest element on top.
+The procedure becomes:
+\begin{itemize}
+    \item choose the node at the top of the heap;
+    \item check that is has not been visited before;
+    \item process the node;
+    \item add the neighbours to the heap with their updated distance.
+\end{itemize}
+
+This second version has complexity $O(m + n\log n)$.
+It is more efficient on sparse graphs, but on graphs with a lot of edges
+you should use the first one, as it is simpler and more space efficient.

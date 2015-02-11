@@ -1,0 +1,15 @@
+\subsection{Prim's algorithm}
+
+The approach of Prim's algorithm is slightly different from Kruskal's.
+Instead of looking at the shortest edges in the whole graph,
+it begins with a starting point and picks edges to add around it.
+That way it will slowly spread to the whole graph,
+each time choosing the shortest edge that is in contact with the current zone.
+
+It traverses the graph in nearly the same way as Dijkstra's algorithm,
+the only difference being that Dijstra picks vertices according to their total
+distance from the starting point, while for Prim only the last edge matters.
+Usually, only one line needs to be changed.
+
+When implemented with a heap, Prim's complexity is also
+$O(m\log m)$.
