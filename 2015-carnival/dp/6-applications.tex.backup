@@ -1,0 +1,6 @@
+\subsection{Applications}
+The Dynamic Programming technique is used in various well-known algorithms, such as:
+\begin{enumerate}
+ \item Bellman-Ford algorithm (Single-source shortest path that can handle negative edge weights)
+ \item Floy-Warshall algorithm (All-pairs shortest path problem)
+\end{enumerate}

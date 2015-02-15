@@ -1,0 +1,11 @@
+\subsection{Approaches}
+\subsubsection{Bottom-up}
+The previous examples showed how you can use dynamic programming to build up a solution to a problem based on previously calculated smaller sub-problems.
+The algorithms first calculated the solutions to all smaller sub-problems, always using the previously calculated solutions to their predecessors.
+This approach is called \emph{bottom-up}.
+
+\subsubsection{Top-down}
+Another approach to dynamic programming consist of caching results whenever they are calculated. 
+Instead of first calculating the solutions to all smaller problems, we now wait to calculate them until we need them.
+As soon as we have calculated them, they are stored in a caching table. 
+Whenever the algorithm needs the same solution, it can find it in the caching table instead of recalculating it.

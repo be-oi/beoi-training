@@ -1,0 +1,19 @@
+\subsection{2-dimensional DP}
+We illustrate the two approaches using a simple grid problem.
+
+You are asked to find the minimal-cost path from the top-left corner to the bottom-right corner of the grid.
+You can only walk right and down to adjacent tiles. The cost of the path equals the sum of the values of the tiles you walk through.
+
+It is easy to see that the cost to reach a tile is equal to the value of the tile plus the cost to reach the tile on top of it or plus the cost to reach the tile left of it.
+
+\begin{figure}
+ \includegraphics{2d/problem.png}
+\end{figure}
+\begin{figure}
+ \includegraphics{2d/solution.png}
+\end{figure}
+
+The first algorithm shows the top-down approach. Whenever we need a 
+\lstinputlisting[language=C++,firstline=8, lastline=20, tabsize=2, breaklines=true, numbers=left]{src/2d/topdown.cpp}
+
+\lstinputlisting[language=C++,firstline=8, lastline=18, tabsize=2, breaklines=true, numbers=left]{src/2d/bottomup.cpp}
