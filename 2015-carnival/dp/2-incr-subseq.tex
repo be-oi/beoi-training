@@ -33,7 +33,7 @@ increasing subsequence that ends with an element smaller than $a[i]$.
 So we could keep a table of the longest increasing subsequences
 ending with all possible values.
 A possible implementation is shown in Listing~\ref{code-lis2}.
-\lstinputlisting[label=code-lis2,caption=Storing maximal sequence length for a certain ending value, language=C++,firstline=6, lastline=38, tabsize=2, breaklines=true, numbers=left, float]{src/lis/victor.cpp}
+\lstinputlisting[label=code-lis2,caption=Storing maximal sequence length for a certain ending value, language=C++,firstline=6, lastline=19, tabsize=2, breaklines=true, numbers=left, float]{src/lis/victor1.cpp}
 Beware: this assumes that the max value in array $a$ is smaller than $n$
 (we could remap the values if this is not the case).
 The time complexity is $O(n^2)$, much better than $O(2^n)$,
