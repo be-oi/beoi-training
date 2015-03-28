@@ -1,7 +1,7 @@
 \documentclass[10pt,svgnames,usenames,table]{beamer} %,handout si version papier
 \input{header_presentation}
 \usepackage{pdflscape} %% portrait
-\usepackage[french]{varioref} % \vpageref
+%\usepackage[french]{varioref} % \vpageref
 \usepackage{pgfplots}
 \usepackage{multirow}
 
@@ -15,21 +15,11 @@
 \newcommand{\bigoh}{\mathcal{O}}
 
 
-\institute{beOI}
-\title{\textbf{Formation beOI}\\Data structures}
-\author{\and Benoît \textsc{Legat}}
+\institute{Belgian Olympiad in Informatics}
+\title{\textbf{BeOI training - carnival 2015}\\Data structures II}
+\author{Guillaume \textsc{Derval} \and Benoît \textsc{Legat}}
 
 \begin{document}
-
-%%%%%%%%%%%% SIDA
-\begin{landscape}
-\begin{frame}[noframenumbering,plain]
-	\vspace{-.5cm}
-	\hspace*{.1mm}
-	\includegraphics[page=1,width=\paperheight]{dontpanic.jpg}
-\end{frame}
-\end{landscape}
-%%%%%%%%%%%%
 
 \begin{frame}
 \maketitle
@@ -43,84 +33,17 @@
      \end{frame}
   }
 
-\section{Introduction}
-\subsection{Pedagogy}
+\section{A short reminder}
+\subsection*{A short reminder}
 \begin{frame}
-\frametitle{What is pedagogy}
-
-\begin{description}
-  \item[Noob] Just tell them to listen.
-    \vspace{0.5cm}
-  \item[Pro] Don't answer question they didn't ask. If they don't ask question, give them problems.
-    \vspace{0.5cm}
-  \item[Expert (WIP)] Give them problems and don't answer their question.
-\end{description}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Being competitive}
+  \frametitle{You should already know...}
   \begin{itemize}
-    \item Know your classics !
-    \item Master the STL.
-    \item Master \lstinline|iostream| AND \lstinline|stdio|.
-    \item Avoid common coding guidance.
-    \item Don't allocate with \lstinline|malloc|, \lstinline|new|,
-      do static allocation of the worst case (you need to pass it anyway).
-    \item Don't optimize the easy cases
-    \item Don't do useless optimisation
-    \item Beware time waster problems! They might kill you while you are trying to kill them.
-    \item Pick the solution that is fastest to code and works.
-    \item If want to commit suicide when thinking about your solution.
-      That means there exists a better one.
+    \item Arrays
+    \item Linked Lists
+    \item Stack \& Queues
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Fast IO in Java}
-  \begin{lstlisting}
-public class Main {
-	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-		StringTokenizer st = new StringTokenizer(in.readLine());
-		int tests = Integer.parseInt(st.nextToken());
-		for (int test = 1; test <= tests; test++) {
-			st = new StringTokenizer(in.readLine());
-			int n = Integer.parseInt(st.nextToken());
-            ...
-		}
-		in.close();
-		out.close(); // don't forget me
-	}
-}
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{GDB}
-  \begin{lstlisting}[language=sh]
-$ gdb a.out
-NO WARRANTY this program won't work !
->> run
->> run < input
-# Once it runs
->> break 42
->> break gridland # Break the function gridland
->> break 42 if n == 2
-# Once it is stopped
->> step # Goes inside functions
->> next # Doesn't
->> continue
->> bt
->> bt full
->> frame 3
->> info locals
->> quit
-  \end{lstlisting}
-\end{frame}
-
-\section{Useful data structures}
-\subsection{Basic data structures}
 \begin{frame}
   \frametitle{Array}
   \begin{itemize}
@@ -165,107 +88,33 @@ fitst = q.poll();
   \end{description}
 \end{frame}
 
-\begin{frame}[allowframebreaks, fragile]
-  \frametitle{Classical Example}
-  Biggest rectangle (sometimes in the sense or perimeter, sometimes area)
-  \begin{center}
-    \begin{tikzpicture}[scale=0.3]
-      \draw[step=1.0,black,very thick] (0,0) grid (5,6);
-      \foreach \i in {1,...,5} {
-        \draw node [below] at (\i-0.5,0) {$\i$};
-      }
-      \foreach \i in {1,...,6} {
-        \draw node [left] at (0,\i-0.5) {$\i$};
-      }
-      \fill [black] (0,0) rectangle (1,1);
-      \fill [black] (3,0) rectangle (4,1);
-      \fill [black] (0,1) rectangle (1,2);
-      \fill [black] (3,2) rectangle (4,3);
-      \fill [black] (0,3) rectangle (1,4);
-      \fill [black] (3,3) rectangle (4,4);
-      \fill [black] (4,3) rectangle (5,4);
-      \fill [black] (1,4) rectangle (2,5);
-      \fill [black] (2,5) rectangle (3,6);
-      \fill [black] (4,5) rectangle (5,6);
-      \fill [blue] (1.2,0.2) rectangle (2.8,3.8);
-    \end{tikzpicture}
-  \end{center}
-  \begin{description}
-    \item[medium] NWERC 2010 Problem G
-    \item[hard] COCI 2014/2015 Contest \#5 Task Neo
-  \end{description}
-  \framebreak
+\section{Sets and Maps}
+\subsection{Some definitions}
+\begin{frame}
+  \frametitle{Sets}
+  "A collection that contains no duplicate elements" (Java 7 doc)\\
+  Three main actions:
   \begin{itemize}
-    \item With DP, $\bigoh(n^3)$
-    \item If we only check the size when the rectangles are ``closed'', $\bigoh(n^2)$
-  \end{itemize}
-  \begin{lstlisting}
-  class Rectangle {
-    int start_row;
-    int width;
-  }
-    Stack<Rectangle>[] dp = new Stack[ncol]; // + init them
-    int best = 0
-    for row = 0..nrow-1
-      int width = 0
-      for col = ncol-1..0 // to process width in $\bigoh(1)$
-        if free cell
-          width++;
-          int start_row = row
-          while dp[col].peek().width >= width
-            Rectangle closed = dp[col].pop();
-            best = Math.max(best, closed.size(row))
-            start_row = Math.min(row, closed.start_row)
-          dp[col].add(new Rectangle(start_row, width))
-        else
-          while !dp[col].empty()
-            best = Math.max(best, dp[col].pop().size(row))
-          width = 0
-    for col = ncol-1..0 // don't forget !!
-      close all rectangles of dp[col] -> update best // Lines 19,20
-  \end{lstlisting}
-\end{frame}
-
-\subsection{STL}
-\begin{frame}[fragile]
-  \frametitle{Trap problem -- 10226}
-  \begin{itemize}
-    \item If you want to do it in C,
-      it will take you \SI{1}{h}, you loose a precious time.
-    \item With the STL, you kill it in \SI{5}{min} !
-  \end{itemize}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \begin{block}{Input}
-        \begin{verbatim}
-Don't Panic
-Mostly Harmless
-42
-Don't Panic
-The Hitchhiker's Guide
-        \end{verbatim}
-      \end{block}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \begin{block}{Output}
-        \begin{verbatim}
-42 20.0000
-Don't Panic 40.0000
-Mostly Harmless 20.0000
-The Hitchhiker's Guide 20.0000
-        \end{verbatim}
-      \end{block}
-    \end{column}
-  \end{columns}
-  \begin{itemize}
-    \item \lstinline|System.out.printf("%s %.4f\n", s, p)|
-    \item Exactly 4 decimals \lstinline|cout << setiosflags(ios::fixed) << setprecision(4)|
-    \item Strings with spaces \lstinline|std::getline|
+  	\item Add element
+  	\item Delete element
+  	\item Check presence of element
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Let's do some shopping!}
+  \frametitle{Maps}
+  "An object that maps keys to values. A map cannot contain duplicate keys; each key can map to at most one value." (Java 7 doc)\\
+  Four main actions:
+  \begin{itemize}
+  	\item Add (key,value) pair
+  	\item Delete value from its key
+  	\item Check presence of value by its key
+  	\item Get value from its key
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Overview of the implementations}
   \begin{block}{Unique key}
     \begin{center}
       \begin{tabular}{lll}
@@ -308,9 +157,9 @@ The Hitchhiker's Guide 20.0000
   shorten >=2pt,}
 }
 
-\subsection{Hash Map}
+\subsection{Hash maps \& sets}
 \begin{frame}[allowframebreaks]
-  \frametitle{Hash Map}
+  \frametitle{Hash maps}
   \begin{block}{Principle}
     There is a number $N$ of buckets. The key is mapped to a bucket by hashing it to a number between $0$ and $N-1$.
     \begin{enumerate}
@@ -406,65 +255,88 @@ The Hitchhiker's Guide 20.0000
     \item Balancing operation in $\log(n)$
   \end{itemize}
   Balanced trees are tricky to code ! Use \lstinline|std::set|, \lstinline|TreeSet| and \lstinline|std::map|, \lstinline|TreeMap| !
+\end{frame}
 
-  \begin{block}{When to use a BST or a hash map}
+\begin{frame}
+\frametitle{Array, TreeMap, or HashMap?}
+\begin{block}{When to use a BST or a hash map}
     \begin{itemize}
       \item When you want an array to be indexed by another thing than an int % 10226
-      \item When an array is too small and you don't need all % 11572, 11286
-      \item (\emph{BST only})
-        When you want a structure to be
-        \begin{itemize}
-          \item an array to get $\bigoh(\log(n))$ binary search access time
-          \item a linked list to get $\bigoh(1)$ insertion time
-        \end{itemize}
+      \item When there is lot of empty "key" space in your array % 11572, 11286
+    \end{itemize}
+  \end{block}
+  \begin{block}{Choosing between HashMap and TreeMap}
+    \begin{itemize}
+      \item HashMap is "magically" $\bigoh(1)$, most of the time faster than TreeMap
+      \item But TreeMap can provide you all the values, ordered by keys
     \end{itemize}
   \end{block}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{In the STL}
-  \begin{lstlisting}
-TreeMap<String, Integer> map = new TreeMap<String, Integer>();
-map.put("Test", 42);
-map.get("Test"); // -> 42;
-map.containsKey("Test"); // -> true
-map.containsKey("Toto"); // -> false
-for (Map.Entry<String, Integer> entry : map.entrySet()) {
-    String test = entry.getKey();
-    int fortytwo = entry.getValue();
-}
-
-std::map<std::string, int> map();
-map["Test"] = 42;
-map["Test"]; // -> 42
-map.count("Test"); // -> 1
-map.count("Toto"); // -> 0 (only 0 or 1 since not multimap)
-for (std::map<std::string,int>::iterator it=map.begin(); it!=map.end(); ++it)
-    std::cout << it->first << " => " << it->second << '\n';
-  \end{lstlisting}
+\section{Heaps}
+\subsection{Introduction}
+\begin{frame}
+  \frametitle{A short introduction}
+  Read problem 10954 from UVA !
 \end{frame}
 
 \begin{frame}
-  \frametitle{Interesting example}
-  Longest Increasing Subsequence: LIS, a classic !
+  \frametitle{A naive method}
+  With a linked list or an array
+  \begin{enumerate}
+    \item Sort everything ($\bigoh(n\log(n))$)
+    \item Take the two smallest numbers ($\bigoh(1)$)
+    \item Make the sum ($\bigoh(1)$)
+    \item Add the result to the collection (keeping it sorted) ($\bigoh(n)$)
+    \item Go back to step 2 (do this $n$ times)
+  \end{enumerate}
+  \begin{center}
+  {\Large $\bigoh(n^2)$}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{We can do better}
+  We want a structure such that...
+  \begin{enumerate}
+    \item Sort the collection ($\bigoh(n\log(n))$)
+    \item Take the two smallest numbers ($\bigoh(\log(n))$)
+    \item Make the sum ($\bigoh(1)$)
+    \item Add the result to the collection (keeping it sorted) ($\bigoh(\log(n))$)
+    \item Go back to step 2 (do this $n$ times)
+  \end{enumerate}
+  \begin{center}
+  {\Large $\bigoh(n\log(n))$}
+  \end{center}
+\end{frame}
+
+\subsection{Definition}
+\begin{frame}
+  \frametitle{Heap}
+  (here we explain Binary Heap, but there are more types of heaps)\\
+  A binary tree that satisfies these properties:
+  \begin{block}{Shape}
+    The tree is a complete binary tree (only the last level can be not fully filled)
+  \end{block}
+  \begin{block}{Heap property}
+    All nodes are lesser than (or any other comparison you may choose) each of their children
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Heap vs. BST}
   \begin{itemize}
-    \item Find an $\bigoh(n^2)$ algorithm.
-    \item Improve it to $\bigoh(n\log(n))$.
-    \item Solve problem $481$ in uva with it (even if $\bigoh(n^2)$ is enough).
+  	\item BST is for \textbf{searching}, Heap is for \textbf{sorting}
+  	\item BST is always fully sorted
+  	\item Only the first element of Heap is sorted
+  	\item Optimal BST is very difficult to implement, while Heap is very simple and effective
+  	\item Always choose the simplest data structure for what you want to do!
   \end{itemize}
 \end{frame}
 
-\subsection{Heap}
+\subsection{Example}
 \begin{frame}
-  \frametitle{Let's do a problem, shall we ?}
-  Do problem 10954 from uva !
-\end{frame}
-\begin{frame}
-  \frametitle{Heap}
-  If we are only interested by the minimum, the BST is simplified and much faster and easier to code.
-  Still $\bigoh(\log(n))$ though.
-
-  The tree can be always complete !
+  \frametitle{An example of Binary Heap}
   \begin{center}
     \begin{tikzpicture}[very thick,level/.style={sibling distance=8em/0.1em}]%[very thick,level/.style={sibling distance=70mm/#1}]
       \node [vertex] (r){$2$}
@@ -483,6 +355,7 @@ for (std::map<std::string,int>::iterator it=map.begin(); it!=map.end(); ++it)
     \end{tikzpicture}
   \end{center}
 \end{frame}
+
 \begin{frame}[allowframebreaks]
   \frametitle{Push}
   \begin{center}
@@ -765,16 +638,33 @@ void heap_down (int a) { // a is the index
   \end{lstlisting}
 \end{frame}
 
-\subsection{Union find}
-\subsubsection{Problem}
+\begin{frame}[fragile]
+  \frametitle{In C++/Java}
+  \begin{itemize}
+    \item Do not implement it yourself! Most of the time not needed.
+    \item Java: \verb|PriorityQueue|
+    \item C++: \verb|std::priority_queue|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{We are nearly done with heaps...}
+  \begin{center}
+  {\LARGE \textbf{... Finish the problem 10954 from UVA !}}
+  (and/or do a short break before we view the union-find)
+  \end{center}
+\end{frame}
+
+\section{Union find}
+\subsection{Problem}
 \begin{frame}
   \frametitle{A wild problem appear}
-  $n$ objects $0, \ldots, n-1$ are initially alone in a set.
+  $n$ objects $0, \ldots, n-1$ are initially alone in their respective sets.\\
   We have two types of query
-  \begin{itemize}
-    \item We merge 2 sets designated by 2 respecitve members
-    \item We ask if 2 objects are in the same set
-  \end{itemize}
+  \begin{description}
+    \item[Union] We merge 2 sets designated by 2 respective members
+    \item[Find] We ask if 2 objects are in the same set
+  \end{description}
   \begin{align*}
     && \{1\} && \{2\} && \{3\} && \{4\} && \{5\}\\
     (1,5) && \{1,5\} && \{2\} && \{3\} && \{4\}\\
@@ -784,8 +674,101 @@ void heap_down (int a) { // a is the index
     (4,5) && \{1,2,3,4,5\}
   \end{align*}
 \end{frame}
-\subsubsection{Algorithme}
-\begin{frame}[fragile,allowframebreaks]
+\begin{frame}
+  \frametitle{A \textit{naive} solution}
+  \begin{itemize}
+  	\item Array + Linked Lists
+  	\item Array containing linked list entries
+  	\item Class = first element of the list
+  	\item \textit{Union}: merge two linked lists ($\bigoh(n)$)
+  	\item \textit{Find}: move to the first node of the list ($\bigoh(n)$)
+  \end{itemize}
+  \begin{center}
+  {\LARGE $\bigoh(n)$}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A \textit{less naive} solution}
+  \begin{itemize}
+  	\item Array + Trees
+  	\item Array containing tree nodes
+  	\item Class = root of the tree
+  	\item \textit{Union}: merge two trees by connecting one root to the other($\bigoh(n)$)
+  	\item \textit{Find}: move to the root of the tree ($\bigoh(n)$)
+  \end{itemize}
+  \begin{center}
+  {\LARGE (a better) $\bigoh(n)$}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A \textit{non-that-naive} solution}
+  \begin{itemize}
+  	\item Array + Trees
+  	\item Array containing tree nodes
+  	\item Class = root of the tree
+  	\item \textit{Union}: merge two trees by connecting root \textbf{\textit{of the smaller tree}} to the other, \textbf{\textit{which is taller, minimizing the resulting height}} ($\bigoh(\log(n))$)
+  	\item \textit{Find}: move to the root of the tree ($\bigoh(\log(n))$)
+  \end{itemize}
+  \begin{center}
+  {\LARGE $\bigoh(\log(n))$}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A perfect solution}
+  \begin{itemize}
+  	\item Array + Trees
+  	\item Array containing tree nodes
+  	\item Class = root of the tree
+  	\item \textit{Union}: merge two trees by connecting root of the smaller tree to the other, which is taller, minimizing the resulting height ($\bigoh(\alpha(n))$)
+  	\item \textit{Find}: move to the root of the tree, \textbf{\textit{and move all nodes in the path to the root of the tree}} ($\bigoh(\alpha(n))$)
+  \end{itemize}
+  \begin{center}
+  {\LARGE $\bigoh(\alpha(n))$ !}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{$\alpha(n)$}
+  $$\alpha(n) = f^{-1}(n)$$
+  \begin{center}
+  where
+  \end{center}
+  $$f(n) = A(n,n)$$
+  \begin{center}
+  where
+  \end{center}
+  $$A(m, n) = 
+  \begin{cases}
+     n+1 & \mbox{si } m = 0 \\
+     A(m-1, 1) & \mbox{si } m > 0 \mbox{ et } n = 0 \\
+     A(m-1, A(m, n-1)) & \mbox{si } m > 0 \mbox{ et } n > 0.
+  \end{cases}$$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arckermann's function grows \textbf{rapidly}}
+  \begin{center}
+  \begin{tabular}{|c|c|}
+  \hline
+  $n$ & $A(n,n)$ \\
+  \hline
+  $0$ & $1$\\
+  $1$ & $3$\\
+  $2$ & $7$\\
+  $3$ & $61$\\
+  $4$ & {\Large $2^{2^{2^{65536}}}$}\\
+  $5$ & [insert a very big number here]\\
+  \hline
+  \end{tabular}
+  \end{center}
+  {\Huge $$\alpha(n) \leq 4 \text{ for } n \leq 2^{2^{2^{65536}}} \text{!!!}$$}
+  $$\text{(for all }n\text{ in fact...)}$$
+\end{frame}
+\subsection{Algorithm}
+\begin{frame}[fragile]
   \frametitle{Union find solution}
   \begin{lstlisting}
 class UnionFind {
@@ -813,20 +796,13 @@ class UnionFind {
   }
 };
   \end{lstlisting}
-  \framebreak
-  \begin{block}{Complexity}
-    \begin{description}
-      \item[time] Amortized $\bigoh(\alpha(n))$.
-      \item[space] $\bigoh(n)$.
-    \end{description}
-  \end{block}
 \end{frame}
 
-\subsubsection{Exemples}
+\subsection{Exemples}
 \begin{frame}[fragile,allowframebreaks]
   \frametitle{Example: gridland}
   Grid $n \times m$ avec $1 \leq n, m \leq \num{1e3}$.
-  Two squares are connected if they are activated and their is a path of activated square from one to the other.
+  Two squares are connected if they are activated and there is a path of activated square from one to the other.
   Initially, squares are only connected to themselves.
 
   There is $1 \leq q \leq \num{1e6}$ queries
@@ -989,19 +965,63 @@ c 4 5 5 5
 \begin{frame}
   \frametitle{Other examples}
   \begin{itemize}
+    \item 11503 from UVA (do it!)
     \item \url{uhunt.felix-halim.net} 2.4.2.
-    \item Connected componentents (overkill), Kruskal (impossible to get $\bigoh(n\log(n))$ without it) (see next day !)
+    \item Kruskal (impossible to get $\bigoh(n\log(n))$ without it)
   \end{itemize}
 \end{frame}
 
-\subsection{Segment Trees}
-\begin{frame}[fragile,allowframebreaks]
-  \frametitle{Segment Tree}
+\section{Segment Trees}
+\subsection{Motivation}
+\begin{frame}
+   \frametitle{Range Minimum Query}
+   You have an array $A$ of size $n$, with integer values inside.\\
+   Given two integer $a$ and $b$ ($a<b$), can you give me the minimum value of $A$ between $A[a]$ and $A[b]$?
+   $$min\ A[i]\ \text{for}\ a \leq i \leq b$$ 
+\end{frame}
+\begin{frame}
+   \frametitle{Range Minimum Query}
+   You have an array $A$ of size $n$, with integer values inside.\\
+   Given two integer $a,b$, can you give me the minimum value of $A$ between $A[a]$ and $A[b]$?
+   $$min\ A[i]\ \text{for}\ a \leq i \leq b$$ 
+   \begin{center}
+   {\LARGE $100000$ times?}
+   \end{center}
+\end{frame}
+\begin{frame}
+  \frametitle{Similar problems}
   \begin{itemize}
     \item Dynamic Range Minimum Query
     \item Dynamic Range Sum Query (Fenwick Tree is simpler)
-    \item Dynamic Range Anyfunction Query
+    \item Dynamic Range [insert any function here] Query
   \end{itemize}
+\end{frame}
+\subsection{Solution}
+\begin{frame}
+\frametitle{I love naive solutions}
+Using an array...
+\begin{description}
+\item[Spatial complexity] $\bigoh(n)$
+\item [Update time complexity] $\bigoh(1)$
+\item [Query time complexity] $\bigoh(n)$
+\item [Total Query time complexity] $\bigoh(mn)$ $\Rightarrow$ \textit{\textbf{TLE}}
+\end{description}
+\end{frame}
+\begin{frame}
+\frametitle{A better solution: the segment tree}
+\begin{center}
+\includegraphics[scale=0.4]{segment_tree.jpg} 
+\begin{description}
+\item[Spatial complexity] $\bigoh(n\log(n))$
+\item [Update time complexity] $\bigoh(\log(n))$
+\item [Query time complexity] $\bigoh(\log(n))$
+\item [Total Query time complexity] $\bigoh(m\log(n))$ $\Rightarrow$ \textit{\textbf{AC}}
+\end{description}
+\end{center}
+\end{frame}
+\subsection{Implementation}
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle{Segment Tree implementation}
   \begin{lstlisting}
 class SegmentTree {
   int[] st, A;
@@ -1066,7 +1086,7 @@ class SegmentTree {
   \end{itemize}
 \end{frame}
 
-\subsection{Fenwick Tree}
+\section{Fenwick Tree}
 \begin{frame}[allowframebreaks,fragile]
   \frametitle{Fenwick Tree}
   Dynamic Range Sum Query
@@ -1134,7 +1154,7 @@ class FenwickTree {
   \end{itemize}
 \end{frame}
 
-\subsection{Sparse table}
+\section{Sparse table}
 \begin{frame}
   \frametitle{Sparse Table}
   Static Range Minimum Query
@@ -1151,20 +1171,6 @@ class FenwickTree {
   \begin{itemize}
     \item Least Common Ancestor: LCA
     \item \url{http://codeforces.com/contest/383/problem/C}
-  \end{itemize}
-\end{frame}
-
-\section{Conclusion}
-
-\begin{frame}
-  \begin{itemize}
-    \item Codeforces
-    \item Codechef
-    \item Usaco
-    \item UVa online judge
-    \item Competitive Programming 3: \url{https://sites.google.com/site/stevenhalim/}
-    \item \url{uhunt.felix-halim.net}
-    \item IOI syllabus: \url{http://people.ksp.sk/~misof/ioi-syllabus/}
   \end{itemize}
 \end{frame}
 
