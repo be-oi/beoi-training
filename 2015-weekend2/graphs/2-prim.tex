@@ -1,0 +1,8 @@
+\subsection{Prim's algorithm}
+A first algorithm that can find a minimum spanning tree of a graph, is called Prim's algorithm. The algorithm is very similar to Dijkstra's algorithm.
+\subsubsection{The algorithm}
+The algorithm first takes an arbitrary vertex of the original graph as the current tree. It then repeatedly selects the closest vertex of the graph to the tree. An easy way to implement this is by using a priority queue. The code can be found in Listing~\ref{code-prim}.
+
+\lstinputlisting[label=code-prim,caption=Prim's algorithm, language=C++,firstline=21, lastline=40, tabsize=2, breaklines=true, numbers=left, float]{src/prim.cpp}
+\subsubsection{Complexity}
+The algorithm iterates over all neighbours of every node in the graph. This is equivalent to iterating over all edges twice. In each of those iterations, it adds one node to the priority queue. The priority queue can contain $O(V^2)$ nodes, so this operation takes $O(\log{V^2}) = O(\log{V})$ time. Thus, the algorithm runs in $O(E \log{V})$.

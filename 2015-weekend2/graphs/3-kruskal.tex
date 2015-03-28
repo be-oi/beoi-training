@@ -1,0 +1,18 @@
+\subsection{Kruskal's algorithm}
+A second algorithm that can construct a minimum spanning tree, was written by Joseph Kruskal.
+\subsubsection{The algorithm}
+Kruskal's algorithm builds a forest (set of trees) which it merges by selecting the shortest available edges.
+
+In the beginning, every node is a separate tree. Next, the algorithm keeps finding the edge with the lowest weight which has not been considered yet. If this edge connects two unlinked trees, the edge is added to the forest. If not, it is discarded.
+The code can be found in Listing~\ref{code-kruskal}.
+\lstinputlisting[label=code-kruskal,caption=Kruskal's algorithm, language=C++,firstline=49, lastline=64, tabsize=2, breaklines=true, numbers=left, float]{src/kruskal.cpp}
+\subsubsection{Union-find}
+Merging two trees and checking whether two nodes are in the same three can easily be done using a Union-Find data structure.
+The code can be found in Listing~\ref{code-kruskal-union-find}.
+\lstinputlisting[label=code-kruskal-union-find,caption=Union find, language=C++,firstline=27, lastline=46, tabsize=2, breaklines=true, numbers=left, float]{src/kruskal.cpp}
+
+\subsubsection{Complexity}
+The algorithm first sorts all edges ($O(E\log{E})$).
+The algorithm iterates over all edges. For each of them, it checks whether the two endpoints are in the same tree and possibly merges the two trees. The tree a node belongs to can only change $n-1$ times during the execution of the algorithm. The function \textit{find\_parent} runs in $O(1)$ except for when the structure of its tree has changed, in which case the function cannot take more than $O(\log{V})$. 
+
+Overall this means that the algorithm runs in $O(E\log{E}) + O(E \log{V}) = O(E \log{V})$.
