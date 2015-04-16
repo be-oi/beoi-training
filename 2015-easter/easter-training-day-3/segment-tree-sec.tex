@@ -1,0 +1,21 @@
+\section{Segment Tree}
+A Segment Tree is a datastructure that can be used to speed up range queries. Range queries are queries like "What is the sum of all elements starting at index 10 up to index 15?".
+
+\subsection{Concise version}
+The book Competitive Programming 3 provides the following code for a Segment Tree that can be used to find the minimum value in a range.
+
+\lstinputlisting[label=code-segment-tree-cc3,caption=Segment Tree (from Competitive Programming 3), language=C++,tabsize=2, breaklines=true, numbers=left]{src/segment-tree-cc3.cpp}
+
+\subsection{Intuitive approach}
+However, you might find it more convenient to build a segment tree from scratch as opposed to remembering every detail by heart. The version below is longer to code, but is more intuitive to the writer. It also includes methods to update elements in the array. That way you can answer queries, update elements, answer questions about the modified array.
+
+\lstinputlisting[label=code-segment-tree-own,caption=More advanced Segment Tree, language=C++,tabsize=2, breaklines=true, numbers=left]{src/selfbuilt.cpp}
+
+\subsection{Complexity}
+The segment tree updates elements and answers queries in $O(\log{\left(N\right)}$.
+
+\subsection{Exercises}
+\begin{enumerate}
+\item \url{http://uva.onlinejudge.org/external/112/11297.html}
+
+\end{enumerate}
