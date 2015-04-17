@@ -1,0 +1,84 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mystyle}[2015/02/20 Custom Style]
+
+% Includes
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{textcomp}
+\RequirePackage[frenchb,english]{babel}
+\RequirePackage{csquotes}
+
+\RequirePackage[hidelinks,pdfencoding=auto,psdextra]{hyperref}
+\RequirePackage[backend=biber,sorting=none,isbn=false]{biblatex}
+\RequirePackage{parskip}
+\RequirePackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+
+\RequirePackage{tikz}
+\RequirePackage{graphicx,circuitikz,pgfplots}
+\RequirePackage{tabu,booktabs}
+\RequirePackage{enumitem}
+\RequirePackage{amsmath,amsthm,amsfonts}
+\RequirePackage[squaren,thinspace]{SIunits}
+\RequirePackage[version=3]{mhchem}
+\RequirePackage{bookmark}
+\bookmarksetup{numbered,open}
+\RequirePackage[official]{eurosym}
+\RequirePackage{listings}
+\RequirePackage{float}
+
+
+% General
+\setcounter{tocdepth}{2}
+\pgfplotsset{width=5cm,compat=1.9}
+\usetikzlibrary{shapes,arrows}
+
+\linespread{1.15}
+\setlength{\parskip}{.3em plus.1em minus.1em}
+\setlist[itemize,enumerate]{topsep=0em,itemsep=0em,after=\vspace{.2em}}
+\setlength{\parindent}{15pt}
+
+% Bilingual abstract (english-native)
+\newcommand{\biabstract}[2]
+{
+    \titlepage\null\vfil
+
+    \begin{otherlanguage}{english}
+        \begin{center}
+            \bfseries \abstractname
+        \end{center}
+        #1
+    \end{otherlanguage}
+
+    \begin{center}
+        \bfseries \abstractname
+    \end{center}
+    #2
+
+    \par\vfil\null\endtitlepage
+}
+
+% Typesetting
+\frenchbsetup{og=«,fg=»}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% Math
+\newcommand{\reals}{\mathbb{R}} % Set of real numbers
+\newcommand{\mboxs}[1]{\mbox{\scriptsize{#1}}} % Small mboxes
+\newcommand{\mboxt}[1]{\mbox{\tiny{#1}}} % Tiny mboxes
+\newcommand{\ind}[1]{_{\mboxs{#1}}} % Text indices
+\newcommand{\indt}[1]{_{\mboxt{#1}}} % Tiny text indices
+\newcommand{\scal}[2]{\left(#1\,\middle|\,#2\right)} % Scalar product
+\newcommand{\dist}{\mathrm{dist}} % Distance function
+\newcommand{\inch}{\mathrm{inch}} % Inches
+\newcommand{\jour}{\mathrm{j}} % Unit symbol for a day in French
+\newcommand{\barg}{\mathrm{barg}} % Unit symbol for pressure relative to 1 bar
+
+% Multiple footnotes with hyperref
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+
+\renewcommand\footnote[1]{\oldFootnote{#1}\futurelet\nextToken\isFootnote}
+\newcommand\isFootnote{\ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+
+\endinput

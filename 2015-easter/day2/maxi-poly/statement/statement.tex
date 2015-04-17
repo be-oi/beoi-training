@@ -1,0 +1,68 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{mystyle}
+
+\lstset
+{
+    basicstyle=\ttfamily,
+    frame=single,
+}
+
+\begin{document}
+
+\section*{Maximum term in a polynomial}
+
+You are given a polynomial of degree $N-1$, with $N$ terms ($1 \leq N \leq 10^5$) with indeterminate $x$ in the reals.
+All coefficients in the polynomial are positive.
+The problem is to find which terms of the polynomial will be the largest term (strictly larger than all the others) for at least one positive value of $x$.
+
+Let's take an example: the polynomial $1 + 5x + x^2$.
+\begin{itemize}
+    \item for $0 < x < 1/5$, the term $1$ is larger than $5x$ and $x^2$;
+    \item for $1/5 < x < 5$, the term $5x$ is larger than $1$ and $x^2$;
+    \item for $5 < x$, the term $x^2$ is larger than $1$ and $5x$;
+\end{itemize}
+so here, all three terms are the largest term for some positive value of $x$.
+
+But if we take $1 + x/5 + x^2$, we notice that $x/5$ is never the largest term.
+Indeed, it would be larger than $1$ for $x > 5$ and larger than $x^2$ for $x < 1/5$.
+There is no intersection. Instead:
+\begin{itemize}
+    \item for $0 < x < 1$, the term $1$ is larger than $x/5$ and $x^2$;
+    \item for $1 < x$, the term $x^2$ is larger than $1$ and $x/5$;
+\end{itemize}
+so here, only $1$ and $x^2$ are the largest term for some positive value of $x$.
+
+You are asked to give the degree of each term that is the largest term at some point.
+For the first example, you would give 0, 1 and 2, since $1$, $5x$ and $x^2$ have degrees 0, 1 and 2 (in that order).
+For the second example, you would give only 0 and 2, since $1$ and $x^2$ have degrees 0 and 2 (in that order).
+
+No term will be the non-strictly largest term without being the strictly largest term for some non-empty open interval.
+So such situations as $1 + x + x^2$, where $x$ is the largest term for $x=1$, in a tie with $1$ and $x^2$, and lower than either $1$ or $x^2$ for all other values, will never be included in the input.
+
+\subsection*{Input}
+
+\begin{itemize}
+    \item The input starts with one line containing the integer $T$, the number of test cases to follow.
+    \item Each test case consists of two lines.
+    \item The first line of a test case contains the integer $N$, the number of terms in the polynomial. So the degree of the polynomial will be $N-1$.
+    \item The second line of a test case contains $N$ space-separated reals, the coefficients of the polynomial, by increasing degree. So the first coefficient will be the constant term, the second coefficient the term in $x$, etc. and the last coefficient the term in $x^{N-1}$. The coefficients may be in scientific notation, which your language will surely process without any trouble.
+\end{itemize}
+
+\subsection*{Output}
+
+The output must consist of $T$ lines, one for each test case.
+On each line, print a space-separated list of all the degrees of the terms which are the largest term for some positive value of $x$, in increasing order.
+
+\subsection*{Sample input}
+
+\lstinputlisting{../test-cases/small.in}
+
+\subsection*{Sample output}
+
+\lstinputlisting{../test-cases/small.out}
+
+\vspace{1em}
+{\footnotesize Problem setter: Victor Lecomte}
+
+\end{document}
