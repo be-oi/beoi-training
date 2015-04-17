@@ -1,0 +1,12 @@
+\subsection{Comparison}
+
+Let $n$ be the number of nodes and $m$ the number of edges.
+The complexity of both algorithms is $O(n+m)$,
+assuming an adjacency list structure, so there is no time difference.
+But this shows they are particularly efficient for sparse graphs.
+
+As a consequence, the decision depends on their advantages.
+DFS is simpler to implement if you use recursive functions,
+and it is perfect if you cannot acess any node instantly.
+BFS will mostly be useful when you have to find a shortest path
+in a non-weighted graph.

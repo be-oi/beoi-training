@@ -1,0 +1,23 @@
+\subsection{Basic Geometry}
+\paragraph{Same side of a line}
+Consider a line through the points $A(x_a, y_a, 0)$ and $B(x_b, y_b, 0)$.
+Also consider two points $C(x_c, y_c, 0)$ and $D(x_d, y_d, 0)$. We want to know if $C$ and $D$ are on the same side of the line. 
+Being on the same side of a line only makes sense in 2-D, that's why the third coordinate number is zero for all four points. 
+We don't just write them as points in 2-D space because we need the cross product, which has not been defined in 2-D.
+
+$C$ and $D$ are on the same side of the line iff the angles $\hat{ABC}$ and $\hat{ABD}$ are both positive or both negative (in the range $\left(-\pi, \pi\right]$).
+In that range, the sines of the angles have the same sign as the angles.
+When looking at the definition of the cross product, it is clear that we can use the cross product of $(A-B)\times(C-B)$ and compare it to the cross product of $(A-B)\times(D-B)$. 
+If both have the same sign, the points are on the same side of the line through $A$ and $B$. Else, they're not.
+
+\paragraph{Area of triangle}
+Consider the parallelogram defined by $O(0,0,0)$, $A(x_a, y_a, z_a)$, $B(x_b, y_b, z_b)$ and $(A+B)(x_a+x_b, y_a+y_b, z_a+z_b)$. From the definition of the cross product, we see that the area of this parallelogram is the norm of the cross product $A \times B$.
+The area of the triangle defined by $O(0,0,0)$, $A(x_a, y_a, z_a)$ and $B(x_b, y_b, z_b)$ is exactly half of the area of the parallelogram, so $\frac{1}{2} (A\times B)$
+
+\paragraph{Line segment crossing}
+Given: a line segment between $A$ and $B$ and another line segment between $C$ and $D$. Determine whether the two line segments cross.
+The line segments cross iff $A$ and $B$ are on different sides of the second line segment and $C$ and $D$ are on different sides of the first line segment.
+Using twice the formula from the first paragraph in this section, this problem can easily be solved.
+
+
+More useful geometry techniques can be found at the USACO Training Program, section 3.4.

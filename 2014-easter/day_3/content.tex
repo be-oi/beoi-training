@@ -1,0 +1,37 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,tabu,url}
+\usepackage{listings}
+
+\setlength{\parskip}{.7ex}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\renewcommand{\mod}{\,\%\,}
+\renewcommand{\labelitemi}{$\circ$}
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+    \olditemize
+    \setlength{\itemsep}{3pt}
+    \setlength{\parskip}{0pt}
+}
+
+\lstset{
+  tabsize=2
+}
+
+\begin{document}
+
+\input{./title.tex}
+
+\tableofcontents
+
+\input{./1-Introduction/sec.tex}
+\input{./2-Carnival_Review/sec.tex}
+\input{./3-Euler_Path/sec.tex}
+\input{./4-Bruteforces/sec.tex}
+\input{./5-Knapsack/sec.tex}
+\input{./6-Computational_Geometry/sec.tex}
+\input{./7-Number_Theory/sec.tex}
+\input{./8-Other/sec.tex}
+\end{document}

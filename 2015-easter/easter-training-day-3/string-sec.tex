@@ -1,0 +1,43 @@
+\section{String algorithms}
+
+\subsection{Longest common substring}
+Given two strings $a$ and $b$, determine the longest string $s$ such that $s$ is a substring of $a$ and $s$ is a substring of $b$.
+
+We can use Dynamic Programming to solve this problem. Suppose a 2-dimensional array $cache$ that contains $k$ at position $(i+1,j+1)$ iff $k$ is the largest integer number such that $a[i-x]=b[j-x], \forall x < k$. 
+To compute the value at a certain index in $cache$, we just need to check whether the $a$ and $b$ have the same value at position $i$ and $j$ respectively. If this is the case, we add one to the value at $cache[i-1][j-1]$ and store it at $cache[i][j]$. If this is not the case, we store 0.
+If we loop over the strings as in Listing~\ref{code-lcs}, we only need the values at $i-1$, so we only need $O(N)$ instead of $O(N \cdot M)$ space. The result of the algorithm is the heighest value that has ever been stored in $cache$.
+
+\lstinputlisting[label=code-lcs,caption=Longest common substring, language=C++,tabsize=2, breaklines=true, numbers=left]{src/lcs.cpp}
+
+\subsection{Trie}
+A Trie is a useful datastructure to store a set of strings. Instead of storing each string on its own (e.g. in a map), it stores the path to reach a string. This can be useful when searching for all words in a dictionary starting with a certain prefix. The following code example illustrates this by calculating the length of the longest prefix of a new string that also appears in the words that had already been added.
+\lstinputlisting[label=code-trie,caption=Trie, language=C++,tabsize=2, breaklines=true, numbers=left]{src/trie.cpp}
+
+\subsection{String matching}
+A common problem is to find if a pattern appears in another text. Standard libraries provide this functionality for strings, but it is still worth understanding how this can be achieved. These techniques can be applied to other problems (see exercises).
+
+\subsubsection{Naive approach}
+A first naive approach is illustrated in the following code. Note that this algorithm has a complexity of $O(N \cdot M)$.
+\lstinputlisting[label=code-string-matching-naive,caption=Naive string matching, language=C++,tabsize=2, breaklines=true, numbers=left]{src/naive.cpp}
+
+\subsubsection{Knuth-Morris-Pratt algorithm}
+A better algorithm that can solve this problem in $O(N + M)$, is the Knuth-Morris-Pratt algorithm (often referred to as KMP).
+
+The KMP algorithm consists of two steps. 
+
+First it analyzes the pattern that is being searched for. It constructs a table $back\_table$ of the same length as the pattern. Suppose $text[a:a+j] = pattern[0:j]$, but $text[a+j] \neq pattern[j]$, then $back\_table[j]$ contains the last index in $pattern$ that will match with $text$ until the previous position $text[a+j-1]$. That is, $back\_table[j]$ contains the largest number $x < j$ such that $text[a+j-x:a+j]=pattern[0:x]$.
+
+During the second step the algorithm uses that information to iterate over $text$ mucht faster than the naive approach.
+It can be shown that the complexity of this algorithm is $O(N+M)$.
+\lstinputlisting[label=code-kmp,caption=KMP algorithm, language=C++,tabsize=2, breaklines=true, numbers=left]{src/kmp.cpp}
+
+\subsection{Exercises}
+\begin{enumerate}
+\item  Trie: \url{https://www.facebook.com/hackercup/problems.php?pid=313229895540583&round=344496159068801}
+
+\item Trie: \url{http://uva.onlinejudge.org/external/115/p11590.pdf}
+
+\item KMP: \url{http://uva.onlinejudge.org/external/114/p11475.pdf}
+
+\item KMP: \url{http://codeforces.com/contest/536/problem/B}
+\end{enumerate}

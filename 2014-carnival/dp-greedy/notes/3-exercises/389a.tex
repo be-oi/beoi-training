@@ -1,0 +1,63 @@
+\subsection{Fox and Number Game}
+
+Fox Ciel is playing a game with numbers now.
+
+Ciel has $n$ positive integers: $x_1,x_2,\ldots,x_n$.
+She can do the following operation as many times as needed:
+select two different indexes $i$ and $j$ such that $x_i>x_j$ holds,
+and then apply assignment $x_i = x_i - x_j$.
+The goal is to make the sum of all numbers as small as possible.
+
+Please help Ciel find this minimal sum.
+
+\subsubsection*{Input}
+The first line contains an integer $n$ ($2 \leq n \leq 100).$
+Then the second line contains $n$ integers: $x_1,x_2,\ldots,x_n$
+($1\leq x_i \leq 100$).
+
+\subsubsection*{Output}
+Output a single integer --- the required minimal sum.
+
+\subsubsection*{Limits}
+\begin{itemize}
+    \item Time limit: 1\,sec
+    \item Memory limit: 256\,MB
+\end{itemize}
+
+
+
+\subsubsection*{Examples}
+\begin{verbatim}
+Input:
+2
+1 2
+Output:
+2
+
+Input:
+3
+2 4 6
+Output:
+6
+
+Input:
+2
+12 18
+Output:
+12
+
+Input:
+5
+45 12 27 30 18
+Output:
+15
+\end{verbatim}
+
+\subsubsection*{Notes}
+In the first example the optimal way is to do the assignment
+$x_2 = x_2 - x_1$.
+
+In the second example the optimal sequence of operations is:
+$x_3 = x_3-x_2$, $x_2 = x_2-x_1$.
+
+\subsection*{Source} \url{http://codeforces.com/problemset/problem/389/A}

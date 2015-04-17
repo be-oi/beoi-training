@@ -1,0 +1,22 @@
+\subsection{Floyd-Warshall algorithm}
+
+The Floyd-Warshall algorithm is interesting
+when you have to know the shortest path
+from any node to any other node, as opposed to one node to all other nodes.
+
+Floyd uses dynamic programming by progressively filling an array
+\texttt{dist[][]} with the distance from a node to another.
+\texttt{dist[i][j]} is initialised with:
+\begin{itemize}
+    \item 0 if $i=j$;
+    \item the weight of the edge from $i$ to $j$, if it exists;
+    \item $\infty$ otherwise.
+\end{itemize}
+
+Then the algorithm is simply:
+\begin{verbatim}
+for(int k=0; k<n; k++)
+    for(int i=0; i<n; i++)
+        for(int j=0; j<n; j++)
+            dist[i][j] = min(dist[i][j] + dist[j][k], dist[i][j]);
+\end{verbatim}

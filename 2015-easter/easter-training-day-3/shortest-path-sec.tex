@@ -1,0 +1,19 @@
+\section{Shortest path algorithms (revision)}
+\subsection{Dijkstra}
+Dijkstra's algorithm has already been explained in previous trainings. Below is an example implementation.
+\lstinputlisting[label=code-dijkstra,caption=Single-source shortest path using Dijkstra's algorithm, language=C++,tabsize=2, breaklines=true, numbers=left]{src/dijkstra.cpp}
+
+\subsection{Floyd-Warshall}
+Sometimes one needs to compute the path lengths for all pairs of nodes. Or sometimes the input constraints may allow a slower algorithm than Dijkstra's. In both cases, Floyd-Warshall comes to the rescue.
+
+For every pair of nodes $(i, j)$, the path checks all other nodes $k$ to see if going from $i$ to $k$ and then from $k$ to $j$ is shorter than going from $i$ to $j$ via the shortest path so far. It then updates the best path length from $i$ to $j$ and uses this new path length to improve other paths.
+
+The algorithm is very simple and it can easily be seen that the time complexity is $O(N^3)$.
+\lstinputlisting[label=code-floyd-warshall,caption=All pairs shortest path using Floyd Warshall, language=C++,tabsize=2, breaklines=true, numbers=left]{src/floyd-warshall.cpp}
+
+\subsection{Exercises}
+\begin{enumerate}
+\item Dijkstra: \url{http://uva.onlinejudge.org/external/113/11338.html}
+\item Floyd-Warshall: \url{http://uva.onlinejudge.org/external/8/821.html}
+
+\end{enumerate}

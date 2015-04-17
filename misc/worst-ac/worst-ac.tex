@@ -1,0 +1,38 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tabu}
+\usepackage{SIunits}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+
+\begin{document}
+
+\begin{table}
+\centering
+%\definecolor{verylight}{gray}{0.93}
+%\rowcolors{1}{white}{verylight}
+\begin{tabu}{lll}
+    \toprule
+    \hiderowcolors $n$ & Worst AC Algorithm & Comment \\ \showrowcolors
+    \midrule
+    $\leq [10..11]$ & $O(n!)$, $O(n^6)$ & e.g. Enumerating permutations \\
+    $\leq [15..18]$ & $O(2^n\times n^2)$ & e.g. DP Travelling Salesman \\
+    $\leq [18..22]$ & $O(2^n\times n)$ & e.g. DP with bitmask technique \\
+    $\leq 100$ & $O(n^4)$ & e.g. DP with 3 dimensions + $O(n)$ loop, $_nC_{k=4}$ \\
+    $\leq 400$ & $O(n^3)$ & e.g. Floyd Warshall's \\
+    $\leq 2\,\kilo$ & $O(n^2\log_2n)$ & e.g. 2-nested loops + a tree-related DS request \\
+    $\leq 10\,\kilo$ & $O(n^2)$ & e.g. Bubble\,/\,Selection\,/\,Insertion Sort \\
+    $\leq 1\,\mega$ & $O(n\log_2n)$ & e.g. Merge Sort, building Segment Tree \\
+    $\leq 100\,\mega$ & $O(n)$ & e.g. Iterative, one loop \\
+    $\leq 10^{18}$ & $O(\log_2n)$ & e.g. Binary search, GCD, modular power \\
+    $\leq 10^{\textrm{a lot}}$ & $O(\log_2n)$ & e.g. Operations with BigInteger \\
+    $\leq \infty$ & $O(1)$ & Rare: you still have to read the input! \\
+    \bottomrule
+\end{tabu}
+\caption{Table of worst AC complexities, as deduced from input limits}
+\end{table}
+
+\end{document}

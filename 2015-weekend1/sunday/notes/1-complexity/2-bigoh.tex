@@ -1,0 +1,21 @@
+\subsection{The big-oh notation}
+
+The big-oh notation expresses how the running time or memory usage increase
+as $n$ grows.
+
+For example, if $n$ doubles, an algorithm with $O(n)$ running time will be two
+times slower, and an algorithm with $O(n^2)$ memory usage will use up four
+times as much memory.
+$O(1)$ means constant running time or memory usage.
+$O(n)$ is pronounced ``big oh of $n$'' or just ``oh of $n$''.
+
+In general, it means the running time or memory usage will be
+proportional to the function in the parentheses.
+
+More rigorously, we say an algorithm runs in $O(g(n))$
+if its number of operations $f(n)$ is smaller than $c\cdot g(n)$
+for some constant $c$ with large enough $n$.
+
+In the context of programming contests, only the worst case matters,
+but other letters, such as $\Theta$ and $\Omega$ are sometimes used to describe
+average-case or best-case complexity.

@@ -1,0 +1,18 @@
+\subsection{Integer Single Knapsack}
+Given:
+\begin{itemize}
+\item{a knapsack strong enough to contain a weight W}
+\item{a set of S objects, each having a weight $w_i$ and a value $v_i$}
+\end{itemize}
+Find: the maximal value you can achieve by putting items of the set in the knapsack, without exceeding a total weight of W
+
+As the weights and values are all integers, dynamic programming can be used as long as the total weight W is not extremely large.
+\begin{lstlisting}
+best = [0]*W
+for i from 0 to S-1:
+  for j from W-w[i] to 0 step -1:
+    best[j+w[i]]=max(best[j+w[i]], v[i]+best[j])
+\end{lstlisting}
+Time complexity: O(S*W)
+Additional space complexity: O(W)
+

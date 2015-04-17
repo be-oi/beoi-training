@@ -1,0 +1,150 @@
+\section{Datastructures}
+\subsection{Students in a classroom}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/01-students-in-classroom.cpp}
+
+\subsection{Children and cookies}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/02-child-cookies.cpp}
+
+\subsection{Containers}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/03-containers.cpp}
+
+
+
+\section{Graphs}
+\subsection{What is a tree?}
+
+An acyclic graph. It is often used to represent a hierarchical structure.
+\subsection{How many edges are there in a tree?}
+Let $n$ be the number of nodes in the tree. Then there are $n-1$ edges. This can easily be seen when the tree is drawn with a root node on top, and the children below their parents. Every node except for the root has exactly one edge to their parent, so there are $n-1$ edges.
+
+\subsection{Sparse graph with string identifiers}
+\begin{lstlisting}[language=C++]
+map<string, map<string, int> >; // weighted graph
+map<string, set<string> >; // unweighted graph
+\end{lstlisting}
+
+\subsection{Dense graph}
+\begin{lstlisting}[language=C++]
+// weight[i][j] is -1 if no edge from i to j exists
+// if an edge from i to j exists, weight[i][j] is the weight of that edge
+int weight[MAXN][MAXN]; 
+\end{lstlisting}
+
+\subsection{What is a BST}
+A Binary Search Tree. It is a tree where every node has at most 2 children (binary tree). All nodes at the left of a node $u$ are smaller than $u$. All nodes at the right of $u$ are larger than $u$.
+Note that the term BST does NOT imply that the tree is balanced.
+
+\subsection{Find the distance between two elements in a BST}
+
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/04-bst-distance.cpp}
+
+\subsection{What does Dijkstra's algorithm compute}
+Dijkstra's algorithm computes the shortest path length from a single source to all nodes in the graph.
+
+\subsection{What does an iteration of Dijkstra's algorithm consist of? What is the invariant?}
+In every iteration, Dijkstra adds the closest node that has not been visited yet to the tree consisting of visited nodes. Next, it adds all neighbours of the newly added node to a priority queue.
+
+The invariant: we know the shortest path length from the source node to all nodes that have been visited.
+
+\subsection{Implement Dijkstra's algorithm}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/05-dijkstra.cpp}
+
+\subsection{Modify Dijkstra's algorithm to return the path}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/06-dijkstra-path.cpp}
+
+\subsection{DFS}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/07-dfs.cpp}
+
+\subsection{BFS}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/08-bfs.cpp}
+
+\subsection{When does an Euler path exist?}
+When the graph is connected and either two or zero nodes have an odd degree.
+
+\subsection{When does an Euler cycle exist?}
+When the graph is connected and all nodes have an even degree.
+
+\subsection{Algorithm to find Euler path}
+\subsection{What should be added to a DFS to implement Toposort?}
+\textit{Taken from the course notes of the second weekend training.}
+\paragraph{DFS algorithm:}
+\begin{lstlisting}[label=code-dfs,caption=DFS algorithm, language=Java, tabsize=2, breaklines=true, numbers=left]
+int UNVISITED = 0, OPEN = 1, CLOSED = 2;
+
+void dfsVisit(LinkedList<Integer>[] adj_list, int node, int[] labels)
+{
+	labels[node] = OPEN;
+	for(int new_node : adj_list[node])
+		if(labels[new_node] == UNVISITED)
+			dfsVisit(adj_list, new_node, labels);
+	labels[node] = CLOSED;
+}
+
+void dfs(LinkedList<Integer>[] adj_list)
+{
+	int[] labels = new int[adj_list.length];
+	Arrays.fill(labels, UNVISITED);
+	for(int node = 0; node < adj_list.length; node++)
+		if(labels[node] == UNVISITED)
+			dfsVisit(adj_list, node, labels);
+}
+\end{lstlisting}
+\paragraph{Toposort algorithm:}
+\begin{lstlisting}[label=code-toposort,caption=Toposort algorithm, language=Java, tabsize=2, breaklines=true, numbers=left]
+int UNVISITED = 0, OPEN = 1, CLOSED = 2;
+
+void dfsVisit(LinkedList<Integer>[] adj_list, int node, int[] labels, Stack<Integer> stack)
+{
+	labels[node] = OPEN;
+	for(int new_node : adj_list[node])
+		if(labels[new_node] == UNVISITED)
+			dfsVisit(adj_list, new_node, labels, stack);
+	labels[node] = CLOSED;
+    stack.push(node);
+}
+
+Stack<Integer> toposort(LinkedList<Integer>[] adj_list)
+{
+	int[] labels = new int[adj_list.length];
+    Stack<Integer> stack = new Stack<Integer>();
+    
+	Arrays.fill(labels, UNVISITED);
+	for(int node = 0; node < adj_list.length; node++)
+		if(labels[node] == UNVISITED)
+			dfsVisit(adj_list, node, labels, stack);
+    return stack;
+}
+\end{lstlisting}
+
+\subsection{List all rooms in the cave}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/10-floodfill.cpp}
+
+
+\subsection{Prim's algorithm with string identifiers}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/11-prim.cpp}
+
+\subsection{Kruskal's algorithm with string identifiers}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/12-kruskal.cpp}
+
+\subsection{UnionFind with string identifiers}
+\textit{Same as question above}
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/13-unionfind.cpp}
+
+\section{Other}
+\subsection{Recursive relation steps on a line with steps of size 1/2/3}
+\begin{math}
+\begin{array}{rclr}
+ways_0 & = & 1 \\
+ways_1 & = & 1 \\
+ways_2 & = & 2 \\
+ways_n & = & ways_{n-1} + ways_{n-2} + ways_{n-3} & \forall n > 3
+\end{array}
+\end{math}
+
+\subsection{Implementation of steps on al ine with size 1/2/3}
+
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/14-line-steps.cpp}
+
+\subsection{Range sum of static array}
+
+\lstinputlisting[frame=single,tabsize=2, breaklines=true, numbers=left,language=C++]{src/15-range-sum.cpp}

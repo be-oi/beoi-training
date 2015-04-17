@@ -1,0 +1,16 @@
+\subsection{Introduction}
+\subsubsection{Formal definition}
+Given a graph $G$ with edges $E$ and vertices $V$.
+A spanning tree $T$ of $G$ is a tree that connects all vertices in $V$. The cost of the spanning tree is the sum of its edge weights.
+A minimum spanning tree (MST) of $G$ is a spanning tree of $G$ that has a minimal cost. That is, no spanning tree of $G$ exists with a cost lower than the cost of $T$.
+
+\subsubsection{Intuition}
+Consider the following situation:
+Given a set of cities and no roads. You want all cities to be reachable from any other city. You don't care about the traveling time, but you do care about the total price of constructing those roads. The price of constructing a road is proportional to the distance between the cities it connects. Determine which roads you need to construct.
+
+The problem above is a typical minimum spanning tree problem. The original graph G has edges between every pair of cities (the roads). The weights of the edges are the costs of the roads they represent. Your task is to select a subset of edges (roads) such that all cities are connected (reachable from every other city). The subset you're trying to find should have a minimal total edge weight (road cost).
+
+\subsubsection{Properties}
+\textit{We consider graphs with only positive edge weights.}
+
+A minimum spanning tree of a graph $G$ with $n$ vertices, consists of $n-1$ edges (like any tree).

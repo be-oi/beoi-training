@@ -1,0 +1,18 @@
+\subsection{Kruskal's algorithm}
+
+In order to construct the minimum spanning tree, Kruskal's algorithm
+just picks the smallest edges first, unless adding them forms a cycle
+(it would not be a tree anymore).
+This is a greedy approach, and surpisingly it works.
+
+To check if adding an edge, we can check if they belong to the same
+connected component.
+Since those connected components are merged together as we add edges,
+they will best be represented with a union-find data structure.
+
+The algorithm goes through the edges in increasing order of weight.
+For each edge $(u,v)$, if $u$ and $v$ are in different components,
+add $(u,v)$ to the tree and unite their components;
+otherwise, discard the edge.
+
+The complexity is $O(m \log m)$.

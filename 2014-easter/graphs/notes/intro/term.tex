@@ -1,0 +1,57 @@
+\subsection{Terminology}
+
+\subsubsection{Basics}
+
+\begin{itemize}
+    \item The points are called \emph{vertices} or \emph{nodes}.
+    \item The links are called \emph{edges} or \emph{lines}.
+	\item Two vertices connected by an edge are \emph{adjacent},
+		or \emph{neighbours}.
+    \item Vertices belonging to an edge are called the \emph{ends} 
+        or \emph{endpoints}.
+    \item A \emph{loop} is an edge whose ends are the same vertex.
+\end{itemize}
+
+\subsubsection{Properties}
+
+\begin{itemize}
+    \item The \emph{order} of a graph is $|V|$ (the number of vertices).
+    \item The \emph{size} of a graph is $|E|$ (the number of edges).
+    \item The \emph{degree} of a vertex is the number of edges
+        that connect to it.
+\end{itemize}
+
+\subsubsection{Classes of graphs}
+
+\begin{itemize}
+    \item A \emph{simple} graph has no loop and no more than one edge
+        between any two vertices. The opposite is a \emph{multigraph}.
+    \item In a \emph{directed} graph, the edges point in a specific direction.
+        They are represented by \emph{ordered} pairs of vertices.
+    \item In a \emph{weighted} graph, a number (the weight) is assigned to each
+        edge. It can represent cost, length, etc.
+\end{itemize}
+
+\subsubsection{Paths and cycles}
+
+\begin{itemize}
+    \item A \emph{path} is a sequence of adjacent vertices, all different.
+        In a directed graph, the arrows have to point in the right direction.
+    \item Two vertices are \emph{connected} if there is a path between them.
+    \item A graph is \emph{connected} if all pairs of vertices are connected.
+    \item A \emph{cycle} is a path that goes back to beginning.
+    \item An \emph{acyclic} graph has no cycle.
+\end{itemize}
+
+\subsubsection{Special graphs}
+
+Those are all simple, undirected graphs.
+\begin{itemize}
+    \item A \emph{tree} is a connected, acyclic graph.
+    \item In a \emph{complete} graph, each pair of vertices is joined by an
+        edge; it contains all possible edges.
+    \item In a \emph{sparse} graph, only very few pairs of vertices
+        are joined by an edge; it is very incomplete.
+        It is useful when algorithms depend on the number of
+        edges.
+\end{itemize}

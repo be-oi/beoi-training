@@ -1,0 +1,44 @@
+\subsection{Pruning}
+Pruning is the technique to determine if your algorithm can backtrack.
+%Consider a function to maximize and a set of requirements your solution must fulfill.
+Consider a problem where you have to maximize the value of a function, within a set of constraints.
+Two frequent ways of pruning are:
+\begin{itemize}
+\item{When trying to maximize a function, check if it is still theoretically possible to get a higher value than the current best achieved value, using the current partial solution proposal. If not, backtrack!}
+\item{When searching in the search tree, check if it is still possible to fulfill all requirements}
+\end{itemize}
+
+
+\paragraph{VPW 2014 - sticks:}
+\url{http://www.vlaamseprogrammeerwedstrijd.be/current/opgaven/cat3/memorysticks/memorysticks.pdf}
+\begin{itemize}
+ \item 
+\textbf{Constraints}: all files must be put on sticks
+\item \textbf{Function to maximize}: (minimize in this case, so maximizing its opposite): free space on used memory sticks
+
+\end{itemize}
+
+
+
+
+\emph{The following two techniques are particularly known:}
+\paragraph{$\alpha-\beta$ pruning}
+
+Alpha-Beta pruning can prune a minmax-tree. A minmax-tree can simulate a turn-by-turn game between two players.
+
+We consider a game where the actions of the two players affect a number.
+Player A tries to maximize the resulting score, player B tries to minimize the resulting score at the end of the game.
+
+The $\alpha-\beta$ pruning technique keeps track of the lower bound $\alpha$ and upper bound $\beta$ of the resulting score in a certain branch. As soon as for a certain node $\beta \leq \alpha$, the algorithm can backtrack.
+
+\url{http://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning}
+
+\paragraph{Branch and Bound}
+
+Consider a function f to maximize.
+Branch-and-bound pruning first calculates upper bounds and lower bounds for each of the children of the current node.
+These bounds are sorted in order of "most promising". Children with an upper bound lower than the lower bound of another child, don't need to be investigated as they won't return the final value and hence can be omitted.
+
+\url{http://en.wikipedia.org/wiki/Branch_and_bound}
+
+

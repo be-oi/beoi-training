@@ -1,0 +1,44 @@
+\subsubsection{Merge sort}
+
+Merge sort is probably the best-known example of divide and conquer.
+It sorts the elements of an array of numbers in increasing order.
+
+It does so by first separating the array in two halves,
+then sorting each individual half,
+and then merging both sorted halves into the full sorted array.
+
+To sort the halves, the function will recursively call itself
+until the bits all have length one.
+(A nice property of arrays of one element is that they are always sorted.)
+
+Here is an illustration of how the algorithm splits the array
+and then merges it back:
+\begin{center}
+    \begin{tabu}{|c|c|c|c|c|c|c|c|}
+        \hline 4&7&5&1&3&8&6&2 \\ \hline
+    \end{tabu}
+
+    \begin{tabu}{|c|c|c|c|}
+        \hline 4&7&5&1 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|c|c|}
+        \hline 3&8&6&2 \\ \hline
+    \end{tabu}
+
+    \begin{tabu}{|c|c|}
+        \hline 4&7 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 5&1 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 3&8 \\ \hline
+    \end{tabu}
+    \ 
+    \begin{tabu}{|c|c|}
+        \hline 6&2 \\ \hline
+    \end{tabu}
+\end{center}

@@ -1,0 +1,34 @@
+\subsection{Vectors}
+Points in 2D-space can be represented using a coordinate tuple $(x, y)$.
+
+Points in 3D-space can also be represented using a coordinate tuple $(x, y, z)$. 
+
+Vector addition:
+\begin{math}
+(x_1, y_1, z_1) + (x_2, y_2, z_2) = (x_1+x_2, y_1+y_2, z_1+z_2)
+\end{math}
+
+Product with a scalar:
+\begin{math}
+\lambda \cdot (x_1, y_1, z_1) = (\lambda \cdot x_1, \lambda \cdot y_1, \lambda \cdot z_1)
+\end{math}
+
+Scalar product:
+
+\begin{math}
+\begin{array}{rcl}
+(x_1, y_1, z_1) \cdot (x_2, y_2, z_2)  & =  & x_1*x_2+y_1*y_2+z_1*z_2 \\
+\lVert (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) \rVert &  = & \lVert (x_1, y_1, z_1) \rVert \cdot \lVert (x_2, y_2, z_2) \rVert \cdot \cos{\alpha}
+\end{array}
+\end{math}
+
+Cross product:
+
+\begin{math}
+\begin{array}{rcl}
+(x_1, y_1, z_1) \times (x_2, y_2, z_2) & = & (y_1*z_2-y_2*z_1, x_2*z_1-x_1*z_2, x_1*y_2-x_2*y_1) \\
+
+ (x_1, y_1, z_1) \times (x_2, y_2, z_2)  &  = & \lVert (x_1, y_1, z_1) \rVert \cdot \lVert (x_2, y_2, z_2) \rVert \cdot \sin{\alpha} \cdot \vec{n}
+\end{array}
+\end{math}
+*Where $\vec{n}$ is the unity vector perpendicular to both vectors in the direction of the middle finger of your right hand, when your thumb is pointing along the first vector's axis and your index finger is pointing along the second vector's axis.

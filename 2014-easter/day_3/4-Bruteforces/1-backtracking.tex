@@ -1,0 +1,9 @@
+\subsection{Backtracking}
+
+Consider the 8 queens problem (Carnival training Day 1). A naive way to find a suitable board configuration would be to generate $2^{8*8}$ board configurations (each consisting of booleans representing whether a queen is on a certain field of the board) and check all boards until a good configuration has been found.
+A smarter way is to (recursively) put 8 queens on the board. Consider the following pseudo-code:
+\lstinputlisting[language=Python, lastline = 24]{4-Bruteforces/eight_queens.py}
+
+This algorithm only starts putting a queen in a certain column if all previous columns are filled in a good way (that is, the previously fixed queens can't attack one another). If the algorithm finds a field in the current column that is not under attack of one of the other queens yet, it puts the current queen on that spot and recursively calls itself to fill the other columns. 
+As soon as the algorithm can't find a good spot to put the next queen, it terminates itself to reposition the previous queens and to try again.
+This technique is called backtracking. It's useless to look further, so as soon as you know you won't find the answer in a branch of the search tree, you can abandon that branch.

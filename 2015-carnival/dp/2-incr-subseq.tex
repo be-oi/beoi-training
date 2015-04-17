@@ -1,0 +1,71 @@
+\subsection{Example 2: Longest increasing subsequence}
+
+However, finding which sub-problems to solve is not always as easy,
+as the second example shows.
+
+In the longest increasing subsequence problem, you have to find the longest
+increasing sequence of (not necessarily consecutive) elements in an array of length $n$.
+For example, in the list $[4,7,5,1,3,2,6,8]$, longest increasing subsequences
+would be $[4,5,6,8]$ or $[1,2,6,8]$. (The solution is not unique.)
+
+Trying all subsequences and finding the longest increasing one would
+take $O(2^n)$ time, as every number in the array may or may not be in
+the subsequence.
+
+
+A first intuition might be to start from the beginning and keep the longest
+increasing subsequence so far in memory, and add to it as we go.
+But the problem is that it might not find the best solution.
+In $[4,7,5,1,3,2,6,8]$, for example, it will add 4, then 7, but then
+it will not add any element until 8, giving $[4,7,8]$, which is not optimal.
+
+\subsubsection{Naive recursive implementation}
+Another idea might be to recursively find the longest increasing subsequence which can be concatenated to a prefix of the array.
+This naive (recursive) implementation is shown in Listing~\ref{code-lis1}.
+\lstinputlisting[label=code-lis1,caption=Naive recursive implementation, language=C++,firstline=4, lastline=17, tabsize=2, breaklines=true, numbers=left, float]{src/lis/naive.cpp}
+However, this algorithm has a very bad time complexity.
+
+\subsubsection{Store maximal sequence length for a certain ending value}
+Actually, when we want to add some element $a[i]$ of the array $a$,
+instead of trying to add it to the longest increasing subsequence
+between $0$ and $i-1$, we can try to find the longest
+increasing subsequence that ends with an element smaller than $a[i]$.
+So we could keep a table of the longest increasing subsequences
+ending with all possible values.
+A possible implementation is shown in Listing~\ref{code-lis2}.
+\lstinputlisting[label=code-lis2,caption=Storing maximal sequence length for a certain ending value, language=C++,firstline=6, lastline=19, tabsize=2, breaklines=true, numbers=left, float]{src/lis/victor1.cpp}
+Beware: this assumes that the max value in array $a$ is smaller than $n$
+(we could remap the values if this is not the case).
+The time complexity is $O(n^2)$, much better than $O(2^n)$,
+but we can still do better (and more convenient).
+
+\subsubsection{Store smallest ending value index for a certain sequence length}
+Instead of looking at the longest subsequence for some value,
+let us do the opposite
+and look at the smallest ending value for which there is a subsequence
+of some length.
+We would then have to find the biggest length such that the ending value
+is smaller than the current element.
+
+Let's name this array \texttt{smallest\_end\_for[]}.
+It will contain the \emph{index} of the smallest ending value.
+If you can achieve some length with an element, then you can achieve
+any shorter length, so \texttt{smallest\_end\_for} is non-decreasing.
+So you can just use binary search to find the longest subsequence
+there is ending with an element smaller than $a[i]$. Let's say its length is
+\texttt{prev\_len}.
+
+Then you just have to update \texttt{smallest\_end\_for[prev\_len+1]}
+if the solution you've just found is better than the previous one.
+You don't have to update anything else, since the lengths 1 to
+\texttt{prev\_len}
+can already end with smaller values.
+The implementation is shown in Listing~\ref{code-lis3}.
+
+\lstinputlisting[label=code-lis3,caption=Storing smallest ending value index for a certain sequence length, language=C++,firstline=6, lastline=38, tabsize=2, breaklines=true, numbers=left, float]{src/lis/victor.cpp}
+
+Since the outer loop is run $n$ times and the inner loop is run
+at most $\log_2 n$ times, the total complexity is $O(n\log n)$.
+
+Note: both algorithms can be adapted to output the generated
+subsequence as well, not just its length.

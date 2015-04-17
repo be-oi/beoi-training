@@ -1,0 +1,63 @@
+Exercise One: Mysterious maze
+=============================
+
+Context
+-------
+Alice wakes up from a very strange dream about rabbits and famous integer
+sequences. Because nothing normal can ever happen to her, she finds herself
+trapped in a huge hedge maze made of trippy multicolored bushes.
+
+Right beside her is a sign, saying:
+"In this maze I have hidden
+An appreciable amount of chocolate;
+But, alas, it is forbidden
+To uncover its equisite taste."
+
+Because Alice is rather stupid, she can only listen to her stomach and
+starts her hunt for the sugary treasure, moving left, right, up and down.
+
+Situation 1
+-----------
+Alice has no idea where to go, but she remembers her graph theory courses and
+decides to use DFS to reach the target. She can only see if she has visited a
+square already when she stands in the square. (Consider she is nearsighted.)
+
+Situation 2
+-----------
+Alice finds a map of the whole maze, just because. Since she is also rather
+lazy, she decides to find the shortest path to the target
+
+Input
+-----
+The maze is a rectangular grid.
+Each square is either hedge or free to pass through.
+The first line contains R and C, the number of rows and columns.
+The next R lines contain a description of the maze, with one character for
+each square:
+	# = hedge
+	. = free
+	S = starting point
+	C = chocolate
+The borders of the rectangle will always be hedges.
+
+Example:
+7 9
+#########
+#...S.#.#
+#.#.#.#C#
+#...#.#.#
+##.##...#
+##....#.#
+#########
+
+Output
+------
+For each situation, output an integer, d, the total distance walked by Alice.
+Consider the distance between adjacent squares is always the same.
+
+On the d+1 next lines, output two space-separated integers: the row and column
+of each square on Alice's path.
+Note that for DFS (situation 1), Alice usually backtracks along the way, so you
+will have to output some squares several times.
+
+Depending on Alice's choices, she may take different paths. Any of them will do.

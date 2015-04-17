@@ -1,0 +1,29 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,tabu,url,SIunits}
+
+\setlength{\parskip}{.7ex}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\renewcommand{\mod}{\,\%\,}
+\renewcommand{\labelitemi}{$\circ$}
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+    \olditemize
+    \setlength{\itemsep}{3pt}
+    \setlength{\parskip}{0pt}
+}
+
+\begin{document}
+
+\input{./title.tex}
+
+\tableofcontents
+
+\input{./1-complexity/sec.tex}
+\input{./2-design/sec.tex}
+\input{./3-strategy/sec.tex}
+\input{./4-exercises/sec.tex}
+
+\end{document}

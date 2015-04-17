@@ -1,0 +1,22 @@
+Exercise 3: Architect
+=====================
+
+On the third day, you wake up and realise you're the one building all those
+mazes. You such an evil frick, I love it!
+
+Anyway, Alice is soon going to wake up and you need to get this hedge
+business going.
+
+Today, you decide that the graph represented by the maze should be a tree. Then
+you have an incredibly clever idea: you create a graph with the shape of a
+grid, attribute a random weight to each edge, then compute the minimum spanning
+tree!
+
+Input
+-----
+In the first line, two integers R and C --- the number of rows and columns of
+nodes in the graph (for example, with R=3 and C=5, there will be 3*5=15 nodes).
+
+Output
+------
+The generated maze, in the same format as in the Exercise 1's input.

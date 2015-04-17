@@ -1,0 +1,41 @@
+Exercise 2: Earthquake!
+=======================
+
+Context
+-------
+The next day, Alice wakes up in the same place. Except there has been an
+earthquake! Everything is a mess now, all the intersections have moved,
+and the paths don't even have the same length anymore.
+Fortunately her rabbit friends have created a map for her.
+
+But Alice's graph theory course wasn't that good, actually, so she's clueless
+as to where to go. Needless to say, she's just as lazy as yesterday. So she
+gently asks you the way to the chocolate treasure.
+
+Input
+-----
+In the first line are two integers, n and m, the numbers of nodes and edges.
+In the next m lines are three integers, i, j and w, describing an edge from
+node i to node j, of weight w.
+
+(Overly simple) example:
+3 2
+0 2 5
+1 2 3
+
+This is the corresponding graph:
+0 --- 2 --- 1
+   5     3
+
+Output
+------
+Alice is at node 0, and the chocolate is at node n-1.
+Output one single integer, the length of the shortest path to the chocolate.
+You don't need to output the details of the path; that horrible child can find
+it herself!
+
+Limits
+------
+2 <= n,m <= 100000;
+1 <= the weights <= 1000;
+The graph is connected.

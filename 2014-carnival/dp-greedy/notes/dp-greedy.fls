@@ -1,0 +1,7 @@
+PWD /home/vjavadore/Dropbox/info/training/2014/carnival/thu/afternoon/notes
+INPUT /etc/texmf/web2c/texmf.cnf
+INPUT /usr/share/texmf/web2c/texmf.cnf
+INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
+INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
+INPUT dp-greedy.pdf
+OUTPUT dp-greedy.log
