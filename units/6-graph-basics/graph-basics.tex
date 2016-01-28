@@ -129,6 +129,22 @@ path & cycle
 \section{Graph representation}
 
 \begin{frame}
+\frametitle{Edge list}
+\begin{itemize}
+\item Vector of pairs: \texttt{vector<pair<int,int>> edges}
+\item Same as input / mathematical definition
+\item Limited use (only Kruskal)
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{img/6n-graph}
+\end{figure}
+\begin{center}
+\texttt{edges[]}$ = \{(1,2),(1,5),(2,3),(2,5),(3,4),(4,5),(4,6)\}$
+\end{center}
+\end{frame}
+
+\begin{frame}
 \frametitle{Adjacency matrix on undirected graph}
 \begin{itemize}
 \item Static two-dimensional array: \texttt{bool adj[MAXN][MAXN]}
