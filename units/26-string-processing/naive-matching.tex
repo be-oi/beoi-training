@@ -1,0 +1,18 @@
+\frame{
+    \frametitle{Naive matching}
+    \framesubtitle{principle}
+    
+    \begin{itemize}[<+->]
+        \item Straightforward
+        \item Check for match at each index
+        \item Usually, use the one in the standard library, don't write your own
+        \item $ O(s * p) $ (s = length of string, p = length of pattern)
+    \end{itemize}
+}
+
+\begin{frame}[fragile]
+    \frametitle{Naive matching}
+    \framesubtitle{Code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue}]{src/naive-matching.cpp}
+\end{frame}

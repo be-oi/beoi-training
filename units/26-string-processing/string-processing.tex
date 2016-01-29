@@ -1,0 +1,53 @@
+\documentclass{beamer}
+\usepackage{listings}
+\beamertemplatenavigationsymbolsempty
+\hypersetup{pdfstartview={Fit}}%Pdf fit page as default
+\usecolortheme{beetle}
+
+\title{String processing}
+\author{Robin Jadoul}
+\date{30 januari 2016}
+
+\institute
+{
+    \includegraphics[height=65px]{img/Icon.png}
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\frame{\titlepage}
+
+\section[Ad hoc]{Ad hoc}
+\include{ad-hoc}
+
+\section[Tries]{Tries}
+\include{trie}
+
+\section[String matching]{String matching}
+\subsection[Naive]{Naive}
+\include{naive-matching}
+\subsection[Rabin-Karp]{Rabin-Karp}
+\include{rabin-karp}
+\subsection[Z-algorithm]{Z-algorithm}
+\include{z-algo}
+\subsection[Knuth-Morris-Pratt]{Knuth-Morris-Pratt}
+\include{kmp}
+
+\section[Exercises]{Exercises}
+\include{exercises}
+\end{document}
