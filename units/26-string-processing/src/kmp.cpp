@@ -34,7 +34,8 @@ int match(string s, string pat)
         {
             j = L[j];
         }
-        j++;
+        if (s[i] == pat[j])
+            j++;
         if (j == pat.length())
             //Found a match, reconstruct the beginning of the substring
             return i + 1 - j;
@@ -44,6 +45,7 @@ int match(string s, string pat)
 
 int main()
 {
+    cout << match("ab", "c") << endl;
     cout << match("abcdef", "aa") << endl;
     cout << match("abcdef", "ef") << endl;
     cout << match("abcdef", "ab") << endl;
