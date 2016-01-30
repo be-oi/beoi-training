@@ -1,0 +1,66 @@
+\frame{
+    \frametitle{Z-algorithm}
+    \framesubtitle{terminology}
+    
+    \begin{itemize}[<+->]
+        \item Z-box = substring that matches with a prefix from the string
+        \item Z-score $Z_i(S)$ = length of Z-box starting at index $i$
+    \end{itemize}
+
+    \begin{center}
+        \only<3->{\includegraphics{img/z-box.png}}
+    \end{center}
+
+    \pause
+
+    \begin{center}
+    \only<4->{
+    \begin{tabular}{|l|c|c|c|c|c|c|c|}
+        \hline
+        letter&A&A&B&A&A&A&B\\
+        \hline
+        Z-score&7&1&0&2&3&1&0\\
+        \hline
+    \end{tabular}}
+    \end{center}
+}
+
+\frame{
+    \frametitle{Z-algorithm}
+    \framesubtitle{Matching}
+
+    \begin{itemize}[<+->]
+        \item $P$ = pattern
+        \item $S$ = search string
+        \item $\$$ = sentinel (not part of alphabet)
+        \item return $i$ for each $i > 0$ where $Z_i(P\$S) = |P|$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Z-algorithm}
+    \framesubtitle{Calculating Z-scores}
+
+    \begin{itemize}[<+->]
+        \item Naive $\Rightarrow$ $O(n^2)$, possible in $O(n)$
+        \item Keep track of the Z-box with right end furthest to the right (bounds: $[l, r]$)
+        \item if current character in $[l, r]$: look at corresponding character in prefix (computed previously)
+        \item expand if grows beyond $r$, update $[l, r]$
+        \item else: calculate explicitely, update $[l, r]$
+        \item (Nicely illustrated: https://www.cs.umd.edu/class/fall2011/cmsc858s/Lec02-zalg.pdf)
+    \end{itemize}
+}
+
+\begin{frame}[fragile]
+    \frametitle{Z-algorithm}
+    \framesubtitle{code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=4,lastline=25]{src/z-algo.cpp}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Z-algorithm}
+    \framesubtitle{code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=26,lastline=53]{src/z-algo.cpp}
+\end{frame}

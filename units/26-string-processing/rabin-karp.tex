@@ -1,0 +1,71 @@
+\frame{
+    \frametitle{Rabin-Karp}
+    \framesubtitle{Idea}
+
+    \begin{itemize}[<+->]
+        \item Checking for a match with the pattern: $O(n)$
+        \item Faster possible?
+        \item What about hashes, integer comparison = $O(n)$
+        \item We still need a $O(1)$ way to generate the hashes.
+        \item Useful for multiple same-length patterns (check all hashes)
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Rabin-Karp}
+    \framesubtitle{Polynomial hashing}
+
+    \begin{itemize}[<+->]
+        \item Generate successive hashes of the same length as the pattern (and hash the pattern)
+        \item Polynomial hashing: the string is an integer in some base $B$ (usually prime)
+        \item $s_i,s_{i+1},\ldots,s_{i+k-1} = s_i \times B^{k-1} + s_{i+1} \times B^{k-2} + \ldots + s_{i+k-1} \times B^{0}$
+        \item Too big $\Rightarrow$ modulo $H$ (usually prime)
+        \item Watch out for false positives
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Rabin-Karp}
+    \framesubtitle{Rolling hashes}
+
+    \begin{itemize}[<+->]
+        \item Once we have a hash, it's easy to compute the next
+        \item $s_{i+1},s_{i+2},\ldots,s_{i+k} = ((s_i,\ldots,s_{i+k-1}) - s_i \times B^{k-1}) \times B) + s_{i+k}$
+        \item A rolling hash \emph{frame}
+        \item $O(1)$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Rabin-Karp}
+    \framesubtitle{Collision strategies}
+
+    \begin{itemize}[<+->]
+        \item If equal hashes $\Rightarrow$ compare the strings explicitely
+        \item Worst case, still $O(n^2)$
+        \item \emph{Gambling}: keep 2 hashes (with distinct $B$ and $H$)
+        \item Collision chance is low, if the two hashes match, guess it's correct
+        \item $\Rightarrow$ triple hashing, \dots
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Rabin-Karp}
+    \framesubtitle{code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=4,lastline=15]{src/rabin-karp.cpp}
+}
+
+\frame{
+    \frametitle{Rabin-Karp}
+    \framesubtitle{code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=17,lastline=34]{src/rabin-karp.cpp}
+}
+
+\frame{
+    \frametitle{Rabin-Karp}
+    \framesubtitle{code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=36,lastline=53]{src/rabin-karp.cpp}
+}

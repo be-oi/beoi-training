@@ -1,0 +1,61 @@
+\frame{
+    \frametitle{Knuth-Morris-Pratt}
+    \framesubtitle{Idea}
+
+    \begin{itemize}[<+->]
+        \item Don't inspect substring starting at each index
+        \item Fail smart
+        \item Jump ahead to the next possible index, given what we've seen so far
+        \item Precompute the failure jumps
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Knuth-Morris-Pratt}
+    \framesubtitle{Idea}
+
+    \begin{itemize}[<+->]
+        \item How to choose the jump?
+        \item Next possible partially matched pattern = longest proper suffix (of the partial match) that is a prefix
+        \item Precompute and keep the length of this suffix/prefix in an array (call this $L$)
+        \item $L[i]$ = length of that prefix for $S[0..i-1]$ (inclusive)
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Knuth-Morris-Pratt}
+    \framesubtitle{Precomputation}
+
+    \begin{itemize}[<+->]
+        \item $L[0] = L[1] = 0$ (it should be a \emph{proper} suffix)
+        \item Search for the next \emph{parent} in $L$ that can be expanded with the current character
+        \item $L[i] = j + 1$ ($j$ is the length of the \emph{parent}'s match)
+        \item If none can be found: $L[i] = 0$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Knuth-Morris-Pratt}
+    \framesubtitle{Matching}
+
+    \begin{itemize}[<+->]
+        \item Precompute the failure jumps ($L$) of the pattern
+        \item Skip characters using $L$ while matching
+        \item Very similar to the actual precomputation
+        \item $O(S + P)$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Knuth-Morris-Pratt}
+    \framesubtitle{code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=4,lastline=25]{src/kmp.cpp}
+}
+
+\frame{
+    \frametitle{Knuth-Morris-Pratt}
+    \framesubtitle{code}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=27,lastline=43]{src/kmp.cpp}
+}
