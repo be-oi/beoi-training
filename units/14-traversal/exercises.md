@@ -3,7 +3,7 @@ Exercises
 
 Straightforward
 ---------------
-- UVa 11813 - Sticker Collector Robot (just graph traversal)
+- UVa 11831 - Sticker Collector Robot (just graph traversal)
 - UVa 11953 - Battleships (flood fill)
 - UVa 200 - Rare Order (toposort)
 - UVa 10004 - Bicoloring (bipartite check)
