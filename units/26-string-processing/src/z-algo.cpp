@@ -8,7 +8,6 @@ int match(string s, string pat)
     int l = -1, r = -1;
 
     for (int i = 1; i < S.length(); i++)
-    {
         if (i > r) //Outside furthest Z-box
         {
             int len = 0;
@@ -39,16 +38,16 @@ int match(string s, string pat)
                     len++;
                 }
                 Z[i] = inside + len;
-                l = i;
-                r = i + len - 1;
+                if (i + len - 1 > r)  //Only update if better
+                {
+                    l = i;
+                    r = i + len - 1;
+                }
             }
         }
-    }
     for (int i = 1; i < S.length(); i++)
-    {
         if (Z[i] == pat.length())
             return i - pat.length() - 1; //Don't forget to subtract the sentinel
-    }
     return -1;
 }
 
