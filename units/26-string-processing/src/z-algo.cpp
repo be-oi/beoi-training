@@ -27,7 +27,7 @@ int match(string s, string pat)
         {
             int inside = r - i + 1;
             int corresponding = i - l;
-            if (Z[corresponding] <= inside)
+            if (Z[corresponding] < inside)
             {
                 Z[i] = Z[corresponding];
             }
