@@ -298,7 +298,7 @@ Thus every node is
 \begin{lstlisting}
 int dfs(int u, vector<int> *toposort)
 {
-    if (visited[u]) break;
+    if (visited[u]) return;
     visited[u] = true;
     // recurse as usual...
     toposort->push_back(u);
