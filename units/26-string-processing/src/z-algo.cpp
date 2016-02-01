@@ -1,26 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int match(string s, string pat)
+int match(const string& s, const string& pat)
 {
     string S = pat + "$" + s;
-    vector<int> Z(S.length());
+    int n = S.length();
+    vector<int> Z(n);
     int l = -1, r = -1;
 
-    for (int i = 1; i < S.length(); i++)
+    for (int i = 1; i < n; i++)
+    {
         if (i > r) //Outside furthest Z-box
         {
-            int len = 0;
-            for (int j = i; j < S.length() && S[j] == S[j-i]; j++)
-            {
-                len++;
-            }
-            Z[i] = len;
-            if (len > 0)
-            {
-                l = i;
-                r = i + len - 1;
-            }
+            int j;
+            for (j = i; j < n && S[j] == S[j-i]; j++);
+            Z[i] = j - i;
+            l = i;
+            r = j - 1;
         }
         else
         {
@@ -32,20 +28,16 @@ int match(string s, string pat)
             }
             else //Need to grow beyond r
             {
-                int len = 0;
-                for (int j = r + 1; j < S.length() && S[j] == S[j - i]; j++)
-                {
-                    len++;
-                }
-                Z[i] = inside + len;
-                if (i + len - 1 > r)  //Only update if better
-                {
-                    l = i;
-                    r = i + len - 1;
-                }
+                int j;
+                for (j = r + 1; j < n && S[j] == S[j - i]; j++);
+                Z[i] = j - i;
+                l = i;
+                r = j - 1;
             }
         }
-    for (int i = 1; i < S.length(); i++)
+    }
+
+    for (int i = 1; i < n; i++)
         if (Z[i] == pat.length())
             return i - pat.length() - 1; //Don't forget to subtract the sentinel
     return -1;
@@ -53,6 +45,7 @@ int match(string s, string pat)
 
 int main()
 {
+    cout << match("ab", "c") << endl;
     cout << match("abcdef", "aa") << endl;
     cout << match("abcdef", "ef") << endl;
     cout << match("abcdef", "ab") << endl;
