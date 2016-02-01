@@ -4,22 +4,13 @@ using namespace std;
 vector<int> precompute(string pat)
 {
     vector<int> L(pat.length() + 1);
-    L[0] = L[1] = 0;
+    L[0] = -1; L[1] = 0;
     for (int i = 2; i <= pat.length(); i++)
     {
-        for (int j = L[i-1]; ; j = L[j])
-        {
-            if (pat[j] == pat[i - 1])
-            {
-                L[i] = j + 1;
-                break;
-            }
-            if (j == 0)
-            {
-                L[i] = 0;
-                break;
-            }
-        }
+        int j = L[i-1];
+        while (j >= 0 && pat[j] != pat[i-1])
+            j = L[j];
+        L[i] = j + 1;
     }
     return L;
 }
@@ -30,12 +21,9 @@ int match(string s, string pat)
     int j = 0;  //The current index for L
     for (int i = 0; i < s.length(); i++)
     {
-        while (j != 0 && s[i] != pat[j])
-        {
+        while (j >= 0 && s[i] != pat[j])
             j = L[j];
-        }
-        if (s[i] == pat[j])
-            j++;
+        j++;
         if (j == pat.length())
             //Found a match, reconstruct the beginning of the substring
             return i + 1 - j;

@@ -3,10 +3,10 @@
     \framesubtitle{Idea}
 
     \begin{itemize}[<+->]
-        \item Don't inspect substring starting at each index
+        \item Don't restart a match every time
         \item Fail smart
-        \item Jump ahead to the next possible index, given what we've seen so far
-        \item Precompute the failure jumps
+        \item Re-use previous (partial) match information
+        \item Precompute possible \emph{sub}matches
     \end{itemize}
 }
 
@@ -15,8 +15,9 @@
     \framesubtitle{Idea}
 
     \begin{itemize}[<+->]
-        \item How to choose the jump?
+        \item How to choose the next possible match?
         \item Next possible partially matched pattern = longest proper suffix (of the partial match) that is a prefix
+        \item (What is this in terms of Z-boxes?)
         \item Precompute and keep the length of this suffix/prefix in an array (call this $L$)
         \item $L[i]$ = length of that prefix for $S[0..i-1]$ (inclusive)
     \end{itemize}
@@ -27,7 +28,8 @@
     \framesubtitle{Precomputation}
 
     \begin{itemize}[<+->]
-        \item $L[0] = L[1] = 0$ (it should be a \emph{proper} suffix)
+        \item $L[0] = -1$ (could be $0$, but this eliminates a few checks)
+        \item $L[1] = 0$ (it should be a \emph{proper} suffix)
         \item Search for the next \emph{parent} in $L$ that can be expanded with the current character
         \item $L[i] = j + 1$ ($j$ is the length of the \emph{parent}'s match)
         \item If none can be found: $L[i] = 0$
@@ -39,8 +41,8 @@
     \framesubtitle{Matching}
 
     \begin{itemize}[<+->]
-        \item Precompute the failure jumps ($L$) of the pattern
-        \item Skip characters using $L$ while matching
+        \item Precompute the suffix lengths ($L$) of the pattern
+        \item Re-use partial matches using $L$ while matching
         \item Very similar to the actual precomputation
         \item $O(S + P)$
     \end{itemize}
@@ -50,12 +52,12 @@
     \frametitle{Knuth-Morris-Pratt}
     \framesubtitle{code}
 
-    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=4,lastline=25]{src/kmp.cpp}
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=4,lastline=16]{src/kmp.cpp}
 }
 
 \frame{
     \frametitle{Knuth-Morris-Pratt}
     \framesubtitle{code}
 
-    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=27,lastline=43]{src/kmp.cpp}
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=18,lastline=32]{src/kmp.cpp}
 }
