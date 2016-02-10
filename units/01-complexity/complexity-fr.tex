@@ -1,0 +1,350 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{listings}
+\usepackage{tabu}
+\usepackage{color}
+\usepackage{booktabs}
+\beamertemplatenavigationsymbolsempty
+\AtBeginSection[]
+{
+    \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+\lstset{language=C++, basicstyle=\footnotesize, frame=single}
+\newcommand{\gray}{\textcolor{gray}}
+
+\title{Algorithmes et complexité}
+\subtitle{Définitions, notation O}
+\author{Training beOI}
+\institute{\includegraphics[height=12em]{img/beoi-logo}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Algorithmes}
+
+\begin{frame}
+\frametitle{Qu'est-ce qu'un algorithme?}
+\begin{itemize}
+\item Une manière de calculer un résultat
+\item Une idée pour résoudre un problème
+\item Une suite d'instructions
+\item La description d'un programme
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Qu'est qu'un \emph{bon} algorithme?}
+Domaine du programmeur:
+\begin{itemize}
+\item Ne crashe pas
+\item Se termine
+\item Donne la bonne réponse
+\end{itemize}
+
+~
+
+Notre domaine:
+\begin{itemize}
+\item Est rapide
+\item Utilise peu de mémoire
+\item \textbf{Est accepté en concours}
+\end{itemize}
+\end{frame}
+
+\section{Complexité}
+
+\begin{frame}
+\frametitle{Mesurer l'efficacité}
+Idées:
+\begin{itemize}
+\item Chronométrer
+\item Mesurer la RAM
+\end{itemize}
+
+~
+
+Mais varie selon:
+\begin{itemize}
+\item Le langage
+\item L'implémentation
+\item La machine
+\item L'heure de la journée
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{La notation O}
+Trouver une notion d'efficacité \emph{intrinsèque}:
+\begin{itemize}
+\item Faisons grandir l'input
+\item Regardons comment la vitesse évolue
+\end{itemize}
+
+~
+
+Exemple: calculer $1+\cdots+n$. Si $n$ multiplié par 2, le temps d'exécution:
+\begin{itemize}
+\item Reste constant: $O(1)$
+\item Est multiplié par 2: $O(n)$
+\item Est multiplié par 4: $O(n^2)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Temps constant}
+\textbf{Problème:} calculer la somme $1+2+\cdots+n$.
+
+~
+
+\textbf{Solution 1:} Un simple calcul
+\begin{lstlisting}
+int sum = n * (n-1) / 2;
+\end{lstlisting}
+\begin{itemize}
+\item Temps ne change pas si $n$ double
+\item Temps ``constant''
+\item Complexité $O(1)$
+\item Temps ``proportionnel à $1$''
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Temps linéaire}
+\textbf{Solution 2:} Une boucle
+\begin{lstlisting}
+int sum = 0;
+for (int i = 1; i <= n; i++)
+    sum += i;
+\end{lstlisting}
+\begin{itemize}
+\item Temps double si $n$ double
+\item Temps ``linéaire''
+\item Complexité $O(n)$
+\item Temps ``proportionnel à $n$''
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Temps quadratique}
+\textbf{Solution 3:} Deux boucles (stupide!)
+\begin{lstlisting}
+int sum = 0;
+for (int i = 1; i <= n; i++)
+    for (int j = 1; j <= i; j++)
+        sum++;
+\end{lstlisting}
+\begin{itemize}
+\item Temps quadruple si $n$ double
+\item Temps ``quadratique''
+\item Complexité $O(n^2)$
+\item Temps ``proportionnel à $n^2$''
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Puissances}
+Définition:
+\begin{itemize}
+\item Multiplications en chaîne
+\item ``3 exposant $n$''
+\item $3^n = \underbrace{3\times\cdots\times3}_\text{$n$ fois}$
+\end{itemize}
+Exemples:
+\begin{itemize}
+\item $3^0 = 1$ (par définition)
+\item $3^1 = 3$
+\item $3^2 = 3 \times 3 = 9$ (carré)
+\item $3^3 = 3 \times 3 \times 3 = 27$ (cube)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithmes: intuition (1)}
+Jeu à deux joueurs:
+\begin{itemize}
+\item Alice choisit entre 1 et 16
+\item À chaque tour:
+    \begin{itemize}
+    \item Bob donne à Alice un ou plusieurs nombres
+    \item Alice dit si le nombre est parmi ceux-là 
+    \end{itemize}
+\item Quand Bob trouve le nombre il a gagné
+\item Comment gagner en peu de tours?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithmes: intuition (2)}
+\textbf{Stratégie:} Donner la moitié des nombres possibles
+\begin{itemize}
+\item D'abord 8 nombres parmi les 16
+\item Puis 4 parmi les 8 restants
+\item Puis 2 parmi les 4 restants
+\item Puis 1 des 2 restants
+\item Trouvé!
+\end{itemize}
+
+~
+
+Donc 4 questions suffisent.
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithmes: intuition (3)}
+De manière générale, avec $n$ nombres au départ, combien de questions?
+
+~
+
+Combien de fois peut-on couper en deux?
+\begin{itemize}
+\item Si $n=2$, une fois
+\item Si $n=4$, deux fois
+\item Si $n=8$, trois fois
+\item Si $n=16$, quatre fois
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithme en base 2}
+La fonction qui répond à cette question est $\log_2$: le logarithme en base 2. Par exemple
+\begin{itemize}
+\item $\log_2 (2) = 1$
+\item $\log_2 (4) = 2$
+\item $\log_2 (8) = 3$
+\item $\log_2 (16) = 4$
+\end{itemize}
+La stratégie de Bob est en $O(\log_2(n)) = O(\log n)$.
+
+~
+
+En fait, le logarithme, c'est l'exposant qu'il faut mettre à 2 pour atteindre $n$:
+\[ x = \log_2 (n)\ \Leftrightarrow\ 2^x = n \]
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithme général (bonus)}
+Pas seulement pour deux! Le logarithme en base $a$, c'est le nombre de fois qu'on peut diviser par $a$. Par exemple:
+\begin{itemize}
+\item $\log_3(27) = 3$
+\item $\log_4(16) = 2$
+\item $\log_5(5) = 1$
+\end{itemize}
+
+~
+
+En fait, c'est l'exposant qu'il faut mettre à $a$ pour atteindre $n$:
+\[ x = \log_a (n)\ \Leftrightarrow\ a^x = n \]
+C'est un peu ``l'inverse'' des puissances.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recherche dans un tableau trié (1)}
+On nous donne un tableau dans l'ordre croissant:
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & 4 & 6 & 9 & 15 & 23 & 24 \\
+\hline
+\end{tabu}
+\end{center}
+Vérifier si un nombre $x$ s'y trouve.
+
+~
+
+\textbf{Solution 1:} Tout parcourir, linéaire $O(n)$
+\begin{lstlisting}
+bool isIn(int tab[], int n, int x)
+{
+    for (int i = 0; i < n; i++)
+        if (tab[i] == x)
+            return true;
+    return false;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Recherche dans un tableau trié (2)}
+On cherche 7.
+
+~
+
+\textbf{Idée:} regarder au milieu et comparer:
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & 4 & 6 & \textbf{9} & 15 & 23 & 24 \\
+\hline
+\end{tabu}
+\end{center}
+Trop grand ($9>7$), allons à gauche:
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & \textbf{4} & 6 & \gray{9} & \gray{15} & \gray{23} & \gray{24} \\
+\hline
+\end{tabu}
+\end{center}
+Trop petit ($4<7$), allons à droite:
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+\gray{1} & \gray{4} & \textbf{6} & \gray{9} & \gray{15} & \gray{23} & \gray{24} \\
+\hline
+\end{tabu}
+\end{center}
+Mais $6\neq7$ donc 7 n'est pas dans le tableau.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recherche dans un tableau trié (3)}
+On coupe en deux à chaque fois $\Rightarrow \log_2(n)$ essais.
+
+~
+
+\textbf{Solution 2:} Recherche dichotomique, logarithmique $O(\log n)$
+\begin{lstlisting}
+bool isIn(int tab[], int n, int x)
+{
+    int left = 0, right = n-1;
+    while (left <= right)
+    {
+        int middle = (left+right) / 2;
+        if (x < tab[i]) right = middle - 1;
+        else if (x > tab[i]) left = middle + 1;
+        else return true;
+    }
+    return false;
+}
+\end{lstlisting}
+\emph{Beaucoup} plus rapide!
+\end{frame}
+
+\begin{frame}
+\frametitle{Limites pratiques}
+Limites sur $n$ pour s'exécuter en quelques secondes:
+\begin{center}
+\begin{tabu}{lll}
+    \toprule
+    Complexité & Limite de $n$ & Exemple \\
+    \midrule
+    $O(1), O(\log n)$ & $\leq 10^{18}$ & (Taille limite d'un entier) \\
+    $O(n)$ & $\leq$ 100\,M & Parcourir un tableau \\
+    $O(n\log n)$ & $\leq$ 1\,M & Trier un tableau \\
+    $O(n^2)$ & $\leq$ 10\,k & Boucle dans une boucle \\
+    \bottomrule
+\end{tabu}
+\end{center}
+En concours: regarder la deuxième colonne et cela donne la complexité.
+\end{frame}
+
+\end{document}

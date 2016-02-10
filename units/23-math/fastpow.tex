@@ -1,0 +1,55 @@
+% NOTE: This is just a dump of what I started for the introduction to algo before I realized fastpow was probably not the easiest thing to view first.
+
+\begin{frame}[fragile]
+\frametitle{Calcul de puissance: linéaire}
+\textbf{Problème:} calculer la puissance $3^n = \underbrace{3\times\cdots\times3}_\text{$n$ fois}$
+
+~
+
+\textbf{Solution 1:} Une boucle
+\begin{lstlisting}[frame=single]
+int powerOfThree(int n)
+{
+    int power = 1;
+    for (int i = 0; i < n; i++)
+        power *= 3;
+    return power;
+}
+\end{lstlisting}
+Temps linéaire: $O(n)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Calcul de puissance: logarithmique (1)}
+Peut-on faire plus efficace?
+
+~
+
+Oui! Par exemple, pour calculer $3^{10}$, on peut calculer $3^5$ puis le multiplier par lui-même:
+\begin{itemize}
+\item $3^2 = 3 \times 3 = 9$
+\item $3^5 = 3^2 \times 3^2 \times 3 = 9 \times 9 \times 3 = 243$
+\item $3^{10} = 3^5 \times 3^5 = 243 \times 243 = 59049$
+\end{itemize}
+Seulement 4 multiplications au lieu de 9.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Calcul de puissance: logarithmique (2)}
+\textbf{Solution 2:} Une 
+\begin{lstlisting}[frame=single]
+int powerOfThree(int n)
+{
+    // Initial case
+    if (n == 0)
+        return 1;
+    
+    // Recursive case
+    int power = powerOfThree(n/2);
+    power *= power;
+    if (n % 2 == 1)
+        power *= 3;
+    return power;
+}
+\end{lstlisting}
+\end{frame}
