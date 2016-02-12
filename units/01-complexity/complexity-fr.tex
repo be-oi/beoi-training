@@ -93,6 +93,10 @@ Exemple: calculer $1+\cdots+n$. Si $n$ multiplié par 2, le temps d'exécution:
 \item Est multiplié par 2: $O(n)$
 \item Est multiplié par 4: $O(n^2)$
 \end{itemize}
+
+~
+
+Cela ne dépend pas des facteurs constants!
 \end{frame}
 
 \begin{frame}[fragile]
@@ -318,9 +322,9 @@ bool isIn(int tab[], int n, int x)
     int left = 0, right = n-1;
     while (left <= right)
     {
-        int middle = (left+right) / 2;
-        if (x < tab[i]) right = middle - 1;
-        else if (x > tab[i]) left = middle + 1;
+        int mid = (left+right) / 2;
+        if (x < tab[mid]) right = mid - 1;
+        else if (x > tab[mid]) left = mid + 1;
         else return true;
     }
     return false;
