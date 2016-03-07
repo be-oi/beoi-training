@@ -1,0 +1,47 @@
+\documentclass[pdf]
+{beamer}
+\mode<presentation>{}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\setbeamertemplate{footline}[frame number]
+
+%% preamble
+\title{Sorting Algorithms \& Convex Hull}
+\author{Elias \textsc{Moons} (traduction par Guillaume \textsc{Derval})}
+
+\begin{document}
+
+%% title frame
+\begin{frame}
+\titlepage
+\end{frame}
+
+{
+\begin{frame}{Table of Contents}
+\tableofcontents[]
+\end{frame}
+}
+
+\AtBeginSection[]
+{
+\begin{frame}{Table of Contents}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+\AtBeginSubsection[]
+{
+\begin{frame}{Table of Contents}
+\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+}
+
+\input{./1-sorting/sec.tex}
+\input{./2-convex/sec.tex}
+
+\end{document}
