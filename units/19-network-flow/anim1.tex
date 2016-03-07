@@ -1,0 +1,54 @@
+
+\begin{frame}[fragile]
+How do we compute the maximum?
+\vspace{0.5cm}
+What if we choose paths and push the flow?
+
+\begin{center}
+\begin{tikzpicture}
+\node[vertex] (s) at (0, 0) {$s$};
+\node[vertex] (o) at (2, 1) {$o$};
+\node[vertex] (p) at (2, -1) {$p$};
+\node[vertex] (q) at (4, 1) {$q$};
+\node[vertex] (r) at (4, -1) {$r$};
+\node[vertex] (t) at (6, 0) {$t$};
+
+\draw[->, cyan] (s) edge node[anchor = south] {$0/3$} (o);
+\draw[->, cyan] (o) edge node[anchor = south] (c) {$0/3$} (q);
+\draw[->, cyan] (q) edge node[anchor = south] {$0/2$} (t);
+\draw[->] (s) edge node[anchor = north] {$0/3$} (p);
+\draw[->] (o) edge node[anchor = west] {$0/2$} (p);
+\draw[->] (p) edge node[anchor = north] {$0/2$} (r);
+\draw[->] (q) edge node[anchor = west] {$0/4$} (r);
+\draw[->] (r) edge node[anchor = north] {$0/3$} (t);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+How do we compute the maximum?
+\vspace{0.5cm}
+What if we choose paths and push the flow?
+\pause
+\begin{center}
+\begin{tikzpicture}
+\node[vertex] (s) at (0, 0) {$s$};
+\node[vertex] (o) at (2, 1) {$o$};
+\node[vertex] (p) at (2, -1) {$p$};
+\node[vertex] (q) at (4, 1) {$q$};
+\node[vertex] (r) at (4, -1) {$r$};
+\node[vertex] (t) at (6, 0) {$t$};
+
+\draw[->, cyan] (s) edge node[anchor = south] {$2/3$} (o);
+\draw[->, cyan] (o) edge node[anchor = south] (c) {$2/3$} (q);
+\draw[->, cyan] (q) edge node[anchor = south] {$2/2$} (t);
+\draw[->] (s) edge node[anchor = north] {$0/3$} (p);
+\draw[->] (o) edge node[anchor = west] {$0/2$} (p);
+\draw[->] (p) edge node[anchor = north] {$0/2$} (r);
+\draw[->] (q) edge node[anchor = west] {$0/4$} (r);
+\draw[->] (r) edge node[anchor = north] {$0/3$} (t);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
