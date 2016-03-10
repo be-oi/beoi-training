@@ -1,0 +1,304 @@
+\subsection[Quick]{Quicksort}
+
+\begin{frame}
+\frametitle{Quicksort}
+\framesubtitle{Idee}
+\begin{itemize}
+\item Een element in de rij kiezen (de pivot)
+\item De elementen die kleiner of gelijk aan de pivot zijn links zetten, de andere rechts
+\item Recursief sorteren op het linker- en rechtergedeelte
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Quicksort}
+\begin{table}
+\begin{tabular}{| c | c | c | c | c | c | c | c |}
+\hline
+\cellcolor{red!25}6 & 5 & 3 & 1 & 8 & 7 & 2 & 4 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c | c | c | c |}
+\hline
+5 & 3 & 1 & 2 & 4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+\cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c | c | c | c |}
+\hline
+\cellcolor{red!25}5 & 3 & 1 & 2 & 4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+\cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c | c | c |}
+\hline
+3 & 1 & 2 & 4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+%%%%%%%%%%%
+%NEW FRAME%
+%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Quicksort}
+\begin{table}
+\begin{tabular}{| c | c | c | c |}
+\hline
+\cellcolor{red!25}3 & 1 & 2 & 4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c |}
+\hline
+1 & 2\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+\cellcolor{blue!25}3\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{red!25}1 & 2\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+\cellcolor{blue!25}3\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c |}
+\hline
+\cellcolor{blue!25}1\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+2\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+\cellcolor{blue!25}3\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+%%%%%%%%%%%
+%NEW FRAME%
+%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Quicksort}
+\begin{table}
+\begin{tabular}{| c | c | c |}
+\hline
+\cellcolor{blue!25}1 & \cellcolor{blue!25}2 & \cellcolor{blue!25}3\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+4 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c | c | c | c | c |}
+\hline
+\cellcolor{blue!25}1 & \cellcolor{blue!25}2 & \cellcolor{blue!25}3 & \cellcolor{blue!25}4 & \cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+\hline
+\cellcolor{red!25}8 & 7 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c | c | c | c | c |}
+\hline
+\cellcolor{blue!25}1 & \cellcolor{blue!25}2 & \cellcolor{blue!25}3 & \cellcolor{blue!25}4 & \cellcolor{blue!25}5 & \cellcolor{blue!25}6\\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+7 \\ 
+\hline
+\end{tabular}
+\quad
+\begin{tabular}{| c |}
+\hline
+\cellcolor{blue!25}8 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{tabular}{| c | c | c | c | c | c | cc | c |}
+\hline
+\cellcolor{blue!25}1 & \cellcolor{blue!25}2 & \cellcolor{blue!25}3 & \cellcolor{blue!25}4 & \cellcolor{blue!25}5 & \cellcolor{blue!25}6 & \cellcolor{blue!25}7 & \cellcolor{blue!25}8\\ 
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+%%%%%%%%%%%
+%NEW FRAME%
+%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Quicksort}
+\framesubtitle{Complexiteit}
+\begin{table}
+\begin{tabular}{| c | c | c | c |}
+\hline
+Gemiddeld & Best & Slechtst & Geheugen\\ 
+\hline
+O(n log(n)) & O(n log(n)) & O(n\textsuperscript{2}) & O(1)\\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
