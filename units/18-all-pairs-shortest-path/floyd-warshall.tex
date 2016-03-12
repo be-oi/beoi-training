@@ -1,0 +1,38 @@
+\frame{
+    \frametitle{Floyd-Warshall}
+    \framesubtitle{All pairs Shortest path}
+    
+    \begin{itemize}[<+->]
+        \item Adjacency matrix
+        \item For every node $k$:
+        \item ~~For every pair of nodes $(u, v)$:
+        \item ~~~~Can the distance between these pairs be improved by going to $k$ first?
+        \item ~~~~$g[u][v] = min(g[u][v], g[u][k] + g[k][v])$
+        \item Very easy implementation (4 lines)
+        \item $O(|V|^3)$ $\Rightarrow$ feasible for up to approx. 400 nodes
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Floyd-Warshall}
+    \framesubtitle{All pairs Shortest path}
+    
+    \begin{itemize}[<+->]
+        \item Reconstructing the path:
+        \item Use another $|V|\times|V|$ matrix $parent$
+        \item $parent[u][v] = $ The last node before $v$ on the shortest path from $u$ to $v$
+        \item Update when improving a path ($parent[u][v] = parent[k][v]$)
+        \item Traverse the \emph{parent chain} upwards
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Floyd-Warshall}
+    \framesubtitle{Alternative}
+    
+    \begin{itemize}[<+->]
+        \item Repeated execution of Dijkstra's algorithm
+        \item $O(|V| \times |E| \times \log |V|)$
+        \item Better on sparse graphs ($|E| << |V|^2$)
+    \end{itemize}
+}

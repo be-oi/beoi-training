@@ -1,0 +1,28 @@
+\frame{
+    \frametitle{All pairs Shortest path}
+    \framesubtitle{Applications}
+    
+    \begin{itemize}[<+->]
+        \item Compute the transitive closure\\
+            ~~$close[u][v] = close[u][v] | (close[u][k] \& close[k][v])$
+        \item Minimax of the graph: The path with minimal highest cost along the path\\
+            ~~$g[u][v] = min(g[u][v], max(g[u][k], g[k][v]))$
+        \item Maximin of the graph: The path with maximal lowest cost along the path\\
+            ~~$g[u][v] = max(g[u][v], min(g[u][k], g[k][v]))$
+        \item Safest path: the path with highest survival probability (weights are probs along the edge)
+            ~~$g[u][v] = max(g[u][v], g[u][ĸ] * g[k][v])$
+        \item Most dangerous path: the path with lowest survival probability (weights are probs along the edge)
+            ~~$g[u][v] = min(g[u][v], g[u][ĸ] * g[k][v])$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{All pairs Shortest path}
+    \framesubtitle{Applications}
+    
+    \begin{itemize}[<+->]
+        \item Detecting negative weight cycles
+        \item Run the normal \emph{Floyd-Warshall} algorithm
+        \item If any element on the diagonal becomes negative $\Rightarrow$ negative weight cycle found
+    \end{itemize}
+}

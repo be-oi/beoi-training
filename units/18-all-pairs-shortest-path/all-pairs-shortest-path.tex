@@ -1,0 +1,41 @@
+\documentclass{beamer}
+\usepackage{listings}
+\beamertemplatenavigationsymbolsempty
+\hypersetup{pdfstartview={Fit}}%Pdf fit page as default
+\usecolortheme{beetle}
+
+\title{All pairs Shortest path}
+\author{Robin Jadoul}
+\date{March 13, 2016}
+
+\institute
+{
+    \includegraphics[height=65px]{../shared-img/beoi-logo.png}
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\frame{\titlepage}
+
+\section[Floyd-Warshall]{Floyd-Warshall}
+\include{floyd-warshall}
+
+\section[Applications]{Applications}
+\include{applications}
+
+\end{document}
