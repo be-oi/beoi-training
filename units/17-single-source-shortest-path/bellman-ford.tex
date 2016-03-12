@@ -1,0 +1,27 @@
+\frame{
+    \frametitle{Bellman-Ford}
+    \framesubtitle{Single source Shortest path}
+    
+    \begin{itemize}[<+->]
+        \item Weighted graphs - with negative weights
+        \item Can detect negative weight cycles
+        \item No special datastructure needed
+        \item Keep the current minimal distance from the start to each node
+        \item $|V| - 1$ times:
+        \item Relax every edge\\
+            $dist[v] = min(dist[v], dist[u] + weight[u, v])$
+        \item After $|V| - 1$ iterations: every minimal distance from source found
+        \item $O(|V||E|)$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Bellman-Ford}
+    \framesubtitle{Negative weight cycle detection}
+    
+    \begin{itemize}[<+->]
+        \item Run the normal Bellman-Ford algorithm
+        \item Do one more iteration
+        \item If the iteration finds a shorter path $\Rightarrow$ a negative weight cycle was found
+    \end{itemize}
+}
