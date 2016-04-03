@@ -1,0 +1,119 @@
+\documentclass[12pt]{beamer}
+\usepackage{listings}
+\beamertemplatenavigationsymbolsempty
+\AtBeginSection[]
+{
+    \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+\lstset{language=C++, basicstyle=\footnotesize, frame=single}
+
+\title{Miscellaneous math}
+\subtitle{Fast pow, Fibonacci, tortoise and hare}
+\author{beCP Training}
+\institute{\includegraphics[height=12em]{../shared-img/beoi-logo}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Fast pow}
+
+\begin{frame}
+\frametitle{Powers}
+Definition:
+\begin{itemize}
+\item Chain multiplication
+\item ``$n$-th power of $b$''
+\item $b$ is the base, $n$ is the exponent
+\item $b^n = \underbrace{b\times\cdots\times b}_\text{$n$ times}$
+\end{itemize}
+Examples:
+\begin{itemize}
+\item $3^0 = 1$ (by definition)
+\item $3^1 = 3$
+\item $3^2 = 3 \times 3 = 9$ (square)
+\item $3^3 = 3 \times 3 \times 3 = 27$ (cube)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Power computation: linear}
+\textbf{Problem:} compute the power the $n$-th power of $b$, for given $b$ and $n$.
+
+~
+
+\textbf{Solution 1:} Simple loop
+\begin{lstlisting}[frame=single]
+int nthPower(int b, int n)
+{
+    int power = 1;
+    for (int i = 0; i < n; i++)
+        power *= b;
+    return power;
+}
+\end{lstlisting}
+Complexity: $O(n)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Power computation: logarithmic (1)}
+Can we do it faster? Yes, because associativity!
+
+~
+
+For example, to compute $3^{10}$, we can compute $3^5$ then square it:
+\begin{itemize}
+\item $3^2 = 3 \times 3 = 9$
+\item $3^5 = 3^2 \times 3^2 \times 3 = 9 \times 9 \times 3 = 243$
+\item $3^{10} = 3^5 \times 3^5 = 243 \times 243 = 59049$
+\end{itemize}
+Only 4 multiplications instead of 9.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Power computation: logarithmic (2)}
+\textbf{Solution 2:} Recursive function
+\begin{lstlisting}[frame=single]
+int nthPower(int b, int n)
+{
+    // Initial case
+    if (n == 0)
+        return 1;
+    
+    // Recursive case
+    int power = powerOfThree(b, n/2);
+    power *= power;
+    if (n % 2 == 1)
+        power *= b;
+    return power;
+}
+\end{lstlisting}
+We divide $n$ by 2 on every call $\Rightarrow O(\log n)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Fast pow: usage}
+When to use it:
+\begin{itemize}
+\item When linear time is too slow
+\item Typically when computing a number of possibilities
+\end{itemize}
+
+~
+
+Limits:
+\begin{itemize}
+\item Exponent $\leq 10^{18}$ if using \texttt{long long} (or more!)
+\item Many powers with the same base $\Rightarrow$ store in an array
+\item Be careful with overflows! Often, the statement asks for the result \emph{modulo} some number.
+\end{itemize}
+\end{frame}
+
+\section{Matrix product}
+\section{Fibonacci sequence}
+\section{Tortoise and hare}
+
+\end{document}
