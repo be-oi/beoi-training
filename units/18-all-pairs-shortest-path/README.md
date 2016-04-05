@@ -1,4 +1,4 @@
-# Unit 17: Single source Shortest path
+# Unit 18: All pairs Shortest path
 This unit covers the all pairs shortest path Floyd-Warshall algorithm, along with the following applications:
 
 - Transitive closure
