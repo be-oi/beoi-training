@@ -1,0 +1,47 @@
+\documentclass{beamer}
+\usepackage{listings}
+\beamertemplatenavigationsymbolsempty
+\hypersetup{pdfstartview={Fit}}%Pdf fit page as default
+\usecolortheme{beetle}
+
+\title{Recursive backtracking}
+\author{Robin Jadoul}
+\date{April 7, 2016}
+
+\institute
+{
+    \includegraphics[height=65px]{../shared-img/beoi-logo.png}
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\frame{\titlepage}
+
+\section[Complete Search]{Complete Search}
+\include{complete-search}
+
+\section[Recursive Complete Search]{Recursive Complete Search}
+\include{recursive-complete-search}
+
+\section[Pruning]{Pruning}
+\include{pruning}
+
+\section[Bitmasks]{Bitmasks}
+\include{bitmasks}
+
+\end{document}

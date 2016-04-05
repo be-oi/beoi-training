@@ -1,0 +1,41 @@
+\frame{
+    \frametitle{Complete Search}
+    \framesubtitle{Try all the answers}
+    
+    \begin{itemize}[<+->]
+        \item Try (almost) every possibility
+        \item Should always be {\color{green}\textbf{AC}} (given enough time)
+        \item However, frequently {\color{blue}\textbf{TLE}}
+        \item Use the right algorithm/structure
+        \item Sometimes necessary (eg. enumerate all permutations)
+    \end{itemize}
+
+    \centerline{\includegraphics<6->[width=5cm]{img/complete-search.jpg}}
+}
+
+\frame{
+    \frametitle{Complete Search}
+    \framesubtitle{Approaches}
+
+    \begin{itemize}[<+->]
+        \item Generating
+            \begin{itemize}
+                \item Usually iteratively
+                \item (Sometimes heavily nested) loops
+                \item Covers \emph{every} possibility
+            \end{itemize}
+        \item Filtering
+            \begin{itemize}
+                \item Usually recursively
+                \item Recursive function(s)
+                \item Can \emph{prune} along the way (see later)
+            \end{itemize}
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Complete Search}
+    \framesubtitle{Easy iterative example}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue}]{src/simple-iterative.cpp}
+}
