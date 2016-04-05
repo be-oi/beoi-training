@@ -1,11 +1,14 @@
 # Unit 13: Dynamic Programming I
 This unit covers the two Dynamic Programming approaches, namely Top-Down (memoization) and Bottom-Up, as well as three classical problems:
+
 - Partition Problem
 - Knapsack
 - SSSP on acyclic graphs
+
 Complementary notes can be found in section 3.5 of the book Competitive Programming 3.
 
 ## Prerequisites
+
 - Unit 1: Complexity
 - Unit 2: Linear data structures
 - Unit 6: Graph representation
