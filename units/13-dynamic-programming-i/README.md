@@ -9,12 +9,12 @@ Complementary notes can be found in section 3.5 of the book Competitive Programm
 
 ## Prerequisites
 
-- Unit 1: Complexity
-- Unit 2: Linear data structures
-- Unit 6: Graph representation
+- Unit 1: [Complexity](https://github.com/be-oi/beoi-training/tree/master/units/01-complexity)
+- Unit 2: [Linear data structures](https://github.com/be-oi/beoi-training/tree/master/units/02-linear-struct)
+- Unit 6: [Graph representation](https://github.com/be-oi/beoi-training/tree/master/units/06-graph-basics)
 - Unit 10: Recursive backtracking
-- Unit 14: Graph traversal (esp. toposort)
-- (optional) Unit 17: Single-source shortest path
+- Unit 14: [Graph traversal (esp. toposort)](https://github.com/be-oi/beoi-training/tree/master/units/14-traversal)
+- (optional) Unit 17: [Single-source shortest path](https://github.com/be-oi/beoi-training/tree/master/units/17-single-source-shortest-path)
 
 ## Practice problems
 
