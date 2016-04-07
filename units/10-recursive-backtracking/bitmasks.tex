@@ -1,0 +1,26 @@
+\frame{
+    \frametitle{bitmasks}
+    \framesubtitle{Passing booleans}
+
+    \begin{itemize}[<+->]
+        \item Sometimes, you need to pass around booleans to recursive calls
+        \item Note: not just some boolean flags, but a boolean that indicates for example if an element has been \emph{taken}
+        \item How can we best do this?
+        \item Passing around a vector<bool>: needs copying every time
+        \item Better: bitset<N>, a statically sized boolean collection
+        \item If the size if small enough ($size <= 32$ or $size <= 64$), store it in an integer
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{bitmasks}
+    \framesubtitle{Using ints}
+
+    \begin{itemize}[<+->]
+        \item Needed operations: \texttt{<<}, \texttt{\&}, \texttt{|}
+        \item set at index $i$: \texttt{bitmask |= 1 << i}
+        \item test at index $i$: \texttt{bitmask \& (1 << i)}
+        \item less than 32 bools: use \texttt{unsigned int}
+        \item less than 64 bools: use \texttt{unsigned long long}
+    \end{itemize}
+}

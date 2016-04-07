@@ -1,0 +1,57 @@
+\frame{
+    \frametitle{Recursive Complete Search}
+    \framesubtitle{(Simplified) sudoku solving}
+    
+    \begin{itemize}[<+->]
+        \item Running example: Solving a sudoku puzzle
+        \item Simplified: without $3\times3$ box constraint
+        \item Note: there are other ways to solve these (constraint satisfaction)\\
+        \item Representation: a $9\times9$ grid of integers ($0$ is an unfilled cell)
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Recursive Complete Search}
+    \frametitle{Checking a filled sudoku}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=4,lastline=19]{src/sudoku.cpp}
+}
+
+\frame{
+    \frametitle{Recursive Complete Search}
+    \framesubtitle{Filling the sudoku}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=21,lastline=39]{src/sudoku.cpp}
+}
+
+\frame{
+    \frametitle{Recursive Complete Search}
+    \framesubtitle{Filling the sudoku}
+
+    Some (really big) problems with this version
+    \begin{itemize}[<+->]
+        \item \emph{Really} slow (time complexity: $9^{E}$ where $E$ is the number of empty cells)
+        \item We can still improve the correct (but this will not be necessary, as we will see)
+        \item We keep going, even if we can see that the solution already fails!
+        \item Even this grid is generated:
+            \begin{tabular}{c|c|c|c|c|c|c|c|c}
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1\\
+                \hline
+                1&1&1&1&1&1&1&1&1
+            \end{tabular}
+    \end{itemize}
+}
