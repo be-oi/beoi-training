@@ -4,13 +4,13 @@
 \hypersetup{pdfstartview={Fit}}%Pdf fit page as default
 \usecolortheme{beetle}
 
-\title{String processing}
+\title{Recursive backtracking}
 \author{Robin Jadoul}
-\date{30 januari 2016}
+\date{April 7, 2016}
 
 \institute
 {
-    \includegraphics[height=65px]{img/Icon.png}
+    \includegraphics[height=65px]{../shared-img/beoi-logo.png}
 }
 
 \AtBeginSection[]
@@ -32,20 +32,16 @@
 \begin{document}
 \frame{\titlepage}
 
-\section[Ad hoc]{Ad hoc}
-\include{ad-hoc}
+\section[Complete Search]{Complete Search}
+\include{complete-search}
 
-\section[Tries]{Tries}
-\include{trie}
+\section[Recursive Complete Search]{Recursive Complete Search}
+\include{recursive-complete-search}
 
-\section[String matching]{String matching}
-\subsection[Naive]{Naive}
-\include{naive-matching}
-\subsection[Rabin-Karp]{Rabin-Karp}
-\include{rabin-karp}
-\subsection[Z-algorithm]{Z-algorithm}
-\include{z-algo}
-\subsection[Knuth-Morris-Pratt]{Knuth-Morris-Pratt}
-\include{kmp}
+\section[Pruning]{Pruning}
+\include{pruning}
+
+\section[Bitmasks]{Bitmasks}
+\include{bitmasks}
 
 \end{document}

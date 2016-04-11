@@ -1,0 +1,37 @@
+\frame{
+    \frametitle{Pruning}
+    \framesubtitle{Try all the answers}
+    
+    \begin{itemize}[<+->]
+        \item Stop processing when you know it is wrong
+        \item Alternatively: stop processing when you know you have a better answer already (aka alpha-beta pruning)
+        \item Applied to our sudoku: don't fill numbers that cannot go there anymore
+    \end{itemize}
+
+    \centerline{\includegraphics<4->[width=5cm]{img/pruning.jpg}}
+}
+
+\frame{
+    \frametitle{Pruning}
+    \framesubtitle{Sudoku: check a single cell}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=43,lastline=51]{src/sudoku.cpp}
+}
+
+\frame{
+    \frametitle{Pruning}
+    \framesubtitle{Sudoku: solve it}
+
+    \lstinputlisting[language=C++,basicstyle=\tiny,keywordstyle=\color{blue},firstline=53,lastline=74]{src/sudoku.cpp}
+}
+
+\frame{
+    \frametitle{Pruning}
+    \framesubtitle{Sudoku: wrap up}
+    
+    \begin{itemize}[<+->]
+        \item Very similar
+        \item Just with pruning this time
+        \item Filling an empty maze: instant ($0.002s$)
+    \end{itemize}
+}
