@@ -1,5 +1,7 @@
 \documentclass[12pt]{beamer}
 \usepackage{listings}
+\usepackage{tabu}
+\usepackage{booktabs}
 \beamertemplatenavigationsymbolsempty
 \AtBeginSection[]
 {
@@ -113,7 +115,409 @@ Limits:
 \end{frame}
 
 \section{Matrix product}
+
+\begin{frame}
+\frametitle{Matrices}
+\[
+A\ =
+\left(
+\begin{array}{ccc}
+a_{00}&a_{01}&a_{02}\\
+a_{10}&a_{11}&a_{12}\\
+a_{20}&a_{21}&a_{22}\\
+a_{30}&a_{31}&a_{32}\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{ccc}
+0&4&1\\
+2&0&0\\
+1&1&2\\
+8&0&1\\
+\end{array}
+\right)
+\]
+
+~
+
+\begin{itemize}
+\item $4 \times 3$ matrix = table with 4 lines and 3 columns
+\item $a_{ij}$ = a[i][j] = element at line $i$, column $j$
+\item Mathematicians usually start at 1, but that's a bad idea
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix product}
+\[
+\left(
+\begin{array}{ccc}
+0&4&1\\
+2&0&0\\
+1&1&2\\
+8&0&1\\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+1&0\\
+2&1\\
+0&3\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+8&7\\
+2&0\\
+3&7\\
+8&3\\
+\end{array}
+\right)
+\]
+
+~
+
+\begin{itemize}
+\item Take line on left, column on right
+\item Add the products (they must have the same length!)
+\item $0 \times 1 + 4 \times 2 + 1 \times 0 = 8$ (top left element)
+\item Dimensions: $n \times m\ \cdot\ m \times p\ =\ n \times p$
+\item Associative: $(AB)C = A(BC)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix power}
+\[
+A^2\ =
+\left(
+\begin{array}{ccc}
+0&4&1\\
+2&0&0\\
+1&1&2\\
+\end{array}
+\right)
+\left(
+\begin{array}{ccc}
+0&4&1\\
+2&0&0\\
+1&1&2\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{ccc}
+9&1&2\\
+0&8&2\\
+4&6&5\\
+\end{array}
+\right)
+\]
+
+~
+
+\begin{itemize}
+\item Only works on square matrices
+\item Associative, so we can use fast pow!
+\item Complexity for $A^n$: cost of product $\times O(\log n)$
+\item With $m \times m$ matrix: $O(m^3 \log n)$
+\end{itemize}
+\end{frame}
+
 \section{Fibonacci sequence}
+
+\begin{frame}
+\frametitle{Definition of Fibonacci}
+\[0,\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ 21,\ 34,\ 55,\ldots\]
+\[F_0 = 0,\ F_1 = 1,\ F_2 = 1,\ldots\]
+\begin{itemize}
+\item Modelling rabbit reproduction (terribly)
+\item At 2 months old, rabbits start having 1 child every month
+\item At year 1, we introduce one newborn rabbit
+\item $F_n$ = population at month $n$
+\item $F_n = F_{n-1} + F_{n-2}$
+\item Example: $F_2 = F_1 + F_0$,\ \ $F_3 = F_2 + F_1$, \ldots
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci as a matrix product}
+\begin{itemize}
+\item We want to compute Fibonacci as a matrix product
+\item We always need to know at least two numbers
+\item Which square matrix to choose?
+\end{itemize}
+
+~
+
+\[
+\left(
+\begin{array}{cc}
+?&?\\
+?&?\\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+F_n\\
+F_{n+1}\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+F_{n+1}\\
+F_{n+2}\\
+\end{array}
+\right)
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci as a matrix product}
+\begin{itemize}
+\item We want to compute Fibonacci as a matrix product
+\item We always need to know at least two numbers
+\item Which square matrix to choose?
+\end{itemize}
+
+~
+
+\[
+\left(
+\begin{array}{cc}
+0&1\\
+?&?\\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+F_n\\
+F_{n+1}\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+F_{n+1}\\
+F_{n+2}\\
+\end{array}
+\right)
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci as a matrix product}
+\begin{itemize}
+\item We want to compute Fibonacci as a matrix product
+\item We always need to know at least two numbers
+\item Which square matrix to choose?
+\end{itemize}
+
+~
+
+\[
+\left(
+\begin{array}{cc}
+0&1\\
+1&1\\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+F_n\\
+F_{n+1}\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+F_{n+1}\\
+F_{n+2}\\
+\end{array}
+\right)
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithmic Fibonacci}
+From the formula, we deduce:
+\[
+\left(
+\begin{array}{cc}
+F_n\\
+F_{n+1}\\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+0&1\\
+1&1\\
+\end{array}
+\right)^n
+\left(
+\begin{array}{cc}
+F_0\\
+F_1\\
+\end{array}
+\right)
+\]
+
+~
+
+\begin{itemize}
+\item So we can compute the power in $O(\log n)$
+\item And then get $F_n$ immediately
+\item Because of overflows, we often need the result \emph{modulo} some number
+\end{itemize}
+\end{frame}
+
 \section{Tortoise and hare}
+
+\begin{frame}
+\frametitle{Cycle finding problem}
+\begin{itemize}
+\item Finite set of states $S$, for example $\{1,\ldots,n\}$
+\item Function $f: S \to S$ of transitions $x \mapsto f(x)$
+\item Starting value: $x_0 \in S$
+\end{itemize}
+
+~
+
+What is the first value repeated in this sequence?
+\[ x_0,\ f(x_0),\ f(f(x_0)),\ f(f(f(x_0))), \ldots \]
+\end{frame}
+
+\begin{frame}
+\frametitle{Cycle finding example}
+Table of $f$:
+\begin{center}
+\begin{tabu}{c|ccccccccc}
+$x$ &    1&2&3&4&5&6&7&8&9\\
+\midrule
+$f(x)$ & 8&6&1&7&1&4&5&5&2\\
+\end{tabu}
+\end{center}
+
+~
+
+Sequence for $x_0=9$:
+\[
+\underbrace{9,\ 2,\ 6,\ 4,\ 7}_\text{tail},
+\ \underbrace{5,\ 1,\ 8}_\text{cycle},
+\ \underbrace{5,\ 1,\ 8}_\text{cycle},
+\ 5,\ 1,\ldots
+\]
+
+Problem: find the tail size and the cycle size
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cycle finding with map}
+\begin{lstlisting}[frame=single]
+pair<int,int> findCycle(int x)
+{
+    map<int,int> pos;
+    
+    // While x is a new value
+    for (int i = 0; pos.find(x) == pos.end(); i++)
+    {
+        pos[x] = i;   // Remember the position
+        x = f(x);     // Move one step
+    }
+    return make_pair(pos[x], i - pos[x]);
+}
+\end{lstlisting}
+\begin{itemize}
+\item Time: $O(n \log n)$, or $O(n)$ with hashmap
+\item Space: $O(n)$, that's a lot...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tortoise and hare 1: find match}
+Keep two pointers: tortoise (slow) and hare ($2\,\times$\,faster)
+
+~
+
+Iterate until match:
+\begin{center}
+\begin{tabu}{rrrrrrrrrrrrrrr}
+9&2&6&4&7&5&\textbf{1}&8&5&1&8&5&\textbf{1}&8&5\\
+\midrule
+%T\&H\\
+&T&H\\
+&&T&&H\\
+&&&T&&&H\\
+&&&&T&&&&H\\
+&&&&&T&&&&&H\\
+&&&&&&T&&&&&&H\\
+\end{tabu}
+\end{center}
+The gap is a multiple of the cycle length
+\end{frame}
+
+\begin{frame}
+\frametitle{Tortoise and hare 2: find tail}
+Hare jumps to beginning, then they move at the same speed (the hare is tired by the jump)
+
+~
+
+Iterate until match:
+\begin{center}
+\begin{tabu}{rrrrrrrrrrrrrrr}
+9&2&6&4&7&\textbf{5}&1&8&5&1&8&\textbf{5}&1&8&5\\
+\midrule
+H&&&&&&T\\
+&H&&&&&&T\\
+&&H&&&&&&T\\
+&&&H&&&&&&T\\
+&&&&H&&&&&&T\\
+&&&&&H&&&&&&T\\
+\end{tabu}
+\end{center}
+The number of steps is the tail length
+\end{frame}
+
+\begin{frame}
+\frametitle{Tortoise and hare 3: find cycle}
+Hare stops (\emph{really} tired) and tortoise continues
+
+~
+
+Iterate until next match:
+\begin{center}
+\begin{tabu}{rrrrrrrrrrrrrrr}
+9&2&6&4&7&\textbf{5}&1&8&5&1&8&5&1&8&\textbf{5}\\
+\midrule
+&&&&&H&&&&&&T\\
+&&&&&H&&&&&&&T\\
+&&&&&H&&&&&&&&T\\
+&&&&&H&&&&&&&&&T\\
+\end{tabu}
+\end{center}
+The number of steps is the cycle length
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tortoise and hare: implementation}
+\begin{lstlisting}[frame=single]
+pair<int,int> findCycle(int x0)
+{
+    int t = x0, h = x0, tail = 0, cycle = 0;
+    // Part 1: find a match
+    do { t = f(t); h = f(f(h)); } while (t != h);
+    // Part 2: find tail
+    h = x0; // Rabbit jump
+    while (t != h) { t = f(t); h = f(h); tail++; }
+    // Part 3: find cycle
+    do { t = f(t); cycle++; } while (t != h);
+    return make_pair(tail, cycle);
+}
+\end{lstlisting}
+\end{frame}
 
 \end{document}
