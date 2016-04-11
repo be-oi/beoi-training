@@ -23,11 +23,11 @@ Cette unité couvre les structures de données linéaires de base, et explique c
 - File
 - Pile
 
-##　Prérequis
+## Prérequis
 - Connaissances basiques en C++ ou Java
 - Unité 1: [Algorithmes et Complexité](../01-complexity)
 
-##　Exercices
+## Exercices
 
 ### Facile
 - UVa 10935 - [Throwing cards away](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1876)
