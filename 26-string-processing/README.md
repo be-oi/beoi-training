@@ -1,4 +1,4 @@
-# Unit 23: String processing
+# Unit 26: String processing
 This unit covers basic string processing: Some ad-hoc information, the `trie` datastructure, and the following string matching algorithms
 
 - Naive (quadratic)

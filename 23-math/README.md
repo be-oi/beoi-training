@@ -1,5 +1,4 @@
-Unit 23: Miscellaneous math
-===========================
+# Unit 23: Miscellaneous math
 This unit covers some specific, more mathematical concepts that did not fit into other units:
 - Fast pow (logarithmic computation of powers)
 - Matrix product
@@ -7,10 +6,9 @@ This unit covers some specific, more mathematical concepts that did not fit into
 - Powers of an adjacency matrix (TODO)
 - The "tortoise and hare" method for cycle detection
 
-Prerequisites
--------------
-- Unit 1: [Complexity](https://github.com/be-oi/beoi-training/tree/master/01-complexity)
+## Prerequisites
+- Unit 1: [Complexity](../01-complexity)
+- Unit 4: [Graph basics](../06-graph-basics) (for adjacency matrix)
 
-Practice problems
------------------
+## Practice problems
 TODO
