@@ -36,7 +36,7 @@ Here is the list of completed and planned teaching units. As they are still unde
 26. [String processing](26-string-processing) (trie, Rabin-Karp, Z-algorithm, KMP)
 27. Computational geometry (basics, polygon area, convex hull)
 28. Advanced search techniques (heavy pruning, meet in the middle, A*)
-29. Dynamic programming II (bitmask, drop one parameter, bitonic TSP, sliding window, strings?)
+29. Dynamic programming II (bitmask, drop one parameter, bitonic TSP, sliding window)
 30. Problem decomposition
 31. Advanced graph problems (2-SAT, MWIS (tree, bipartite))
 32. Sparse table, lowest common ancestor
