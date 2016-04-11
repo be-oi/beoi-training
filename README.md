@@ -5,6 +5,7 @@ The program is now structured into a set of teaching units, designed to cover th
 
 ## Teaching units
 Here is the list of completed and planned teaching units. As they are still under construction, the units might not contain all topics mentioned in the parentheses.
+
 1. [Algorithms and complexity](01-complexity) (big oh, practical limits)
 2. [Linear data structures](02-linear-struct) (array, bitset, vector, linked list, stack, queue)
 3. [Sorting algorithms](03-sorting) (selection, insertion, merge, quick)
