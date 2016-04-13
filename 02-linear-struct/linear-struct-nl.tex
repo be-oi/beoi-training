@@ -1,9 +1,10 @@
 \documentclass[12pt]{beamer}
 \usepackage[utf8]{inputenc}
-\usepackage[frenchb]{babel}
+\usepackage[dutch]{babel}
 \usepackage{listings}
 \usepackage{tabu}
 \usepackage{booktabs}
+
 \beamertemplatenavigationsymbolsempty
 \AtBeginSection[]
 {
@@ -12,31 +13,60 @@
     \tableofcontents[currentsection]
     \end{frame}
 }
-\lstset{language=C++, basicstyle=\footnotesize, frame=single}
+
 \newcommand{\gray}{\textcolor{gray}}
-\newcommand{\On}{\gray{O(n)}}
+\newcommand{\bigoh}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\constant}{\bigoh{1}}
+\newcommand{\linear}{\bigoh{n}}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\tiny,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2                      % sets default tabsize to 2 spaces
+}
 
 \title{Lineaire data structuren}
 \subtitle{Tabellen, vectors en gelinkte lijsten}
 \author{beOI Training}
-\institute{\includegraphics[height=12em]{../shared-img/beoi-logo}}
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
 
 \begin{document}
 
 \frame{\titlepage}
-
-
 
 \section{Tabellen en varianten}
 
 \begin{frame}[fragile]
 \frametitle{Tabel}
 \begin{lstlisting}
-#define MAXN 10000
-int tab[MAXN];
+#define MAX_N 10000
+int tab[MAX_N];
 
-int main()
-{
+int main() {
     tab[1234] = 100;
     tab[1234]; // 100
     tab[5678]; // 0
@@ -44,15 +74,17 @@ int main()
 \end{lstlisting}
 \begin{itemize}
 \item Grootte van de tabel vooraf bepaald bij de compilatie
-\item Toegang tot een willekeurig element: $O(1)$
-\item Elementen worden op 0 geïnitialiseerd
+\item Toegang tot een willekeurig element: $\constant$
+\item \textit{Buiten functies} worden elementen op 0 geïnitialiseerd
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Bitset}
+C++ : \texttt{bitset} \\
+Java : \texttt{BitSet}
 \begin{lstlisting}
-bitset<MAXN> tab; // bool tab[MAXN];
+bitset<MAX_N> tab; // bool tab[MAX_N];
 tab[1234] = true;
 
 bitset<4> b1(string("1100")),
@@ -112,6 +144,8 @@ Als er onvoldoende plaats is, wordt de lengte verdubbeld
 
 \begin{frame}[fragile]
 \frametitle{Dynamische tabel: in de praktijk}
+C++ : \texttt{vector} \\
+Java : \texttt{ArrayList<E>}
 \begin{lstlisting}
 vector<int> vec(8, -1); // initialize to -1
 vec[5] += vec[2];       // -2
@@ -122,9 +156,9 @@ vec.back();             // 5
 \end{lstlisting}
 \begin{itemize}
 \item Omvang kan toenemen en afnemen
-\item Toegang tot een willekeurig element: $O(1)$
-\item Toevoegen/verwijderen van een element \textbf{op het einde}: $O(1)$
-\item Ergens anders toevoegen/verwijderen: $O(n)$
+\item Toegang tot een willekeurig element: $\constant$
+\item Toevoegen/verwijderen van een element \textbf{op het einde}: $\constant$
+\item Ergens anders toevoegen/verwijderen: $\linear$
 \end{itemize}
 \end{frame}
 
@@ -141,8 +175,7 @@ Knopen worden gelinkt met wijzers (pointers)
 \item Elke knoop weet waar de volgende is
 \end{itemize}
 \begin{lstlisting}
-struct Node
-{
+struct Node {
     int value;
     Node *next; // link (pointer)
 };
@@ -159,8 +192,7 @@ Beginnen bij de eerste knoop en de wijzers volgen
 In de laatste knoop heeft de wijzer de waarde NULL:
 \begin{lstlisting}
 Node *cur = start;   // always keep the first node!
-while (cur != NULL)
-{
+while (cur != NULL) {
     cur->value;      // access value
     cur = cur->next; // switch pointer to next
 }
@@ -175,8 +207,7 @@ Je moet maar twee wijzers veranderen
 \includegraphics[width=.9\textwidth]{img/insert-node}
 \end{figure}
 \begin{lstlisting}
-void insertAfter(Node *node, Node *new_node)
-{
+void insertAfter(Node *node, Node *new_node) {
     new_node->next = node->next;
     node->next = new_node;
 }
@@ -191,8 +222,7 @@ Verander de wijzer en geef geheugen vrij van de verwijderde knoop
 \includegraphics[width=.6\textwidth]{img/remove-node}
 \end{figure}
 \begin{lstlisting}
-void removeAfter(Node *node)
-{
+void removeAfter(Node *node) {
     Node *toRemove = node->next;
     node->next = node->next-next; // bypass
     free(toRemove);
@@ -208,13 +238,13 @@ void removeAfter(Node *node)
 \end{figure}
 Met een enkel gelinkte lijst:
 \begin{itemize}
-\item Toevoegen/verwijderen in het begin van de lijst: $O(1)$
-\item Toevoegen/verwijderen op een \textbf{gegeven} positie : $O(1)$
+\item Toevoegen/verwijderen in het begin van de lijst: $\constant$
+\item Toevoegen/verwijderen op een \textbf{gegeven} positie : $\constant$
 \end{itemize}
 Als we ook het einde onthouden:
 \begin{itemize}
-\item Toevoegen op het einde: $O(1)$
-\item Verwijderen op het einde : $O(n)$
+\item Toevoegen op het einde: $\constant$
+\item Verwijderen op het einde : $\linear$
 \end{itemize}
 \end{frame}
 
@@ -227,7 +257,7 @@ Wijzers in de twee richtingen!
 \end{figure}
 \begin{itemize}
 \item Doorlopen in de twee richtingen
-\item Verwijderen op het einde van de lijst in $O(1)$
+\item Verwijderen op het einde van de lijst in $\constant$
 \item Iets meer geheugengebruik
 \end{itemize}
 \begin{lstlisting}
@@ -241,6 +271,8 @@ struct Node
 
 \begin{frame}[fragile]
 \frametitle{Gelinkte lijst: in de praktijk}
+C++ : \texttt{list} \\
+Java : \texttt{LinkedList<E>}
 \begin{lstlisting}
 list<int> l;
 list<int>::iterator it;
@@ -256,7 +288,7 @@ l.pop_back();    // 2 3
 \begin{itemize}
 \item De data structuur \texttt{list<>} is een dubbel gelinkte lijst
 \item Posities onthouden met \texttt{iterators}
-\item Allemaal in $O(1)$
+\item Allemaal in $\constant$
 \end{itemize}
 \end{frame}
 
@@ -267,7 +299,7 @@ l.pop_back();    // 2 3
 \begin{itemize}
 \item Zoals een rij in een winkel
 \item We voegen aan het einde dingen toe en halen bij het begin dingen weg
-\item  First In First Out
+\item First In First Out
 \end{itemize}
 \begin{figure}
 \centering
@@ -277,10 +309,11 @@ l.pop_back();    // 2 3
 
 \begin{frame}[fragile]
 \frametitle{Rij: in de praktijk}
+C++ : \texttt{queue} \\
+Java : \texttt{Queue<E>}
 \begin{itemize}
 \item Toevoegen aan het einde, weghalen bij het begin $\Rightarrow$ gelinkte lijst
-\item Allemaal in $O(1)$
-\item We gebruiken hiervoor \texttt{queue<>}
+\item Allemaal in $\constant$
 \end{itemize}
 \begin{lstlisting}
 queue<int> q;
@@ -307,10 +340,11 @@ q.front(); // 2
 
 \begin{frame}[fragile]
 \frametitle{Stapel: in de praktijk}
+C++ : \texttt{stack} \\
+Java : \texttt{Stack<E>}
 \begin{itemize}
 \item Toevoegen en verwijderen op het einde $\Rightarrow$ gelinkte lijst \emph{of vector}
-\item Allemaal in $O(1)$
-\item We gebruiken hiervoor \texttt{stack<>}
+\item Allemaal in $\constant$
 \end{itemize}
 \begin{lstlisting}
 stack<int> q;
@@ -346,9 +380,9 @@ In het andere geval, zie volgende slide!
 \toprule
 Data structuur & Indexatie & Toevoegen einde & Toevoegen midden \\
 \midrule
-Tabel & $O(1)$ & $\On$ & $\On$ \\
-Vector& $O(1)$ & $O(1)$ & $\On$ \\
-Gelinkte lijst & $\On$ & $O(1)$ & $O(1)$ \\
+Tabel & $\constant$ & $\linear$ & $\linear$ \\
+Vector& $\constant$ & $\constant$ & $\linear$ \\
+Gelinkte lijst & $\linear$ & $\constant$ & $\constant$ \\
 \bottomrule
 \end{tabu}
 \end{center}
