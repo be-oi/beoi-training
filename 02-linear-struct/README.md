@@ -1,5 +1,11 @@
 # Lineaire data structuren
-**TODO: translate description to Dutch**
+Dit hoofdstuk omvat basis lineaire data structuren, en legt uit hoe men de geschiktste structuur kiest voor een bepaald vraagstuk:
+- Tabel
+- Bitset
+- Dynamische tabel / vector
+- Gelinkte lijst (enkel en dubbel)
+- Rij
+- Stapel
 
 ## Vereisten
 - Basis kennis van C++ of Java
