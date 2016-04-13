@@ -15,7 +15,7 @@
 \title{Miscellaneous math}
 \subtitle{Fast pow, Fibonacci, tortoise and hare}
 \author{beCP Training}
-\institute{\includegraphics[height=12em]{../shared-img/beoi-logo}}
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
 
 \begin{document}
 
@@ -235,7 +235,7 @@ A^2\ =
 \begin{itemize}
 \item Modelling rabbit reproduction (terribly)
 \item At 2 months old, rabbits start having 1 child every month
-\item At year 1, we introduce one newborn rabbit
+\item At month 1, we introduce one newborn rabbit
 \item $F_n$ = population at month $n$
 \item $F_n = F_{n-1} + F_{n-2}$
 \item Example: $F_2 = F_1 + F_0$,\ \ $F_3 = F_2 + F_1$, \ldots
@@ -423,10 +423,11 @@ pair<int,int> findCycle(int x)
     map<int,int> pos;
     
     // While x is a new value
-    for (int i = 0; pos.find(x) == pos.end(); i++)
+    int i;
+    for (i = 0; pos.find(x) == pos.end(); i++)
     {
-        pos[x] = i;   // Remember the position
-        x = f(x);     // Move one step
+        pos[x] = i; // Remember the position
+        x = f(x);   // Move one step
     }
     return make_pair(pos[x], i - pos[x]);
 }
