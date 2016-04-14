@@ -122,10 +122,10 @@ Limits:
 A\ =
 \left(
 \begin{array}{ccc}
-a_{00}&a_{01}&a_{02}\\
-a_{10}&a_{11}&a_{12}\\
-a_{20}&a_{21}&a_{22}\\
-a_{30}&a_{31}&a_{32}\\
+a_{11}&a_{12}&a_{13}\\
+a_{21}&a_{22}&a_{23}\\
+a_{31}&a_{32}&a_{33}\\
+a_{41}&a_{42}&a_{43}\\
 \end{array}
 \right)
 =
@@ -143,8 +143,8 @@ a_{30}&a_{31}&a_{32}\\
 
 \begin{itemize}
 \item $4 \times 3$ matrix = table with 4 lines and 3 columns
-\item $a_{ij}$ = a[i][j] = element at line $i$, column $j$
-\item Mathematicians usually start at 1, but that's a bad idea
+\item $a_{ij}$ = a[i\,-1][j\,-1] = element at line $i$, column $j$
+\item Index usually starts at 1, and we're stuck with that
 \end{itemize}
 \end{frame}
 
@@ -306,6 +306,126 @@ F_1\\
 \item So we can compute the power in $O(\log n)$
 \item And then get $F_n$ immediately
 \item Because of overflows, we often need the result \emph{modulo} some number
+\end{itemize}
+\end{frame}
+
+\section{Powers of the adjacency matrix}
+
+\newcommand{\adj}{\mathsf{adj}}
+\newcommand{\np}{\mathsf{num\_path}}
+
+\begin{frame}
+\frametitle{Adjacency matrix}
+\begin{itemize}
+\item Static two-dimensional array: \texttt{int adj[MAXN][MAXN]}
+\item adj[i][j] == true if edge $i \to j$
+\item $\adj_{ij}$ = number of paths of length 1 from $i$ to $j$
+\end{itemize}
+\begin{columns}
+\column{.5\linewidth}
+\flushright
+\includegraphics[width=0.85\linewidth]{img/6n-graph}
+\column{.5\linewidth}
+\[\left(
+\begin{array}{cccccc}
+0&1&0&0&1&0\\
+1&0&1&0&1&0\\
+0&1&0&1&0&0\\
+0&0&1&0&1&1\\
+1&1&0&1&0&0\\
+0&0&0&1&0&0\\
+\end{array}
+\right)\]
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Number of paths of length 2}
+\begin{itemize}
+\item Look at all possible intermediate nodes $k$
+\item $\np2_{ij} = \textsf{sum}(\adj_{ik} \times \adj_{kj})$
+\item $\adj_{ik}$ is line $i$ and $\adj_{kj}$ is column $j$
+\end{itemize}
+
+Example: number of paths from 2 to 4:
+\[
+\left(
+\begin{array}{cccccc}
+0&1&0&\mathbf{0}&1&0\\
+\mathbf{1}&\mathbf{0}&\mathbf{1}&\mathbf{0}&\mathbf{1}&\mathbf{0}\\
+0&1&0&\mathbf{1}&0&0\\
+0&0&1&\mathbf{0}&1&1\\
+1&1&0&\mathbf{1}&0&0\\
+0&0&0&\mathbf{1}&0&0\\
+\end{array}
+\right)^2
+=
+\left(
+\begin{array}{cccccc}
+2&1&1&1&1&0\\
+1&3&0&\mathbf{2}&1&0\\
+1&0&2&0&2&1\\
+1&2&0&3&0&0\\
+1&1&2&0&3&1\\
+0&0&1&0&1&1\\
+\end{array}
+\right)
+\]
+This is just matrix multiplication: $\np2 = \adj^2$
+\end{frame}
+
+\begin{frame}
+\frametitle{Number of paths of length 3}
+\begin{itemize}
+\item We look at all the intermediate nodes
+\item $\np3_{ij} = \textsf{sum}(\np2_{ik} \times \adj_{kj})$
+\item $\np2_{ik}$ is line $i$ and $\adj_{kj}$ is column $j$
+\end{itemize}
+
+Example: number of paths from 1 to 4
+\[
+\underbrace{
+\left(
+\begin{array}{cccccc}
+\mathbf{2}&\mathbf{1}&\mathbf{1}&\mathbf{1}&\mathbf{1}&\mathbf{0}\\
+1&3&0&2&1&0\\
+1&0&2&0&2&1\\
+1&2&0&3&0&0\\
+1&1&2&0&3&1\\
+0&0&1&0&1&1\\
+\end{array}
+\right)
+}_{\mbox{$\np2$}}
+\ \underbrace{
+\left(
+\begin{array}{cccccc}
+0&1&0&\mathbf{0}&1&0\\
+1&0&1&\mathbf{0}&1&0\\
+0&1&0&\mathbf{1}&0&0\\
+0&0&1&\mathbf{0}&1&1\\
+1&1&0&\mathbf{1}&0&0\\
+0&0&0&\mathbf{1}&0&0\\
+\end{array}
+\right)
+}_{\mbox{$\adj$}}
+\]
+So $\np3 = \np2 \times \adj = \adj^2 \times \adj = \adj^3$
+\end{frame}
+
+\begin{frame}
+\frametitle{Number of paths of any length}
+\begin{itemize}
+\item In general, the number of paths of length $n$ can be computed with $\adj^n$
+\item So for $V$ nodes, we can get it in $O(V^3 \log n)$
+\end{itemize}
+
+~
+
+Remarks:
+\begin{itemize}
+\item This also works with directed graphs (one-way edges)
+\item This also works with multiple edges between two nodes (put the number in the matrix)
+\item If you only want to know if there \emph{is a path or not}, you can do it in $O(V+E)$ for one source, or $O(V(V+E))$ for all pairs. (Fun exercise!)
 \end{itemize}
 \end{frame}
 
