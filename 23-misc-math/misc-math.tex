@@ -255,74 +255,8 @@ A^2\ =
 \[
 \left(
 \begin{array}{cc}
-?&?\\
-?&?\\
-\end{array}
-\right)
-\left(
-\begin{array}{cc}
-F_n\\
-F_{n+1}\\
-\end{array}
-\right)
-=
-\left(
-\begin{array}{cc}
-F_{n+1}\\
-F_{n+2}\\
-\end{array}
-\right)
-\]
-\end{frame}
-
-\begin{frame}
-\frametitle{Fibonacci as a matrix product}
-\begin{itemize}
-\item We want to compute Fibonacci as a matrix product
-\item We always need to know at least two numbers
-\item Which square matrix to choose?
-\end{itemize}
-
-~
-
-\[
-\left(
-\begin{array}{cc}
-0&1\\
-?&?\\
-\end{array}
-\right)
-\left(
-\begin{array}{cc}
-F_n\\
-F_{n+1}\\
-\end{array}
-\right)
-=
-\left(
-\begin{array}{cc}
-F_{n+1}\\
-F_{n+2}\\
-\end{array}
-\right)
-\]
-\end{frame}
-
-\begin{frame}
-\frametitle{Fibonacci as a matrix product}
-\begin{itemize}
-\item We want to compute Fibonacci as a matrix product
-\item We always need to know at least two numbers
-\item Which square matrix to choose?
-\end{itemize}
-
-~
-
-\[
-\left(
-\begin{array}{cc}
-0&1\\
-1&1\\
+\only<1>{?&?}\only<2->{0&1}\\
+\only<-2>{?&?}\only<3>{1&1}\\
 \end{array}
 \right)
 \left(
