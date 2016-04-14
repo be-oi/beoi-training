@@ -4,6 +4,7 @@
 \usepackage{listings}
 \usepackage{tabu}
 \usepackage{booktabs}
+
 \beamertemplatenavigationsymbolsempty
 \AtBeginSection[]
 {
@@ -12,31 +13,59 @@
     \tableofcontents[currentsection]
     \end{frame}
 }
-\lstset{language=C++, basicstyle=\footnotesize, frame=single}
 \newcommand{\gray}{\textcolor{gray}}
-\newcommand{\On}{\gray{O(n)}}
+\newcommand{\bigoh}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\constant}{\bigoh{1}}
+\newcommand{\linear}{\bigoh{n}}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\tiny,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2                      % sets default tabsize to 2 spaces
+}
 
 \title{Structures de données linéaires}
 \subtitle{Tableaux, vecteurs, listes chaînées}
 \author{Training beOI}
-\institute{\includegraphics[height=12em]{../shared-img/beoi-logo}}
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
 
 \begin{document}
 
 \frame{\titlepage}
-
-
 
 \section{Tableaux et variantes}
 
 \begin{frame}[fragile]
 \frametitle{Tableau}
 \begin{lstlisting}
-#define MAXN 10000
-int tab[MAXN];
+#define MAX_N 10000
+int tab[MAX_N];
 
-int main()
-{
+int main() {
     tab[1234] = 100;
     tab[1234]; // 100
     tab[5678]; // 0
@@ -44,15 +73,17 @@ int main()
 \end{lstlisting}
 \begin{itemize}
 \item Taille fixée à la compilation
-\item Accès à un élément arbitraire: $O(1)$
-\item Truc: en-dehors d'une fonction, initialisé à zéro
+\item Accès à un élément arbitraire: $\constant$
+\item Astuce : en-dehors d'une fonction, initialisé à zéro
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Bitset}
+C++ : \texttt{bitset} \\
+Java : \texttt{BitSet}
 \begin{lstlisting}
-bitset<MAXN> tab; // bool tab[MAXN];
+bitset<MAX_N> tab; // bool tab[MAX_N];
 tab[1234] = true;
 
 bitset<4> b1(string("1100")),
@@ -111,7 +142,10 @@ Si plus de place, multiplier par 2
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Tableau dynamique: en pratique}
+\frametitle{Tableau dynamique : en pratique}
+C++ : \texttt{vector} \\
+Java : \texttt{ArrayList<E>}
+
 \begin{lstlisting}
 vector<int> vec(8, -1); // initialize to -1
 vec[5] += vec[2];       // -2
@@ -122,9 +156,9 @@ vec.back();             // 5
 \end{lstlisting}
 \begin{itemize}
 \item Taille augmente et diminue
-\item Accès à un élément arbitraire: $O(1)$
-\item Ajout/suppression d'un élément \textbf{à la fin}: $O(1)$
-\item Ajout/suppression autre part: $O(n)$
+\item Accès à un élément arbitraire: $\constant$
+\item Ajout/suppression d'un élément \textbf{à la fin}: $\constant$
+\item Ajout/suppression autre part: $\linear$
 \end{itemize}
 \end{frame}
 
@@ -142,8 +176,7 @@ Des nœuds reliés par des liens (pointeurs)
 \item Les nœuds ne sont plus côte à côte
 \end{itemize}
 \begin{lstlisting}
-struct Node
-{
+struct Node {
     int value;
     Node *next; // link (pointer)
 };
@@ -160,8 +193,7 @@ Commencer au premier nœud et suivre les liens
 Dans le dernier nœud le lien vaut NULL:
 \begin{lstlisting}
 Node *cur = start;   // always keep the first node!
-while (cur != NULL)
-{
+while (cur != NULL) {
     cur->value;      // access value
     cur = cur->next; // switch pointer to next
 }
@@ -176,8 +208,7 @@ Seulement deux liens à changer
 \includegraphics[width=.9\textwidth]{img/insert-node}
 \end{figure}
 \begin{lstlisting}
-void insertAfter(Node *node, Node *new_node)
-{
+void insertAfter(Node *node, Node *new_node) {
     new_node->next = node->next;
     node->next = new_node;
 }
@@ -185,15 +216,14 @@ void insertAfter(Node *node, Node *new_node)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Liste chaînée: suppression}
+\frametitle{Liste chaînée : suppression}
 Changer le lien et supprimer
 \begin{figure}
 \centering
 \includegraphics[width=.6\textwidth]{img/remove-node}
 \end{figure}
 \begin{lstlisting}
-void removeAfter(Node *node)
-{
+void removeAfter(Node *node) {
     Node *toRemove = node->next;
     node->next = node->next-next; // bypass
     free(toRemove);
@@ -202,20 +232,20 @@ void removeAfter(Node *node)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Liste chaînée: limitations}
+\frametitle{Liste chaînée : limitations}
 \begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{img/singly-linked}
 \end{figure}
-Avec une liste (simplement) chaînée:
+Avec une liste (simplement) chaînée :
 \begin{itemize}
-\item Ajout/suppression au début: $O(1)$
-\item Ajout/suppression à une position \textbf{donnée}: $O(1)$
+\item Ajout/suppression au début: $\constant$
+\item Ajout/suppression à une position \textbf{donnée}: $\constant$
 \end{itemize}
-Si on retient la fin aussi:
+Si on retient la fin aussi :
 \begin{itemize}
-\item Ajout à la fin: $O(1)$
-\item Suppression à la fin: pas possible, $O(n)$
+\item Ajout à la fin: $\constant$
+\item Suppression à la fin: pas possible, $\linear$
 \end{itemize}
 \end{frame}
 
@@ -228,12 +258,11 @@ Des liens dans les deux sens!
 \end{figure}
 \begin{itemize}
 \item Parcours dans les deux sens
-\item Suppression à la fin en $O(1)$
+\item Suppression à la fin en $\constant$
 \item Un peu plus lourd
 \end{itemize}
 \begin{lstlisting}
-struct Node
-{
+struct Node {
     int value;
     Node *prev, *next; // two pointers
 };
@@ -242,6 +271,8 @@ struct Node
 
 \begin{frame}[fragile]
 \frametitle{Listes chaînée: en pratique}
+C++ : \texttt{list} \\
+Java : \texttt{LinkedList<E>}
 \begin{lstlisting}
 list<int> l;
 list<int>::iterator it;
@@ -257,14 +288,14 @@ l.pop_back();    // 2 3
 \begin{itemize}
 \item Les \texttt{list<>} sont doublement chaînées
 \item Retenir les positions avec des \texttt{iterator}
-\item Tout en $O(1)$
+\item Tout en $\constant$
 \end{itemize}
 \end{frame}
 
 \section{File et pile}
 
 \begin{frame}
-\frametitle{File: concept}
+\frametitle{File : concept}
 \begin{itemize}
 \item Faire la file dans un magasin
 \item On ajoute à la fin, on enlève au début
@@ -277,11 +308,12 @@ l.pop_back();    // 2 3
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{File: en pratique}
+\frametitle{File : en pratique}
+C++ : \texttt{queue} \\
+Java : \texttt{Queue<E>}
 \begin{itemize}
 \item Ajouter à la fin, enlever au début $\Rightarrow$ liste chaînée
-\item Tout en $O(1)$
-\item On utilise \texttt{queue<>} (fait pour ça)
+\item Tout en $\constant$
 \end{itemize}
 \begin{lstlisting}
 queue<int> q;
@@ -294,7 +326,7 @@ q.front(); // 2
 \end{frame}
 
 \begin{frame}
-\frametitle{Pile: concept}
+\frametitle{Pile : concept}
 \begin{itemize}
 \item Pile de crêpes
 \item On ajoute au-dessus, on enlève au-dessus
@@ -307,11 +339,12 @@ q.front(); // 2
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Pile: en pratique}
+\frametitle{Pile : en pratique}
+C++ : \texttt{stack} \\
+Java : \texttt{Stack<E>}
 \begin{itemize}
 \item Ajouter et enlever à la fin $\Rightarrow$ liste chaînée \emph{ou vecteur}
-\item Tout en $O(1)$
-\item On utilise \texttt{stack<>} (fait pour ça)
+\item Tout en $\constant$
 \end{itemize}
 \begin{lstlisting}
 stack<int> q;
@@ -347,9 +380,9 @@ Sinon, voir slide suivante!
 \toprule
 Structure & Indexation & Ajout fin & Ajout milieu \\
 \midrule
-Tableau & $O(1)$ & $\On$ & $\On$ \\
-Vecteur & $O(1)$ & $O(1)$ & $\On$ \\
-Liste chaînée & $\On$ & $O(1)$ & $O(1)$ \\
+Tableau & $\constant$ & $\linear$ & $\linear$ \\
+Vecteur & $\constant$ & $\constant$ & $\linear$ \\
+Liste chaînée & $\linear$ & $\constant$ & $\constant$ \\
 \bottomrule
 \end{tabu}
 \end{center}
