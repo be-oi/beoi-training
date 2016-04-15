@@ -14,8 +14,8 @@ int solve(int i, int wtaken) {
     if(memo[i][wtaken] != -1)
         return memo[i][wtaken];
     else {
-        memo[i][taken] = max(solve(i+1, wtaken), v[i] + solve(i+1, wtaken - w[i]));
-        return memo[i][taken];
+        memo[i][wtaken] = max(solve(i+1, wtaken), v[i] + solve(i+1, wtaken - w[i]));
+        return memo[i][wtaken];
     }
 }
 
