@@ -49,11 +49,12 @@ A semi-eulerian graph is a graph that has a Eulerian cycle \emph{or} path (start
 \end{frame}
 
 \begin{frame}
-\frametitle{Criteria for undirected graphs}
+\frametitle{How do we get a Eulerian path/cycle?}
 \begin{itemize}
-\item The graph must be connected
+\item The graph must be connected\footnote{The nodes with at least one edge must be connected}
 \item For each node except the start and end, we use two edges: one for entering and one for leaving!
-\item So all degrees will be even, except for at most two
+\item So all degrees have to be even, except for at most two
+\item Actually, those conditions are enough!
 \end{itemize}
 \begin{center}
 \includegraphics[width=0.25\textwidth]{img/euler-graph}
@@ -65,12 +66,39 @@ A semi-eulerian graph is a graph that has a Eulerian cycle \emph{or} path (start
 \end{frame}
 
 \begin{frame}
+\frametitle{Criteria for undirected graphs}
+\begin{itemize}
+\item Eulerian cycle:
+    \begin{itemize}
+    \item The nodes with at least one edge are in the same connected component
+    \item Every node has even degree
+    \end{itemize}
+\item Eulerian path:
+    \begin{itemize}
+    \item The nodes with at least one edge are in the same connected component
+    \item At most two nodes have odd degree
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Criteria for directed graphs}
-Too complicated...
-
-~
-
-Just check Wikipedia.
+\begin{itemize}
+\item Eulerian cycle:
+    \begin{itemize}
+    \item The nodes with at least one edge are in the same strongly connected component
+    \item Every node has equal in-degree and out-degree
+    \end{itemize}
+\item Eulerian path:
+    \begin{itemize}
+    \item The nodes with at least one edge are in the same connected component when removing the directions
+    \item At most two vertices have a difference of 1 between in-degree and out-degree
+    \item All other vertices have equal in-degree and out-degree
+    \end{itemize}
+\end{itemize}
+\begin{center}
+\includegraphics[width=.35\linewidth]{img/why-so-many}
+\end{center}
 \end{frame}
 
 \section{Finding the cycle/path}
@@ -107,6 +135,7 @@ void euler(int u, vector<int> &s)
     s.push_back(u);
 }
 \end{lstlisting}
+Complexity: $O(V+E)$
 \end{frame}
 
 \section{Chinese postman problem}
