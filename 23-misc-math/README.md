@@ -3,7 +3,7 @@ This unit covers some specific, more mathematical concepts that did not fit into
 - Fast pow (logarithmic computation of powers)
 - Matrix product
 - Fibonacci numbers (and their computation with matrix powers)
-- Powers of an adjacency matrix (TODO)
+- Powers of an adjacency matrix
 - The "tortoise and hare" method for cycle detection
 
 ## Prerequisites
