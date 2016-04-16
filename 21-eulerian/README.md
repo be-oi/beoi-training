@@ -13,7 +13,7 @@ This unit covers Eulerian paths and associated subjects:
 ## Practice problems
 
 ### Easy
-- UVa 11054 - [The Necklace](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=995)
+- UVa 10054 - [The Necklace](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=995)
 - UVa 10129 - [Play on Words](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1070)
 
 ### Less easy
