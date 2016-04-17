@@ -10,9 +10,9 @@
         \item Maximin of the graph: The path with maximal lowest cost along the path\\
             ~~$g[u][v] = max(g[u][v], min(g[u][k], g[k][v]))$
         \item Safest path: the path with highest survival probability (weights are probs along the edge)
-            ~~$g[u][v] = max(g[u][v], g[u][ĸ] * g[k][v])$
+            ~~$g[u][v] = max(g[u][v], g[u][k] * g[k][v])$
         \item Most dangerous path: the path with lowest survival probability (weights are probs along the edge)
-            ~~$g[u][v] = min(g[u][v], g[u][ĸ] * g[k][v])$
+            ~~$g[u][v] = min(g[u][v], g[u][k] * g[k][v])$
     \end{itemize}
 }
 
