@@ -22,9 +22,13 @@ Complementary notes can be found in sections 3.2.2 and 8.2.1 of the book Competi
 - UVa 10276 - [Hanoi Tower Troubles Again!](https://uva.onlinejudge.org/external/102/10276.pdf)
 - UVa 677 - [All Walks of length "n" from the first node](https://uva.onlinejudge.org/external/6/677.pdf)
 
+<span></span>
+
 - UVa 574 - [Sum it up](https://uva.onlinejudge.org/external/5/574.pdf)
 - UVa 10950 - [Bad Code](https://uva.onlinejudge.org/external/109/10950.pdf)
 - UVa 11961 - [DNA](https://uva.onlinejudge.org/external/119/11961.pdf)
+
+<span></span>
 
 - UVa 208 - [Firetruck](https://uva.onlinejudge.org/external/2/208.pdf)
 - UVa 861 - [Little Bishops](https://uva.onlinejudge.org/external/8/861.pdf)
