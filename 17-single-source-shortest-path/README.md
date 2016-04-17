@@ -11,7 +11,7 @@ Complementary notes can be found in section 4.4 of the book Competitive Programm
 
 - Unit 1: [Complexity](../01-complexity)
 - Unit 2: [Linear data structures](../02-linear-struct)
-- Unit 4: [Tree data structures](../04-tree-struct) (mainly heap)
+- Unit 4: [Tree data structures](../04-trees) (mainly heap)
 - Unit 6: [Graph representation](../06-graph-basics)
 - Unit 12: [Greedy](../12-greedy) (basic idea, used in dijkstra)
 - Unit 14: [Graph traversal](../14-traversal) (mainly BFS)

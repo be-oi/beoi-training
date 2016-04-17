@@ -12,7 +12,7 @@ Additional techniques can be found there as well
 ## Prerequisites
 
 - Unit 1: [Complexity](../01-complexity)
-- Unit 4: [Tree data structures](../04-tree-struct)
+- Unit 4: [Tree data structures](../04-trees)
 
 ## Practice problems
 
