@@ -20,6 +20,7 @@ This unit covers the classical binary search, as well as the bisection method an
 - UVA 10567 -[Helping Fill Bates](https://uva.onlinejudge.org/external/105/10567.pdf)
 - UVA 957 - [Popes](https://uva.onlinejudge.org/external/9/957.pdf)
 - UVA 11935 - [Through the Desert](https://uva.onlinejudge.org/external/119/11935.pdf)
+- UVA 10125 - [Sumsets](https://uva.onlinejudge.org/external/101/10125.pdf)
 
 ### Not easy
 
