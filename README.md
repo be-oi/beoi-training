@@ -14,7 +14,7 @@ Here is the list of completed and planned teaching units. As they are still unde
 4. [Tree data structures](04-trees) (set, map, heap)
 5. Balanced binary search tree (treap, red-black, order statistics with library)
 6. [Graph basics and representation](06-graph-basics) (adjacency matrix, adjacency list)
-7. Union-find structure
+7. [Union-find structure](07-union-find)
 8. [Segment tree](08-segment-tree) (regular, lazy)
 9. Fenwick tree (binary indexing, least significant bit)
 10. [Recursive backtracking](10-recursive-backtracking) (pruning, bitmasks)

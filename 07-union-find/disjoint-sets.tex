@@ -1,0 +1,46 @@
+\frame{
+    \frametitle{Disjoint Sets}
+    \framesubtitle{What?}
+    
+    \begin{itemize}[<+->]
+        \item A collection of sets
+        \item Not necessarily the programming datastructure
+        \item No element in multiple sets
+        \item Operations needed:
+            \begin{itemize}
+                \item union: merge two sets
+                \item sameSet: are two elements in the same set
+            \end {itemize}
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Disjoint Sets}
+    \framesubtitle{Why?}
+
+    \begin{itemize}[<+->]
+        \item A common example: groups of friends
+        \item $x \sim y \Leftrightarrow x \text{ is a friend of } y$
+        \item $x \sim y \wedge y \sim z \Rightarrow x \sim z$
+        \item queries: is $x$ friends with $y$?
+        \item Can be considered as disjoint sets of people
+        \item People in the same set are friends
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Disjoint Sets}
+    \framesubtitle{How?}
+
+    \begin{itemize}[<+->]
+        \item A vector of std::sets
+        \item problems:
+            \begin{itemize}
+                \item Complicated
+                \item Inefficient
+                \item Fiddling with both merging of sets, and managing the vector
+            \end{itemize}
+        \item There must be something better
+        \item Union-Find!
+    \end{itemize}
+}
