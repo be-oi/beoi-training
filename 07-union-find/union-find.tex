@@ -1,0 +1,41 @@
+\documentclass{beamer}
+\usepackage{listings}
+\beamertemplatenavigationsymbolsempty
+\hypersetup{pdfstartview={Fit}}%Pdf fit page as default
+\usecolortheme{beetle}
+
+\title{Union Find Disjoint Sets}
+\author{Robin Jadoul}
+\date{July 12, 2016}
+
+\institute
+{
+    \includegraphics[height=65px]{../share/beoi-logo.png}
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\frame{\titlepage}
+
+\section[Disjoint sets]{Disjoint sets}
+\include{disjoint-sets}
+
+\section[Union Find]{Union Find}
+\include{ufds}
+
+\end{document}

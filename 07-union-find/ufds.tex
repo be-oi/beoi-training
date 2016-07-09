@@ -1,0 +1,73 @@
+\frame{
+    \frametitle{Union Find}
+    \framesubtitle{First try}
+    
+    \begin{itemize}[<+->]
+        \item Let's give every set a unique name (number)
+        \item Have a mapping from element to set name ($S$)
+        \item $sameSet(a, b)$\\ ~~~~$\text{return } S[a] == S[b]$
+        \item $union(a, b)$\\ ~~~~$\forall c: \text{if } (S[c] == S[a])~\{ S[c] = S[b]; \}$
+        \item Better, no need to manage the vector
+        \item Still slow: need to walk $S$ every union
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Union Find}
+    \framesubtitle{The datastructure}
+    
+    \begin{itemize}[<+->]
+        \item We keep the previous idea, but improve it
+        \item Make it a tree of \emph{parents}, where the root is its own parent
+        \item extra method: $getParent$ walks that tree up
+        \item $sameSet(a, b)$\\ ~~~~$\text{return } getParent(a) == getParent(b)$
+        \item $union(a, b)$\\ ~~~~$\text{if } (!sameSet(a, b))~parent[getParent(b)] = getParent(a);$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Union Find}
+    \framesubtitle{Improvements}
+    
+    \begin{itemize}[<+->]
+        \item \emph{Heuristic by rank}
+        \item keep extra information: the height (upper bound) of every set/tree
+        \item Attach the tree with the smallest height to the higher one
+        \item $\Rightarrow$ Less distance to find the parents
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Union Find}
+    \framesubtitle{Improvements}
+    
+    \begin{itemize}[<+->]
+        \item \emph{Path compression}
+        \item While traversing the tree
+        \item Make every traversed element a direct child of its root
+        \item $\Rightarrow$ The height of the trees shrinks considerably
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Union Find}
+    \framesubtitle{Speed}
+    
+    \begin{itemize}[<+->]
+        \item $\mathcal{O}(\alpha(n))$ {\small (amortized)}
+        \item $\alpha(n)$ is the inverse \emph{Ackermann function}
+        \item $\alpha(n) < 4$ for all practical purposes
+        \item $\mathcal{O}(\alpha(n)) \approx \mathcal{O}(1)$
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Union Find}
+    \framesubtitle{Common additions}
+    
+    \begin{itemize}[<+->]
+        \item Keep the number of sets
+        \item Keep the number of elements for every set
+        \item Have an extra mapping from $T$ to $int$ if the elements are of type $T$
+    \end{itemize}
+}
