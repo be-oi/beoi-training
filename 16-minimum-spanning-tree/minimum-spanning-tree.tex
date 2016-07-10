@@ -374,7 +374,7 @@ every edge/.style={draw=red,very thick}]
 \end{frame}
 \begin{frame}
 	\frametitle{Code}
-	\lstinputlisting[language=C++,firstline=26,lastline=38]{code/kruskal.cpp}
+	\lstinputlisting[language=C++,firstline=52,lastline=64]{code/kruskal.cpp}
 \end{frame}
 
 \section{Prim's algorithm}
@@ -861,7 +861,9 @@ Process function:\\
 	\frametitle{Minimax}
 	The minimum of maximum edge weight among all posible paths between two nodes.\\~\\
 	How would you solve this?\\
-	Solution: Compute the MST and traverse it from source to target.
+	Solution: Compute the MST and traverse it from source to target.\\~\\
+	\pause
+	Other (shorter) solution: use an adapted version of Floyd-Warshal, where instead of adding, you take the max.
 \end{frame}
 
 \end{document}
