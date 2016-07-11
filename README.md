@@ -23,7 +23,7 @@ Here is the list of completed and planned teaching units. As they are still unde
 13. [Dynamic programming I](13-dynamic-programming-i) (top-down, bottom-up, classical problems)
 14. [Graph traversal](14-traversal) (DFS, BFS, toposort, bipartite check, Kosaraju SCC)
 15. Specialized DFS (articulation point, bridge, Tarjan SCC)
-16. Minimum spanning tree (Kruskal, Prim, variants, minimax/maximin path)
+16. [Minimum spanning tree (Kruskal, Prim, variants, minimax/maximin path)](16-minimum-spanning-tree)
 17. [Single-source shortest path](17-single-source-shortest-path) (review BFS, Dijkstra, Bellman-Ford)
 18. [All-pairs shortest path](18-all-pairs-shortest-path) (Floyd-Warshall, applications)
 19. [Network flow](19-network-flow) (Edmonds-Karp, min cut, vertex capacity, vertex/edge-disjoint paths, MCMF)
