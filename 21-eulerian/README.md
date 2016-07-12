@@ -8,7 +8,7 @@ This unit covers Eulerian paths and associated subjects:
 ## Prerequisites
 - Unit 1: [Complexity](../01-complexity)
 - Unit 6: [Graph basics](../06-graph-basics)
-- Unit 14: [Graph traversal](../14-graph-traversal)
+- Unit 14: [Graph traversal](../14-traversal)
 
 ## Practice problems
 
