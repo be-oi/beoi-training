@@ -61,7 +61,7 @@ def summarize(units):
     return dict((summarize_single(u), u) for u in units.values())
 
 def build_dot(dependencies):
-    edges = [(summarize_single(u), summarize_single(v)) for u in dependencies for v in dependencies[u]]
+    edges = [(summarize_single(u), summarize_single(v)) for u in sorted(dependencies) for v in sorted(dependencies[u])]
     dot_edges = "\n".join('"%s" -> "%s"' % e for e in edges)
     return "digraph {\n%s\n}" % dot_edges
 
@@ -94,24 +94,44 @@ def toposort(G, node=None, vis=None):
         return res
 
 if __name__ == "__main__":
+    # Find the graphviz dot executable
     dot_location = shutil.which("dot")
     if not dot_location:
         sys.stderr.write("Cannot find the 'dot' executable, please install graphviz\n")
         sys.exit(1)
 
+    # Parse main readme
     units = get_units()
+
+    # Build the dependency_graph, parsing unit readme's
     dependencies = dict((u, get_dependencies(u, units)) for _, u in units.items())
+
+    # Eliminate dependencies of the form a->c where a->b and b->c
     eliminate_transitive_deps(dependencies)
 
+    # A graphviz representation
     dot_graph = build_dot(dependencies)
 
+    # Make the svg
     pipe = subprocess.Popen([dot_location, "-Tsvg"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     (svg, _) = pipe.communicate(bytes(dot_graph, "utf-8"))
+
+    # Add hyperlinks to the units in the svg
+    # Doesn't seem to work in github unfortunately (maybe with gh-pages)
     svg = add_links(str(svg, "utf-8"), summarize(units))
 
+    # Write the svg
     with open(os.path.join(BASEDIR, "dependency_graph.svg"), "w") as out:
         out.write(svg)
 
+    # Svg is not displayed in the readme on the repo, so we use a png
+    pipe = subprocess.Popen([dot_location, "-Tpng"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    (png, _) = pipe.communicate(bytes(dot_graph, "utf-8"))
+    with open(os.path.join(BASEDIR, "dependency_graph.png"), "wb") as out:
+        out.write(png)
+
+    # Some toposorting
+    # We might want something else for the reporting
     print()
     print("Recommended order:")
     for unit in toposort(dependencies):

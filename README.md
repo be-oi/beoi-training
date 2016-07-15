@@ -41,4 +41,4 @@ Here is the list of completed and planned teaching units. As they are still unde
 31. Advanced graph problems (2-SAT, MWIS (tree, bipartite))
 32. Sparse table, lowest common ancestor
 
-![Dependency graph for the units](dependency_graph.svg)
+![Dependency graph for the units](dependency_graph.png)
