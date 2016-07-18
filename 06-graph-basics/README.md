@@ -1,4 +1,4 @@
-# Hoofdstuk 1: Basis grafen
+# Hoofdstuk 6: Basis grafen
 Dit hoofdstuk omvat de basis van grafen, samen met enkele veelgebruikte voorstellingen.
 - Beginselen definities en terminologie
 - Soorten grafen
