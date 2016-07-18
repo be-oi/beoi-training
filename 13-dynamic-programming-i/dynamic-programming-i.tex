@@ -100,7 +100,7 @@
 
 \begin{frame}
     \frametitle{Brute-Force solution}
-    \lstinputlisting{listings/brute-force.cpp}
+    \lstinputlisting{src/brute-force.cpp}
     \pause
     Complexity? \pause $\bigoh{3^n}$ \TLE \\\blank
     We can do better\ldots
@@ -119,7 +119,7 @@
 \begin{frame}
     What we want to do is to traverse the state graph (DFS like). \\\blank
     How can we achieve that? \pause
-    \lstinputlisting{listings/partition-problem.cpp} \pause \blank
+    \lstinputlisting{src/partition-problem.cpp} \pause \blank
     Is this enough to get \AC? \pause \textbf{No}. \\
     The graph has $ \approx n \cdot S^3 = 50 \cdot 500^3 = 6250000000$ nodes $\Rightarrow$ \MLE.
 \end{frame}
@@ -135,7 +135,7 @@
     \frametitle{State space reduction}
     Observe that at the end $ given3 = S - given1 - given2 $. \\\blank
     Thus we can drop one parameter and reduce the state space to $ n \cdot S^2 $.
-    \lstinputlisting{listings/partition-problem-better.cpp} \blank
+    \lstinputlisting{src/partition-problem-better.cpp} \blank
     This is called \textbf{State space reduction}
 \end{frame}
 
@@ -197,7 +197,7 @@
 
 \begin{frame}
     \frametitle{Knapsack solution}
-    \lstinputlisting{listings/knapsack.cpp}
+    \lstinputlisting{src/knapsack.cpp}
 \end{frame}
 
 \begin{frame}
@@ -376,7 +376,7 @@
 
 \begin{frame}
     \frametitle{Implementation}
-    \lstinputlisting{listings/knapsack-bottom-up.cpp}
+    \lstinputlisting{src/knapsack-bottom-up.cpp}
     \blank
     For most DP problems, a topological order can be achieved simply with the proper sequencing of some (nested) loops.
 \end{frame}
