@@ -16,7 +16,7 @@ Here is the list of completed and planned teaching units. As they are still unde
 6. [Graph basics and representation](06-graph-basics) (adjacency matrix, adjacency list)
 7. [Union-find structure](07-union-find)
 8. [Segment tree](08-segment-tree) (regular, lazy)
-9. Fenwick tree (binary indexing, least significant bit)
+9. [Fenwick tree](09-fenwick-tree) (binary indexing, least significant bit)
 10. [Recursive backtracking](10-recursive-backtracking) (pruning, bitmasks)
 11. [Binary search](11-binary-search) (nontrivial applications, binary search the answer)
 12. Greedy
