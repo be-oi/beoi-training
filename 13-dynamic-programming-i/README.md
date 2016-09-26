@@ -23,14 +23,15 @@ Complementary notes can be found in section 3.5 of the book Competitive Programm
 - UVa 10130 - [SuperSale](https://uva.onlinejudge.org/external/101/10130.pdf)
 - UVa 562 - [Dividing coins](https://uva.onlinejudge.org/external/5/562.pdf)
 - UVa 624 - [CD](https://uva.onlinejudge.org/external/6/624.pdf)
+- UVa 103 - [Stacking Boxes](https://uva.onlinejudge.org/external/1/103.pdf)
 
 ### Less easy
 
 - UVa 990 - [Diving for gold](https://uva.onlinejudge.org/external/9/990.pdf)
 - UVa 10261 - [Ferry Loading](https://uva.onlinejudge.org/external/102/10261.pdf)
 - Codeforces #358D - [Alyona and Strings](http://codeforces.com/contest/682/problem/D)
+- UVa 108 - [Maximum Sum](https://uva.onlinejudge.org/external/1/108.pdf)
 
 ### Not easy
 
 - UVa 10032 - [Tug of War](https://uva.onlinejudge.org/external/100/10032.pdf)
-

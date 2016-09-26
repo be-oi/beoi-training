@@ -11,7 +11,7 @@ The theory covered is:
 ## Prerequisites
 - Secondary-school synthetic geometry (years 1 and 2)
 - Unit 1: [Complexity](../01-complexity)
-- Unit 3: [Sorting](../03-sorting) (just using a `sort` function with comparator)
+- Unit 3: [Sorting](../03-sorting) (just using a sort function with comparator)
 
 ## Practice problems
 

@@ -14,20 +14,23 @@ This unit covers the basic graph traversal algorithms, and several of their appl
 
 ## Practice problems
 
+For BFS shortest path exercises, see [unit 17](../17-single-source-shortest-path)
+
 ### Easy
-- UVa 11831 - [Sticker Collector Robot](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=2931) (just graph traversal)
-- UVa 11953 - [Battleships](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3104) (flood fill)
-- UVa 200 - [Rare Order](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=136) (toposort)
-- UVa 10004 - [Bicoloring](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=945) (bipartite check)
-- UVa 247 - [Calling circles](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=183) (SCC)
+- UVa 11831 - [Sticker Collector Robot](http://uva.onlinejudge.org/external/118/11831.pdf) (just graph traversal)
+- UVa 11953 - [Battleships](http://uva.onlinejudge.org/external/119/11953.pdf) (flood fill)
+- UVa 200 - [Rare Order](http://uva.onlinejudge.org/external/2/200.pdf) (toposort)
+- UVa 10004 - [Bicoloring](http://uva.onlinejudge.org/external/100/10004.pdf) (bipartite check)
+- UVa 247 - [Calling circles](http://uva.onlinejudge.org/external/2/247.pdf) (SCC)
 
 ### Less easy
-- UVa 12442 - [Forwarding emails](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3873)
-- UVa 11902 - [Dominator](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3053)
-- NWERC 2015 C - [Cleaning pipes](https://open.kattis.com/contests/nwerc15open/problems/cleaningpipes)
-- UVa 872 - [Ordering](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=813)
-- UVa 11396 - [Claw Decomposition](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=2391)
-- UVa 11504 - [Dominos](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=2499)
+- UVa 12442 - [Forwarding emails](http://uva.onlinejudge.org/external/124/12442.pdf)
+- UVa 11902 - [Dominator](http://uva.onlinejudge.org/external/119/11902.pdf)
+- UVa 872 - [Ordering](http://uva.onlinejudge.org/external/8/872.pdf)
+- UVa 11396 - [Claw Decomposition](http://uva.onlinejudge.org/external/113/11396.pdf)
 - USD Code Club W3 A - [Cantina of Babel](https://open.kattis.com/contests/vqm6gy/problems/cantinaofbabel)
-- USD Code Club W3 B - [Torn to pieces](https://open.kattis.com/contests/vqm6gy/problems/torn2pieces)
-- Kattis ICPC NA Reg '15 WU9 G - [Word Ladder](https://open.kattis.com/contests/na15warmup9/problems/wordladder2)
+
+### Hard
+- UVa 11504 - [Dominos](http://uva.onlinejudge.org/external/115/11504.pdf)
+- UVa 295 - [Fatman](https://uva.onlinejudge.org/external/2/295.pdf)
+- NWERC 2015 C - [Cleaning pipes](https://open.kattis.com/contests/nwerc15open/problems/cleaningpipes)

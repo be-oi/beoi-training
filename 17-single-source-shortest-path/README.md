@@ -40,3 +40,4 @@ problems marked with (!) are recommended as beginning exercise
 
 - UVa 558 - [Wormholes](https://uva.onlinejudge.org/external/5/558.pdf)
 - UVa 10557 - [XYZZY](https://uva.onlinejudge.org/external/105/10557.pdf)
+- UVa 104 - [Arbitrage](https://uva.onlinejudge.org/external/1/104.pdf)
