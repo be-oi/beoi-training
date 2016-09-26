@@ -1,5 +1,5 @@
 # Unit 22: Bipartite graphs and MCBM
-This unit is done yet, this README is only used to store exercises.
+This unit is not done yet, this README is only used to store exercises.
 
 ## Practice problems
 
