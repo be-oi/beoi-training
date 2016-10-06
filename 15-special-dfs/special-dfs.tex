@@ -54,7 +54,7 @@ state st[N];
 
 void dfs(int u) {
     st[v] = OPENED;
-    for (int v : g[u])
+    for (int v : adj[u])
         if (st[u] == UNVISITED)
             dfs(v);
     st[v] = CLOSED;
@@ -251,7 +251,7 @@ bool hasCycle = false;
 
 void dfs(int u) {
     st[v] = OPENED;
-    for (int v : g[u]) {
+    for (int v : adj[u]) {
         if (st[u] == UNVISITED)
             dfs(v);
         else if (st[u] == OPENED)
@@ -610,12 +610,12 @@ If there was another path from $u$ to $v$, $v$ would not be a child of $r$.
 \begin{frame}[fragile]
 
 \begin{lstlisting}
-int num[N], low[N], parent[N], root, rootChildren, time = 0;
+int num[N], low[N], parent[N], root, rootChildren, cnt = 0;
 
 void dfs(int u) {
-    num[u] = low[u] = time++;
+    num[u] = low[u] = cnt++;
     st[v] = OPENED;
-    for (int v : g[u]) {
+    for (int v : adj[u]) {
         if (st[u] == UNVISITED) {
             parent[v] = u; dfs(v);
             if (u == root) rootChildren++;
