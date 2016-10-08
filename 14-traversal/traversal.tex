@@ -14,7 +14,7 @@
 \title{Graph traversal}
 \subtitle{DFS, BFS, applications}
 \author{beOI Training}
-\institute{\includegraphics[height=12em]{../shared-img/beoi-logo}}
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
 
 \begin{document}
 
@@ -296,7 +296,7 @@ Thus every node is
 \begin{frame}[fragile]
 \frametitle{Toposort DFS implementation}
 \begin{lstlisting}
-int dfs(int u, vector<int> *toposort)
+void dfs(int u, vector<int> *toposort)
 {
     if (visited[u]) return;
     visited[u] = true;
