@@ -610,30 +610,29 @@ If there was another path from $u$ to $v$, $v$ would not be a child of $r$.
 \begin{frame}[fragile]
 
 \begin{lstlisting}
-int num[N], low[N], parent[N], root, rootChildren, cnt = 0;
+int num[N], low[N], root, rootChildren, cnt = 0;
 
-void dfs(int u) {
+void dfs(int u, int parent) {
     num[u] = low[u] = cnt++;
-    st[v] = OPENED;
+    vis[u] = true;
     for (int v : adj[u]) {
-        if (st[u] == UNVISITED) {
-            parent[v] = u; dfs(v);
+        if (!vis[u]) {
+            dfs(v, u);
             if (u == root) rootChildren++;
-            if (low[v] >= num[u] && v != root)
+            if (low[v] >= num[u] && u != root)
                 // u is an articulation point
             if (low[v] > num[u])
                 // (u,v) is a bridge
             low[u] = min(low[u], low[v]);
-        } else if (v != parent[u])
+        } else if (v != parent)
             low[u] = min(low[u], num[v]);
     }
-    st[v] = CLOSED;
 }
 
 // loop in main():
-if (st[u] == UNVISITED) {
+if (!vis[u]) {
     root = u, rootChildren = 0;
-    dfs(u);
+    dfs(u, -1);
     if(rootChildren > 1)
         // u is an articulation point
 }
