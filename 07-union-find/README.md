@@ -20,3 +20,4 @@ problems marked with (!) are recommended as beginning exercise
 - UVa 11503 - [Virtual Friends](https://uva.onlinejudge.org/external/115/11503.pdf)
 - UVa 11690 - [Money Matters](https://uva.onlinejudge.org/external/116/11690.pdf)
 - CodeForces 278C - [Learning Languages](http://www.codeforces.com/contest/278/problem/C)
+- CodeForces 722C - [Destroying Array](http://codeforces.com/problemset/problem/722/C)
