@@ -56,8 +56,8 @@ void dfs(int u)
         return;
     visited[u] = true;
 
-    for (int i = 0; i < (int) neigh[u].size(); i++)
-        dfs(neigh[u][i]);
+    for (int v : neigh[u])
+        dfs(v);
 }
 \end{lstlisting}
 \end{frame}
@@ -85,9 +85,8 @@ while (!st.empty())
     int u = st.top();
     st.pop();
     
-    for (int i = 0; i < (int) neigh[u].size(); i++)
+    for (int v : neigh[u])
     {
-        int v = neigh[u][i];
         if (!visited[v])
         {
             visited[v] = true;
@@ -139,9 +138,8 @@ while (!q.empty())
     int u = q.front(); // different
     q.pop();
     
-    for (int i = 0; i < (int) neigh[u].size(); i++)
+    for (int v : neigh[u])
     {
-        int v = neigh[u][i];
         if (!visited[v])
         {
             visited[v] = true;
@@ -268,9 +266,8 @@ while (!zero_in.empty())
     zero_in.pop();
     toposort.push_back(u);
     
-    for (int i = 0; i < (int) neigh[u].size(); i++)
+    for (int v : neigh[u])
     {
-        int v = neigh[u][i];
         in_degree[v]--;
         if (in_degree[v] == 0)
             zero_in.push(v);
@@ -385,9 +382,8 @@ int color[MAXN];
 
 bool dfs(int u)
 {
-    for (int i = 0; i < (int) neigh[u].size(); i++)
+    for (int v : neigh[u])
     {
-        int v = neigh[u][i];
         if (color[v] == -1) // unassigned
         {
             color[v] = !color[u];
