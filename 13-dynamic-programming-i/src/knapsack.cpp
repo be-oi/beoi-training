@@ -3,18 +3,15 @@ int w[n], v[n];
 int memo[n][C];
 
 int solve(int i, int wtaken) {
-    if(i == n) {
-        // we cannot take any object anymore
-        return 0; 
-    } else if(wtaken > C) {
-        // knapsack is invalid
+    if(wtaken > C)
         return -INF;
-    }
+    else if(i == n)
+        return 0;
 
     if(memo[i][wtaken] != -1)
         return memo[i][wtaken];
     else {
-        memo[i][wtaken] = max(solve(i+1, wtaken), v[i] + solve(i+1, wtaken - w[i]));
+        memo[i][wtaken] = max(solve(i+1, wtaken), v[i] + solve(i+1, wtaken + w[i]));
         return memo[i][wtaken];
     }
 }
