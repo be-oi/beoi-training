@@ -1,0 +1,175 @@
+\documentclass[12pt]{beamer}
+\usepackage{listings}
+\usepackage[]{color}
+\usepackage{bbding}
+\usepackage{ragged2e}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+
+\beamertemplatenavigationsymbolsempty
+\AtBeginSection[]
+{
+    \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+\setlength{\tabcolsep}{10pt}
+\newcommand{\bigoh}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\TLE}{\textcolor{blue}{TLE}}
+\newcommand{\WA}{\textcolor{red}{WA}}
+\newcommand{\MLE}{\textcolor{orange}{MLE}}
+\newcommand{\AC}{\textcolor{green}{AC}}
+\newcommand{\blank}{\vspace{.5cm}}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\tiny,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2                      % sets default tabsize to 2 spaces
+}
+
+\title{Greedy}
+\subtitle{Greedy is good}
+\author{beOI Training }
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
+\date{} % No date
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Greedy traits}
+
+\begin{frame}
+    "The point is, ladies and gentleman, that 'greed', for lack of a better word, is good."\\
+    
+    \textit{Gordon Gecko, Wall Street}
+    
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Traits of a greedy person}
+    A greedy person
+    \begin{itemize}
+    	\item Doesn't care about the future
+    	\item Doesn't dwell on the past
+    	\item Looks only at the present situation
+    	\item Takes the biggest/best thing currently available
+    	
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Traits of a greedy algorithm}
+	A greedy algorithm
+	\begin{itemize}
+		\item Makes the locally optimal choice at any state.
+		\item Doesn't know anything about a future state.
+		\item Doesn't go back for fixing mistakes.
+		
+	\end{itemize}
+\end{frame}
+
+
+\section{Example problems}
+
+\begin{frame}
+	\frametitle{A shortest path algorithm}
+	\pause
+	At every point take the shortest edge and go from there, until you get to the destination.\\\blank
+	\pause
+	Will this work? Counterexample?\\\blank
+	\pause
+	No! This is not an algorithm, but a \textbf{heuristic} (use Dijkstra)
+\end{frame}
+
+\begin{frame}
+	\frametitle{Coin change}
+	You have a given set of coin types (ex: $\{25,10,5,1\}$)\\
+	We have an unlimited amount of coins.\\
+	How can we give a certain amount of money with the least amount of coins?\\\pause
+	Example: Give 42 cents 
+	\\\blank Does the greedy algorithm work for every coin set? Counterexample\\\blank\pause
+	Try making 6 cents with {4,3,1}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Does it ever work?}
+	\pause
+	... seems like it doesn't\vfill
+	\pause
+	But sometimes it does!
+\end{frame}
+
+\begin{frame}
+	\frametitle{Interval scheduling}
+	A set of activities, each with a starting and ending time.\\
+	How can we schedule the most number of activities?\\\blank
+	
+	Let's try some ideas:
+	\begin{enumerate}
+		\item Earliest starting time? \pause \color{red}No!\color{black}\pause
+		\item Shortest interval? \pause \color{red}No!\color{black}\pause
+		\item Earliest ending time? \pause \color{green}Yes!\color{black}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Load balancing}
+	Certain number of containers $C$.\\
+	Certain number of items $S$ with a certain mass $M_i$.\\
+	$1 \leq S \leq 2C$\\
+	Minimize inbalance:\\ 
+	$$A = \frac{\sum_{j=1}^{S}M_j}{C}, 
+	Imbalance = \sum_{i=1}^{C} |X_i - A|$$
+	where $X_i$ is the total mass in chamber $i$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Load balancing}
+	Any idea?\\\blank\pause
+	Here's a hint: make sure there are exactly $2C$ items by adding dummy elements.\\\blank\pause
+	Sort the items and pair heaviest with the lightest.\\\blank
+	Can you prove this works?
+\end{frame}
+
+
+\section{General remarks}
+
+\begin{frame}
+	\frametitle{General remarks}
+	\begin{itemize}
+		\item Every greedy algorithm has the \textbf{greedy choice property}(Reach global optimum from local optimum)\\ and the \textbf{optimal substructure property}(Optimal solution to subproblems $=>$ optimal solution to problem)\\
+		\pause
+		\item Hard to prove, easy to code $=>$ just try it (or find a counterexample)
+	\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
