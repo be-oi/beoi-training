@@ -19,7 +19,7 @@ Here is the list of completed and planned teaching units. As they are still unde
 9. [Fenwick tree](09-fenwick-tree) (binary indexing, least significant bit)
 10. [Recursive backtracking](10-recursive-backtracking) (pruning, bitmasks)
 11. [Binary search](11-binary-search) (nontrivial applications, binary search the answer)
-12. Greedy
+12. [Greedy](12-greedy) (basic idea, coin change, load balancing, interval scheduling)
 13. [Dynamic programming I](13-dynamic-programming-i) (top-down, bottom-up, classical problems)
 14. [Graph traversal](14-traversal) (DFS, BFS, toposort, bipartite check, Kosaraju SCC)
 15. [Specialized DFS](15-special-dfs) (cycle check, articulation point, bridge, Tarjan SCC)
