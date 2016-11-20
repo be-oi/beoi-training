@@ -70,7 +70,7 @@ define_method :create_main_readme do
 	
 	# Units
 	units.each do |k, u|
-		out << "#{k}. #{get_unit_path(u["unit"], MAIN_DIR)}__\n" # \n for readability, but it doesn't work on GitHub
+		out << "#{k}. #{get_unit_path(u["unit"], MAIN_DIR)}\n"
 	end
 	
 	# Save file
