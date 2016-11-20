@@ -70,7 +70,7 @@ define_method :create_main_readme do
 	
 	# Units
 	units.each do |k, u|
-		out << "#{k}. #{get_unit_path(u["unit"], MAIN_README)}\n"
+		out << "#{k}. #{get_unit_path(u["unit"], MAIN_DIR)}\n"
 	end
 	
 	# Save file
