@@ -21,6 +21,12 @@ MAIN_README = MAIN_DIR + '/README.md'
 # A unit is in its JSON representation, with the "path" member holding the path to the unit
 units = {}
 
+# Generally 'README.md', 'README-nl.md' or 'README-fr.md'
+filename = '/README.md'
+path_filename = ''
+# Generally '', '-nl' or '-fr'
+lang = ''
+
 # Detect all units, and get various information
 define_method :build_units do
 	
@@ -33,13 +39,16 @@ define_method :build_units do
 		if File.exists?(dir + '/unit.json')
 			unit = JSON.parse(File.read(dir + '/unit.json'))
 			unit['path'] = dir
+			if lang && lang != '' && File.exists?(dir + "/unit#{lang}.json")
+				unit.merge!(JSON.parse(File.read(dir + "/unit#{lang}.json")))
+			end
 			units[unit['unit']] = unit
 		end
 	end
 end
 
 # Create the README.md file for a unit
-def create_unit_readme(unit)
+define_method :create_unit_readme do |unit|
 
 	# Title
 	out = "# Unit #{unit['unit'].to_s}: #{unit['title']}\n"
@@ -56,7 +65,7 @@ def create_unit_readme(unit)
 	end
 	
 	# Save file
-	File.open(unit['path'] + '/README.md', 'w') do |file|
+	File.open(unit['path'] + filename, 'w') do |file|
 		file.write(out)
 	end
 	
@@ -74,7 +83,7 @@ define_method :create_main_readme do
 	end
 	
 	# Save file
-	File.open(MAIN_README, 'w') do |file|
+	File.open(MAIN_DIR + filename, 'w') do |file|
 		file.write(out)
 	end
 end
@@ -85,7 +94,7 @@ define_method :get_unit_path do |unit_id, curr_path|
 	unit = units[unit_id]
 	if unit
 		curr = Pathname.new(curr_path)
-		unit_path = Pathname.new(unit['path'])
+		unit_path = Pathname.new(unit['path'] + path_filename)
 		out = "[#{unit['title']}](#{unit_path.relative_path_from(curr)})"
 		if unit['short_description'] != ''
 			out << " (#{unit['short_description']})"
@@ -100,8 +109,25 @@ end
 # MAIN
 #
 
-build_units
-create_main_readme
-units.each do |k, u|
-	create_unit_readme u
+define_method :compile do
+	build_units
+	create_main_readme
+	units.each do |k, u|
+		create_unit_readme u
+	end
 end
+
+# General
+compile
+
+# FR
+filename = '/README-fr.md'
+path_filename = '/README-fr.md'
+lang = '-fr'
+compile
+
+#NL
+filename = '/README-nl.md'
+path_filename = '/README-nl.md'
+lang = '-nl'
+compile
