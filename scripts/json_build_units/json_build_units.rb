@@ -62,6 +62,7 @@ define_method :create_unit_readme do |unit|
 		unit['prerequisites'].each do |u|
 			out << "- Unit #{u}: #{get_unit_path(u, unit['path'])}\n"
 		end
+		out << "\n"
 	end
 
 	# Problems
