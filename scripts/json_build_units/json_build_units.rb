@@ -3,11 +3,12 @@
 # You might need the "json" gem to run it
 #
 require 'pathname'
-require_relative 'network_util'
 unless require 'json'
 	puts 'You need to install the json gem !'
 	exit
 end
+
+require_relative 'network_util'
 
 class String
     def is_i?
@@ -27,6 +28,9 @@ filename = '/README.md'
 path_filename = ''
 # Generally '', '-nl' or '-fr'
 lang = ''
+
+### locale
+locale = {}
 
 # Detect all units, and get various information
 define_method :build_units do
@@ -51,14 +55,17 @@ end
 define_method :create_unit_readme do |unit|
 
 	# Title
-	out = "# Unit #{unit['unit'].to_s}: #{unit['title']}\n"
+	header = locale['header'].dup
+	header['{0}'] = unit['unit'].to_s
+	header['{1}'] = unit['title']
+	out = header + "\n"
 
 	# Description
 	out << unit['description'].join("\n") << "\n\n"
 
 	# Prerequisites
 	if unit['prerequisites'] && unit['prerequisites'].class == Array && unit['prerequisites'].size > 0
-		out << "## Prerequisites\n"
+		out << locale['prerequisites'] + "\n"
 		unit['prerequisites'].each do |u|
 			out << "- Unit #{u}: #{get_unit_path(u, unit['path'])}\n"
 		end
@@ -67,7 +74,7 @@ define_method :create_unit_readme do |unit|
 
 	# Problems
 	if unit['problems'] && unit['problems'].class == Array && unit['problems'].size > 0
-		out << "## Problems\n"
+		out << locale['problems'] + "\n"
 		unit['problems'].each do |p|
 			base_link = ""
 			case p[0]
@@ -84,7 +91,7 @@ define_method :create_unit_readme do |unit|
 	end
 
 	# Save file
-	File.open(unit['path'] + filename, 'w') do |file|
+	File.open(unit['path'] + filename, 'w:UTF-8') do |file|
 		file.write(out)
 	end
 
@@ -102,7 +109,7 @@ define_method :create_main_readme do
 	end
 
 	# Save file
-	File.open(MAIN_DIR + filename, 'w') do |file|
+	File.open(MAIN_DIR + filename, 'w:UTF-8') do |file|
 		file.write(out)
 	end
 end
@@ -140,8 +147,12 @@ end
 NetworkUtil::Uva::initialize
 NetworkUtil::Codeforces::initialize
 
+# Localization
+locales = JSON.parse(File.open('locales.json', 'r:UTF-8', &:read))
+
 # General
 puts 'Building EN'
+locale = locales['en']
 compile
 
 # FR
@@ -149,11 +160,13 @@ puts 'Building FR'
 filename = '/README-fr.md'
 path_filename = '/README-fr.md'
 lang = '-fr'
+locale = locales['fr']
 compile
 
-#NL
+# NL
 puts 'Building NL'
 filename = '/README-nl.md'
 path_filename = '/README-nl.md'
 lang = '-nl'
+locale = locales['en']
 compile

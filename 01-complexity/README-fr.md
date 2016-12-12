@@ -1,4 +1,4 @@
-# Unit 1: Algorithms and Complexity
+# Unité 1: Algorithms and Complexity
 This unit covers the definition of an algorithm and its aim, the analysis of its complexity and the binary search.
 
 Complementary notes can be found in the following sections of the book Competitive Programming:
