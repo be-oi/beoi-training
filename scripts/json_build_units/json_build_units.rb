@@ -17,7 +17,6 @@ class String
 end
 
 MAIN_DIR = '../../'
-UNITS_JSON = MAIN_DIR + '/units.json'
 MAIN_README = MAIN_DIR + '/README.md'
 
 # A unit is in its JSON representation, with the "path" member holding the path to the unit
@@ -29,7 +28,7 @@ path_filename = ''
 # Generally '', '-nl' or '-fr'
 lang = ''
 
-### locale
+# Locale
 locale = {}
 
 # Detect all units, and get various information
@@ -47,6 +46,14 @@ define_method :build_units do
 				unit.merge!(JSON.parse(File.read(dir + "/unit#{lang}.json")))
 			end
 			units[unit['unit']] = unit
+		end
+	end
+
+	# Put the result in units.json, so it can be used by other APIs
+	main_dir_path = Pathname.new(MAIN_DIR)
+	if lang == ''
+		File.open(MAIN_DIR + 'units.json', 'w:UTF-8') do |file|
+			file.write(units.map{|k, v| [k, v['title'], Pathname.new(v['path']).relative_path_from(main_dir_path)]}.to_json)
 		end
 	end
 end
@@ -101,7 +108,7 @@ end
 define_method :create_main_readme do
 
 	# Header
-	out = JSON.parse(File.read(UNITS_JSON))['header'].join("\n") + "\n"
+	out = locale['main_readme'].join("\n") + "\n"
 
 	# Units
 	units.each do |k, u|
