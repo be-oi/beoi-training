@@ -1,0 +1,24 @@
+{
+	"unit": 7,
+	"title": "Union Find Disjoint Sets",
+	"short_description": "",
+	"description":
+	[
+		"This unit covers the Union-Find data structure for disjoint sets",
+		"",
+		"Complementary notes can be found in section 2.4.2 of the book Competitive Programming 3."
+	],
+	"presentation": "union-find.pdf",
+	"prerequisites": [1, 2, 4],
+	"problems":
+	[
+		["uva", 793, "recommended as beginning exercise"],
+		["uva", 10158, "a bit more challenging"],
+		["uva", 10583, "recommended as beginning exercise"],
+		["uva", 10608],
+		["uva", 11503],
+		["uva", 11690],
+		["codeforces", "277A"],
+		["codeforces", "722C"]
+	]
+}

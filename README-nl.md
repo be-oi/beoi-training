@@ -8,5 +8,5 @@ The resources made prior to the units system are available in the [archive](arch
 ## Teaching units
 Here is the list of completed and planned teaching units. As they are still under construction, the units might not contain all the topics mentioned in the parentheses.
 
-1. [Algorithms and Complexity](01-complexity) (big oh, practical limits)
-7. [Union Find Disjoint Sets](07-union-find)
+1. [Algoritmes en Complexiteit](01-complexity/README-nl.md) (big oh, practical limits)
+7. [Union Find Disjoint Sets](07-union-find/README-nl.md)
