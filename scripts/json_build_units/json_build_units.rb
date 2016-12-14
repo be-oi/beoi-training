@@ -74,7 +74,10 @@ define_method :create_unit_readme do |unit|
 	if unit['prerequisites'] && unit['prerequisites'].class == Array && unit['prerequisites'].size > 0
 		out << locale['prerequisites'] + "\n"
 		unit['prerequisites'].each do |u|
-			out << "- Unit #{u}: #{get_unit_path(u, unit['path'])}\n"
+			utxt = locale['unit'].dup
+			utxt['{0}'] = u.to_s
+			utxt['{1}'] = get_unit_path(u, unit['path'])
+			out << utxt + "\n"
 		end
 		out << "\n"
 	end
