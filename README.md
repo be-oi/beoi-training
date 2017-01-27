@@ -29,7 +29,7 @@ Here is the list of completed and planned teaching units. As they are still unde
 19. [Network flow](19-network-flow) (Edmonds-Karp, min cut, vertex capacity, vertex/edge-disjoint paths, MCMF)
 20. Directed acyclic graph (longest/shortest/counting paths, tree MVC)
 21. [Eulerian path](21-eulerian) (eulerian check, finding the path/cycle, Chinese postman problem)
-22. Bipartite graph and MCBM (augmenting path algorithm, MIS, MVC, min path cover on DAG)
+22. [Bipartite graph and MCBM](22-bipartite) (augmenting path algorithm, MIS, MVC, min path cover on DAG)
 23. [Miscellaneous math](23-misc-math) (fast pow, Fibonacci, powers of adjacency matrix, tortoise and hare)
 24. [Number theory](24-number-theory) (GCD, prime factors, sieve, extended Euclid)
 25. Game theory (minimax strategy, Nim game)
