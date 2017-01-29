@@ -13,13 +13,13 @@ This unit covers bipartite graphs and associated subjects:
 ## Practice problems
 
 ### Easy
-- UVa 259 - [Software Allocation](https://uva.onlinejudge.org/external/2/259.pdf)
-- UVa 11396 - [Claw Decomposition](https://uva.onlinejudge.org/external/113/11396.pdf)
-- UVa 11080 - [Place the Guards](https://uva.onlinejudge.org/external/110/11080.pdf)(trickier)
+- UVa 10080 - [Gopher II](https://uva.onlinejudge.org/external/100/10080.pdf)
+- UVa 11396 - [Claw Decomposition](https://uva.onlinejudge.org/external/113/11396.pdf) (just check if bipartite)
 
 ### Medium
-- UVa 10080 - [Gopher II](https://uva.onlinejudge.org/external/100/10080.pdf)
-- UVa 10349 - [Antenna Placement](https://uva.onlinejudge.org/external/103/10349.pdf)(harder)
+- UVa 259 - [Software Allocation](https://uva.onlinejudge.org/external/2/259.pdf)
+- UVa 11080 - [Place the Guards](https://uva.onlinejudge.org/external/110/11080.pdf) (trickier)
+- UVa 10349 - [Antenna Placement](https://uva.onlinejudge.org/external/103/10349.pdf) (harder)
 
 ### Hard
 - UVa 11419 - [SAM I AM](https://uva.onlinejudge.org/external/114/11419.pdf)
