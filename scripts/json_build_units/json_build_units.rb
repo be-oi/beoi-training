@@ -89,18 +89,18 @@ define_method :create_unit_readme do |unit|
 			base_link = ""
 			case p[0]
 			when "uva"
-				base_link = NetworkUtil::Uva::get_problem_url p[1]
+				base_link = "- #{NetworkUtil::Uva::get_problem_url p[1]}"
 			when "codeforces"
-				base_link = NetworkUtil::Codeforces::get_problem_url p[1]
+				base_link = "- #{NetworkUtil::Codeforces::get_problem_url p[1]}"
 			when "any" # Allow text problems (from previous IOIs for instance)
-				base_link = p[1]
+				base_link = "- #{p[1]}"
 			when "title" # Allow sections
         base_link = "### #{locale[p[1]] || p[1]}"
 			end
 			if p[2]
 				base_link << " (#{locale[p[2]] || p[2]})"
 			end
-			out << "- #{base_link}\n"
+			out << "#{base_link}\n"
 		end
 	end
 
