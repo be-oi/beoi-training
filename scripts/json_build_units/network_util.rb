@@ -18,7 +18,7 @@ module NetworkUtil
 
 		def self.get_problem_url(pnum)
 			if @@problems.has_key? pnum
-				return "[UVa #{pnum} - #{@@problems[pnum][1]}](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=#{@@problems[pnum][0]}&category=)"
+				return "UVa #{pnum} - [#{@@problems[pnum][1]}](https://uva.onlinejudge.org/external/#{pnum.to_s[0..-3]}/#{pnum}.pdf)"
 			else
 				return "Unkown problem (UVa #{pnum})"
 			end

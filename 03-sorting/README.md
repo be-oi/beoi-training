@@ -12,7 +12,7 @@ This unit describes multiple ways of sorting elements from an array. Sorting alg
 ## Problems
 
 ### Sorting
-- [UVa 156 - Ananagrams](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=92&category=)
+- UVa 156 - [Ananagrams](https://uva.onlinejudge.org/external/1/156.pdf)
 
 ### Variants of algorithms
-- [UVa 10810 - Ultra-QuickSort](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1751&category=) (hard if you don't know it)
+- UVa 10810 - [Ultra-QuickSort](https://uva.onlinejudge.org/external/108/10810.pdf) (hard if you don't know it)

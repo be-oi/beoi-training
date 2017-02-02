@@ -9,19 +9,19 @@ Aanvullende notities (in het Engels) zijn terug te vinden in de volgende secties
 ## Problems
 
 ### Easy
-- [UVa 11172 - Relational Operator](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2113&category=)
-- [UVa 11498 - Division of Nlogonia](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2493&category=)
-- [UVa 11727 - Cost Cutting](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2827&category=)
-- [UVa 10611 - The Playboy Chimp](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1552&category=)
+- UVa 11172 - [Relational Operator](https://uva.onlinejudge.org/external/111/11172.pdf)
+- UVa 11498 - [Division of Nlogonia](https://uva.onlinejudge.org/external/114/11498.pdf)
+- UVa 11727 - [Cost Cutting](https://uva.onlinejudge.org/external/117/11727.pdf)
+- UVa 10611 - [The Playboy Chimp](https://uva.onlinejudge.org/external/106/10611.pdf)
 
 ### Less easy
-- [UVa 10114 - Loansome Car Buyer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1055&category=)
-- [UVa 11559 - Event Planning](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2595&category=)
-- [UVa 11799 - Horror Dash](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2899&category=)
-- [UVa 10474 - Where is the Marble?](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1415&category=)
-- [UVa 11057 - Exact Sum](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1998&category=)
+- UVa 10114 - [Loansome Car Buyer](https://uva.onlinejudge.org/external/101/10114.pdf)
+- UVa 11559 - [Event Planning](https://uva.onlinejudge.org/external/115/11559.pdf)
+- UVa 11799 - [Horror Dash](https://uva.onlinejudge.org/external/117/11799.pdf)
+- UVa 10474 - [Where is the Marble?](https://uva.onlinejudge.org/external/104/10474.pdf)
+- UVa 11057 - [Exact Sum](https://uva.onlinejudge.org/external/110/11057.pdf)
 
 ### Not easy
-- [UVa 573 - The Snail](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=514&category=)
-- [UVa 10141 - Request for Proposal](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1082&category=)
-- [UVa 11507 - Bender B. Rodríguez Problem](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2502&category=)
+- UVa 573 - [The Snail](https://uva.onlinejudge.org/external/5/573.pdf)
+- UVa 10141 - [Request for Proposal](https://uva.onlinejudge.org/external/101/10141.pdf)
+- UVa 11507 - [Bender B. Rodríguez Problem](https://uva.onlinejudge.org/external/115/11507.pdf)

@@ -17,8 +17,8 @@ Complementary notes can be found in the following sections of the book Competiti
 ## Problems
 
 ### Easy
-- [UVa 10935 - Throwing cards away I](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1876&category=)
+- UVa 10935 - [Throwing cards away I](https://uva.onlinejudge.org/external/109/10935.pdf)
 
 ### Less easy
-- [UVa 514 - Rails](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=455&category=)
-- [UVa 11998 - Rujia Liu loves Wario Land!](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3149&category=)
+- UVa 514 - [Rails](https://uva.onlinejudge.org/external/5/514.pdf)
+- UVa 11998 - [Rujia Liu loves Wario Land!](https://uva.onlinejudge.org/external/119/11998.pdf)
