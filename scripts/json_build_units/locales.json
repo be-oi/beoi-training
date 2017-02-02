@@ -17,7 +17,11 @@
     "header": "# Unit {0}: {1}",
     "prerequisites": "## Prerequisites",
     "unit": "- Unit {0}: {1}",
-    "problems": "## Problems"
+    "problems": "## Problems",
+
+    "Easy": "Easy",
+    "Less easy": "Less easy",
+    "Not easy": "Not easy"
   },
   "nl":
   {
@@ -37,7 +41,11 @@
     "header": "# Unit {0}: {1}",
     "prerequisites": "## Prerequisites",
     "unit": "- Unit {0}: {1}",
-    "problems": "## Problems"
+    "problems": "## Problems",
+
+    "Easy": "Gemakkelijk",
+    "Less easy": "Minder gemakkelijk",
+    "Not easy": "Niet gemakkelijk"
   },
   "fr":
   {
@@ -57,6 +65,10 @@
     "header": "# Unité {0}: {1}",
     "prerequisites": "## Prérequis",
     "unit": "- Unité {0}: {1}",
-    "problems": "## Problèmes"
+    "problems": "## Problèmes",
+
+    "Easy": "Facile",
+    "Less easy": "Moins facile",
+    "Not easy": "Pas facile"
   }
 }

@@ -14,6 +14,20 @@
 	"prerequisites": [],
 	"problems":
 	[
-
+    ["title", "Easy"],
+      ["uva", 11172],
+      ["uva", 11498],
+      ["uva", 11727],
+      ["uva", 10611],
+    ["title", "Less easy"],
+      ["uva", 10114],
+      ["uva", 11559],
+      ["uva", 11799],
+      ["uva", 10474],
+      ["uva", 11057],
+    ["title", "Not easy"],
+      ["uva", 573],
+      ["uva", 10141],
+      ["uva", 11507]
 	]
 }
