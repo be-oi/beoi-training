@@ -9,4 +9,7 @@ The resources made prior to the units system are available in the [archive](arch
 Here is the list of completed and planned teaching units. As they are still under construction, the units might not contain all the topics mentioned in the parentheses.
 
 1. [Algoritmes en Complexiteit](01-complexity/README-nl.md) (big oh, practical limits)
+2. [Linear data structures](02-linear-struct/README-nl.md) (array, bitset, vector, linked list, stack, queue)
+3. [Sorting algorithms](03-sorting/README-nl.md) (insertion, merge, quick and heap sort)
+4. [Tree data structures](04-trees/README-nl.md) (set, map, heap)
 7. [Union Find Disjoint Sets](07-union-find/README-nl.md)

@@ -1,4 +1,4 @@
-# Unit 2: Linear data structures
+# Unité 2: Linear data structures
 This unit covers the base linear data structures, and explains how to choose the most appropriate one for a given problem:
 - Array
 - Bitset
@@ -11,14 +11,14 @@ Complementary notes can be found in the following sections of the book Competiti
 - [1st edition](http://www.comp.nus.edu.sg/~stevenha/myteaching/competitive_programming/cp1.pdf)  : 2.2.1
 - 3rd edition: 2.2
 
-## Prerequisites
-- Unit 1: [Algorithms and Complexity](../01-complexity) (big oh, practical limits)
+## Prérequis
+- Unité 1: [Algorithmes et Complexité](../01-complexity/README-fr.md) (big oh, practical limits)
 
-## Problems
+## Problèmes
 
-### Easy
+### Facile
 - [UVa 10935 - Throwing cards away I](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1876&category=)
 
-### Less easy
+### Moins facile
 - [UVa 514 - Rails](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=455&category=)
 - [UVa 11998 - Rujia Liu loves Wario Land!](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3149&category=)

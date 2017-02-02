@@ -1,0 +1,29 @@
+{
+	"unit": 2,
+	"title": "Linear data structures",
+	"short_description": "array, bitset, vector, linked list, stack, queue",
+	"description":
+	[
+		"This unit covers the base linear data structures, and explains how to choose the most appropriate one for a given problem:",
+    "- Array",
+    "- Bitset",
+    "- Dynamical array / vector",
+    "- Linked list (singly or doubly)",
+		"- Stack",
+    "- Queue",
+    "",
+		"Complementary notes can be found in the following sections of the book Competitive Programming:",
+		"- [1st edition](http://www.comp.nus.edu.sg/~stevenha/myteaching/competitive_programming/cp1.pdf)  : 2.2.1",
+		"- 3rd edition: 2.2"
+	],
+	"presentation": "-",
+	"prerequisites": [ 1 ],
+	"problems":
+	[
+    ["title", "Easy"],
+      ["uva", 10935],
+    ["title", "Less easy"],
+      ["uva", 514],
+      ["uva", 11998]
+  ]
+}

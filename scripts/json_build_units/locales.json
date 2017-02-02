@@ -21,7 +21,14 @@
 
     "Easy": "Easy",
     "Less easy": "Less easy",
-    "Not easy": "Not easy"
+    "Not easy": "Not easy",
+
+    "recommended as beginning exercise": "recommended as beginning exercise",
+    "a bit more challenging": "a bit more challenging",
+    "hard if you don't know it": "hard if you don't know it",
+
+    "Sorting": "Sorting",
+    "Variants of algorithms": "Variants of algorithms"
   },
   "nl":
   {

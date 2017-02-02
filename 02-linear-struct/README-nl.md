@@ -12,7 +12,7 @@ Complementary notes can be found in the following sections of the book Competiti
 - 3rd edition: 2.2
 
 ## Prerequisites
-- Unit 1: [Algorithms and Complexity](../01-complexity) (big oh, practical limits)
+- Unit 1: [Algoritmes en Complexiteit](../01-complexity/README-nl.md) (big oh, practical limits)
 
 ## Problems
 

@@ -1,0 +1,20 @@
+{
+	"unit": 4,
+	"title": "Tree data structures",
+	"short_description": "set, map, heap",
+	"description":
+	[
+    "This unit covers tree data structures and their use:",
+    "- Binary search trees",
+    "- Sets and maps (in library)",
+    "- Heaps",
+    "- Priority queues (in library)"
+	],
+	"presentation": "slides.pdf",
+	"prerequisites": [ 1 ],
+	"problems":
+	[
+    ["title", "Less easy"],
+      ["uva", 10029]
+  ]
+}

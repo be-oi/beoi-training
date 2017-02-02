@@ -6,7 +6,7 @@ This unit covers tree data structures and their use:
 - Priority queues (in library)
 
 ## Prerequisites
-- Unit 1: [Algorithms and Complexity](../01-complexity) (big oh, practical limits)
+- Unit 1: [Algoritmes en Complexiteit](../01-complexity/README-nl.md) (big oh, practical limits)
 
 ## Problems
 

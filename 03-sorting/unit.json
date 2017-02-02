@@ -1,0 +1,23 @@
+{
+	"unit": 3,
+	"title": "Sorting algorithms",
+	"short_description": "insertion, merge, quick and heap sort",
+	"description":
+	[
+		"This unit describes multiple ways of sorting elements from an array. Sorting algorithms are not important only for ordering (library functions can do it too). They use plenty of interesting ideas which can be reused in another contexts. The covered algorithms are:",
+		"- Insertion sort",
+    "- Merge sort",
+    "- Quicksort",
+    "- Heapsort",
+    ""
+	],
+	"presentation": "slides.pdf",
+	"prerequisites": [ 1 ],
+	"problems":
+	[
+    ["title", "Sorting"],
+      ["uva", 156],
+    ["title", "Variants of algorithms"],
+      ["uva", 10810, "hard if you don't know it"]
+  ]
+}
