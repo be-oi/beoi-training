@@ -40,10 +40,10 @@ define_method :build_units do
 
 	dirs.each do |dir|
 		if File.exists?(dir + '/unit.json')
-			unit = JSON.parse(File.read(dir + '/unit.json'))
+			unit = JSON.parse(File.open(dir + '/unit.json', 'r:UTF-8', &:read))
 			unit['path'] = dir
 			if lang && lang != '' && File.exists?(dir + "/unit#{lang}.json")
-				unit.merge!(JSON.parse(File.read(dir + "/unit#{lang}.json")))
+				unit.merge!(JSON.parse(File.open(dir + "/unit#{lang}.json", 'r:UTF-8', &:read)))
 			end
 			units[unit['unit']] = unit
 		end
@@ -92,6 +92,8 @@ define_method :create_unit_readme do |unit|
 				base_link = NetworkUtil::Uva::get_problem_url p[1]
 			when "codeforces"
 				base_link = NetworkUtil::Codeforces::get_problem_url p[1]
+			when "any" # Allow text problems (from previous IOIs for instance)
+				base_link = p[1]
 			end
 			if p[2]
 				base_link << " (#{p[2]})"

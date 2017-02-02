@@ -4,7 +4,7 @@ This unit covers the Union-Find data structure for disjoint sets
 Complementary notes can be found in section 2.4.2 of the book Competitive Programming 3.
 
 ## Prérequis
-- Unité 1: [Algorithmes et Complexit├®](../01-complexity/README-fr.md) (big oh, practical limits)
+- Unité 1: [Algorithmes et Complexité](../01-complexity/README-fr.md) (big oh, practical limits)
 - Unité 2: <?>
 - Unité 4: <?>
 
