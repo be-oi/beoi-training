@@ -95,7 +95,7 @@ define_method :create_unit_readme do |unit|
 			when "any" # Allow text problems (from previous IOIs for instance)
 				base_link = "- #{p[1]}"
 			when "title" # Allow sections
-        base_link = "### #{locale[p[1]] || p[1]}"
+        base_link = "\n### #{locale[p[1]] || p[1]}"
 			end
 			if p[2]
 				base_link << " (#{locale[p[2]] || p[2]})"
