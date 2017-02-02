@@ -41,7 +41,7 @@ module NetworkUtil
 
 		def self.get_problem_url(handle)
 			if @@problems.has_key? handle
-				return "[Codeforces #{handle} - #{@@problems[handle][2]}](http://codeforces.com/problemset/problem/#{@@problems[handle][0]}/#{@@problems[handle][1]})"
+				return "Codeforces #{handle} - [#{@@problems[handle][2]}](http://codeforces.com/problemset/problem/#{@@problems[handle][0]}/#{@@problems[handle][1]})"
 			else
 				return "Unkown problem (Codeforces #{handle})"
 			end

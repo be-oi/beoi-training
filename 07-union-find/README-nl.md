@@ -15,5 +15,5 @@ Complementary notes can be found in section 2.4.2 of the book Competitive Progra
 - UVa 10608 - [Friends](https://uva.onlinejudge.org/external/106/10608.pdf)
 - UVa 11503 - [Virtual Friends](https://uva.onlinejudge.org/external/115/11503.pdf)
 - UVa 11690 - [Money Matters](https://uva.onlinejudge.org/external/116/11690.pdf)
-- [Codeforces 277A - Learning Languages](http://codeforces.com/problemset/problem/277/A)
-- [Codeforces 722C - Destroying Array](http://codeforces.com/problemset/problem/722/C)
+- Codeforces 277A - [Learning Languages](http://codeforces.com/problemset/problem/277/A)
+- Codeforces 722C - [Destroying Array](http://codeforces.com/problemset/problem/722/C)
