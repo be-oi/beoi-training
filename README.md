@@ -1,7 +1,7 @@
 # beOI/beCP Training Resources
 This repository hosts all the course materials created for the [beOI](http://beoi.be-oi.be/) (Belgian Olympiad in Informatics) and [beCP](http://becp.be-oi.be/) (Belgian Competitive Programming) training camps.
 
-The program is now structured into a set of teaching units, designed to cover the whole IOI syllabus (and a some additional material from the [CP3](http://cpbook.net/) book). Each unit contains the slides used and a README which outlines the content of the unit, lists the prerequisites and gives links to related exercises (when applicable).
+The program is now structured into a set of teaching units, designed to cover the whole IOI syllabus (and some additional material from the [CP3](http://cpbook.net/) book). Each unit contains the slides used and a README which outlines the content of the unit, lists the prerequisites and gives links to related exercises. The units are not originally meant to be in a logical order.
 
 The resources made prior to the units system are available in the [archive](archive) directory.
 
@@ -32,7 +32,7 @@ Here is the list of completed and planned teaching units. As they are still unde
 22. [Bipartite graph and MCBM](22-bipartite) (augmenting path algorithm, MIS, MVC, min path cover on DAG)
 23. [Miscellaneous math](23-misc-math) (fast pow, Fibonacci, powers of adjacency matrix, tortoise and hare)
 24. [Number theory](24-number-theory) (GCD, prime factors, sieve, extended Euclid)
-25. Game theory (minimax strategy, Nim game)
+25. [Game theory](25-game-theory) (subtraction/Nim game, minimax, alpha-beta)
 26. [String processing](26-string-processing) (trie, Rabin-Karp, Z-algorithm, KMP)
 27. [Computational geometry](27-computational-geometry) (basics, polygon area, convex hull)
 28. Advanced search techniques (heavy pruning, meet in the middle, A*)
