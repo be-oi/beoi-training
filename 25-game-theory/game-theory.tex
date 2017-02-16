@@ -345,47 +345,34 @@ Compute the winning/losing states in a bottom-up way.
 \begin{center}
 \scalebox{0.85}{
 \begin{tikzpicture}
+\only<-4>{
 \node[a] at (2,0) (22) {2,2};
+}\only<5->{
+\node[a,lose] at (2,0) (22) {2,2};
+}
+\only<-3>{
 \node[a] at (1,-1.5) (12) {1,2};
 \node[a] at (3,-1.5) (21) {2,1};
+}\only<4->{
+\node[a,win] at (1,-1.5) (12) {1,2};
+\node[a,win] at (3,-1.5) (21) {2,1};
+}
+\only<-2>{
 \node[a] at (0,-3) (02) {0,2};
 \node[a] at (2,-3) (11) {1,1};
 \node[a] at (4,-3) (20) {2,0};
-\node[a] at (1,-4.5) (01) {0,1};
-\node[a] at (3,-4.5) (10) {1,0};
-\node[a,lose] at (2,-6) (00) {0,0};
-
-\draw (22) [bend right=40] to (02);
-\draw (22) -- (12);
-\draw (22) -- (21);
-\draw (22) [bend left=40] to (20);
-\draw (12) -- (02);
-\draw (12) -- (11);
-\draw (12) [bend left=40] to (10);
-\draw (21) -- (20);
-\draw (21) -- (11);
-\draw (21) [bend right=40] to (01);
-\draw (02) -- (01);
-\draw (02) [bend right=40] to (00);
-\draw (11) -- (01);
-\draw (11) -- (10);
-\draw (20) -- (10);
-\draw (20) [bend left=40] to (00);
-\draw (10) -- (00);
-\draw (01) -- (00);
-\end{tikzpicture}
-}
-\quad
-\scalebox{0.85}{
-\begin{tikzpicture}
-\node[a,lose] at (2,0) (22) {2,2};
-\node[a,win] at (1,-1.5) (12) {1,2};
-\node[a,win] at (3,-1.5) (21) {2,1};
+}\only<3->{
 \node[a,win] at (0,-3) (02) {0,2};
 \node[a,lose] at (2,-3) (11) {1,1};
 \node[a,win] at (4,-3) (20) {2,0};
+}
+\only<1>{
+\node[a] at (1,-4.5) (01) {0,1};
+\node[a] at (3,-4.5) (10) {1,0};
+}\only<2->{
 \node[a,win] at (1,-4.5) (01) {0,1};
 \node[a,win] at (3,-4.5) (10) {1,0};
+}
 \node[a,lose] at (2,-6) (00) {0,0};
 
 \draw (22) [bend right=40] to (02);
@@ -393,19 +380,34 @@ Compute the winning/losing states in a bottom-up way.
 \draw (22) -- (21);
 \draw (22) [bend left=40] to (20);
 \draw (12) -- (02);
-\draw[choice] (12) -- (11);
 \draw (12) [bend left=40] to (10);
 \draw (21) -- (20);
+\only<-3>{
+\draw (12) -- (11);
+\draw (21) -- (11);
+}\only<4->{
+\draw[choice] (12) -- (11);
 \draw[choice] (21) -- (11);
+}
 \draw (21) [bend right=40] to (01);
 \draw (02) -- (01);
-\draw (02) [choice,bend right=40] to (00);
 \draw (11) -- (01);
 \draw (11) -- (10);
 \draw (20) -- (10);
+\only<-2>{
+\draw (02) [bend right=40] to (00);
+\draw (20) [bend left=40] to (00);
+}\only<3->{
+\draw (02) [choice,bend right=40] to (00);
 \draw (20) [choice,bend left=40] to (00);
+}
+\only<1>{
+\draw (10) -- (00);
+\draw (01) -- (00);
+}\only<2->{
 \draw[choice] (10) -- (00);
 \draw[choice] (01) -- (00);
+}
 \end{tikzpicture}
 }
 \end{center}
