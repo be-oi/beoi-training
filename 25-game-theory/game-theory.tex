@@ -9,12 +9,13 @@
 \tikzset{
     every node/.style={draw,thick},
     every path/.style={thick},
-    a/.style={circle},
-    b/.style={rectangle, minimum size=.65cm},
+    a/.style={rectangle, minimum size=.65cm},
+    b/.style={circle, inner sep=0.1cm, minimum size=0.75cm},
     win/.style={fill=mygreen},
     lose/.style={fill=myred,dashed},
     small/.style={scale=0.7, font=\small},
-    choice/.style={->, ultra thick}
+    choice/.style={->, ultra thick},
+    pruned/.style={gray,dashed}
 }
 
 \beamertemplatenavigationsymbolsempty
@@ -538,32 +539,32 @@ Exercise: solve this subtraction/Nim mashup.
 
 \begin{center}
 \scalebox{0.9}{
-\begin{tikzpicture}[a/.style={circle, inner sep=0, minimum size=0.75cm}]
-\node[b] at (0,0) (00) {3};
-\node[b] at (1,0) (01) {-1};
+\begin{tikzpicture}
+\node[b] at (0,0) (00) {-2};
+\node[b] at (1,0) (01) {3};
 \node[b] at (2,0) (02) {1};
-\node[b] at (3,0) (03) {-4};
-\node[b] at (4,0) (04) {1};
-\node[b] at (5,0) (05) {4};
-\node[b] at (6,0) (06) {0};
+\node[b] at (3,0) (03) {4};
+\node[b] at (4,0) (04) {3};
+\node[b] at (5,0) (05) {1};
+\node[b] at (6,0) (06) {-3};
 \node[b] at (7,0) (07) {-1};
-\node[b] at (8,0) (08) {-5};
-\node[b] at (9,0) (09) {3};
-\node[b] at (10,0) (010) {-4};
-\node[b] at (11,0) (011) {2};
+\node[b] at (8,0) (08) {1};
+\node[b] at (9,0) (09) {7};
+\node[b] at (10,0) (010) {-2};
+\node[b] at (11,0) (011) {4};
 
 \node[a] at (1,1.5) (10) {\only<2->{3}};
-\only<2->{\draw[choice] (10) to (00);}
+\only<2->{\draw[choice] (10) to (01);}
 \node[a] at (4,1.5) (11) {\only<2->{4}};
-\only<2->{\draw[choice] (11) to (05);}
-\node[a] at (7,1.5) (12) {\only<2->{0}};
-\only<2->{\draw[choice] (12) to (06);}
-\node[a] at (10,1.5) (13) {\only<2->{3}};
+\only<2->{\draw[choice] (11) to (03);}
+\node[a] at (7,1.5) (12) {\only<2->{1}};
+\only<2->{\draw[choice] (12) to (08);}
+\node[a] at (10,1.5) (13) {\only<2->{7}};
 \only<2->{\draw[choice] (13) to (09);}
 
 \node[b] at (2.5,3) (20) {\only<3->{3}};
 \only<3->{\draw[choice] (20) to (10);}
-\node[b] at (8.5,3) (21) {\only<3->{0}};
+\node[b] at (8.5,3) (21) {\only<3->{1}};
 \only<3->{\draw[choice] (21) to (12);}
 
 \node[a] at (5.5,4.5) (30) {\only<4->{3}};
@@ -598,7 +599,7 @@ Exercise: solve this subtraction/Nim mashup.
 \textbf{Implementation 1:} recursive, DFS-style
 \begin{lstlisting}
 int minimax(state u) {
-    if (isEnding(u)) // the game has ended
+    if (terminal(u)) // the game has ended
         return score(u);
     int best = -INF;
     for (state v : nextStates(u)) // possible moves
@@ -622,13 +623,11 @@ int minimax(state u) {
 map<state, int> dp; // make it an array if possible
 
 int minimax(state u) {
-    if (isEnding(u)) // the game has ended
+    if (terminal(u))
         return score(u);
     if (dp.count(u)) // already computed before
         return dp[u];
-    int best = -INF;
-    for (state v : nextStates(u)) // possible moves
-        best = max(best, -minimax(v));
+    // [...] find best move
     return (dp[u] = best); // don't forget to save
 }
 \end{lstlisting}
@@ -638,18 +637,140 @@ int minimax(state u) {
 \section{Alpha-Beta pruning}
 \begin{frame}
 \frametitle{Very large search spaces}
+Sometimes there are just too many states to explore!
+
+\qquad \small{(chess, Go, draughts, ...)}
+
+~
+
+\begin{itemize}
+\item Solution 1: cut off the tree and \emph{evaluate} the situation
+    \begin{itemize}
+    \item e.g. cut at depth 4, evaluate, and run minimax
+    \item evaluation based on heuristics (imperfect estimations)
+    \item inexact result $\Rightarrow$ not okay for us
+    \end{itemize}
+\item Solution 2: eliminate states without changing the result
+    \begin{itemize}
+    \item prune complete parts of the trees
+    \item \emph{prove} that the unvisited states are not part of the optimal play
+    \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Alpha-beta definition}
+\begin{itemize}
+\item Let's assume we compute A's utility
+    \begin{itemize}
+    \item A wants to maximize the score
+    \item B wants to minimize the score
+    \end{itemize}
+\item During the minimax search, we maintain two parameters:
+    \begin{itemize}
+    \item $\alpha =$ maximum score that A is assured of
+    \item $\beta =$ minimum score that B is assured of
+    \end{itemize}
+\item In other words, $\alpha$ and $\beta$ are such that:
+    \begin{itemize}
+    \item we know the final result is in $[\alpha,\beta]$
+    \item $\alpha$ is as big as possible
+    \item $\beta$ is as small as possible
+    \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Alpha-beta example}
+\begin{center}
+\scalebox{0.9}{
+\begin{tikzpicture}
+\node[b] at (0,0) (00) {-2};
+\node[b] at (1,0) (01) {3};
+\node[b] at (2,0) (02) {1};
+\only<3->{\node[b] at (3,0) (03) {4};}
+\only<4->{
+\node[b,pruned] at (4,0) (04) {?};
+\node[b,pruned] at (5,0) (05) {?};
+}
+\only<7->{
+\node[b] at (6,0) (06) {-3};
+\node[b] at (7,0) (07) {-1};
+\node[b] at (8,0) (08) {1};
+}
+
+% Make sure the size doesn't change
+\node[b,white] at (11,-1) {};
+\node[b,white] at (11,5.2) {};
+
+\node[a] at (1,1.5) (10) {3};
+\draw[choice] (10) to (01);
+\only<3->{\node[a] at (4,1.5) (11) {\only<3>{?}\only<4->{$\geq 4$}};}
+\only<7->{
+\node[a] at (7,1.5) (12) {1};
+\draw[choice] (12) to (08);
+}
+\only<8->{\node[a,pruned] at (10,1.5) (13) {?};}
+
+\only<2-4>{\node[draw=none] at (2.5,3.8) {$\beta=3$};}
+\node[b] at (2.5,3) (20) {\only<1>{?}\only<2-4>{$\leq$\ }\only<2->{3}};
+\only<5->{\draw[choice] (20) to (10);}
+\only<7->{\node[b] at (8.5,3) (21) {\only<7>{?}\only<8->{$\leq 1$}};}
+
+\only<6-8>{\node[draw=none] at (5.5,5.2) {$\alpha=3$};}
+\node[a] at (5.5,4.5) (30) {\only<-5>{?}\only<6-8>{$\geq$\ }\only<6->{3}};
+\only<9->{\draw[choice] (30) to (20);}
+
+\draw (10) to (00);
+\draw (10) to (01);
+\draw (10) to (02);
+\only<3->{\draw (11) to (03);}
+\only<4->{
+\draw[pruned] (11) to (04);
+\draw[pruned] (11) to (05);
+}
+\only<7->{
+\draw (12) to (06);
+\draw (12) to (07);
+\draw (12) to (08);
+}
+
+\draw (20) to (10);
+\only<3->{\draw (20) to (11);}
+\only<7->{\draw (21) to (12);}
+\only<8->{\draw[pruned] (21) to (13);}
+
+\draw (30) to (20);
+\only<7->{\draw (30) to (21);}
+
+\node[draw=none] at (4,-1) {\only<4->{beta pruning!}};
+\node[draw=none] at (10,0.5) {\only<8->{alpha pruning!}};
+\end{tikzpicture}}
+\end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Alpha-beta implementation}
+%\textbf{Implementation 3:} with alpha-beta pruning
+\begin{lstlisting}
+int minimax(state u, int alpha, int beta) {
+    if (terminal(u))
+        return score(u);
+    int best = -INF;
+    for (state v : nextStates(u)) {
+        best = max(best,
+                   -minimax(v, -beta, -alpha));
+        alpha = max(alpha, best);
+        if (alpha >= beta) break; // pruning
+    }
+    return best;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Interval $[\alpha,\beta]$ becomes $[-\beta,-\alpha]$ when switching players
+\item Cutoff when current best is $\geq \beta$
+\begin{itemize} \item maybe there is better, but the opponent has a better choice anyway \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
