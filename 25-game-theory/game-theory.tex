@@ -10,7 +10,7 @@
     every node/.style={draw,thick},
     every path/.style={thick},
     a/.style={circle},
-    b/.style={rectangle, minimum width=.65cm, minimum height=.65cm},
+    b/.style={rectangle, minimum size=.65cm},
     win/.style={fill=mygreen},
     lose/.style={fill=myred,dashed},
     small/.style={scale=0.7, font=\small},
@@ -113,9 +113,9 @@ Example with $k=3$:
 
 \begin{frame}
 \frametitle{Subtraction game: decision tree}
-\tikz{\node[a, small, label=right:{\ = ``A plays''}] {?};}
+\tikz{\node[a, small, label=right:{\ = A plays}] {?};}
 \quad
-\tikz{\node[b, small, label=right:{\ = ``B plays''}] {?};}
+\tikz{\node[b, small, label=right:{\ = B plays}] {?};}
 
 \begin{center}
 \scalebox{0.9}{
@@ -512,18 +512,127 @@ Exercise: solve this subtraction/Nim mashup.
 \section{Minimax algorithm}
 \begin{frame}
 \frametitle{Minimax principles}
+\begin{itemize}
+\item So far we've only considered win/lose games
+\begin{itemize} \item utilities: $+1 = \mbox{win}$, $-1 = \mbox{lose}$. \end{itemize}
+\item What about games with scores?
+\begin{itemize} \item example: utility is the difference of the scores. \end{itemize}
+\item Each player will take the choice that
+    \begin{itemize}
+    \item maximizes his utility
+    \item or minimizes the utility of his opponent (zero-sum)
+    \end{itemize}
+\item Let's fix player A as reference
+    \begin{itemize}
+    \item player A will always maximize the value
+    \item player B will always minimize the value
+    \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Minimax example}
+\tikz{\node[a, small, label=right:{\ = A plays $\Rightarrow$ maximize}] {?};}
+\quad
+\tikz{\node[b, small, label=right:{\ = B plays $\Rightarrow$ minimize}] {?};}
+
+\begin{center}
+\scalebox{0.9}{
+\begin{tikzpicture}[a/.style={circle, inner sep=0, minimum size=0.75cm}]
+\node[b] at (0,0) (00) {3};
+\node[b] at (1,0) (01) {-1};
+\node[b] at (2,0) (02) {1};
+\node[b] at (3,0) (03) {-4};
+\node[b] at (4,0) (04) {1};
+\node[b] at (5,0) (05) {4};
+\node[b] at (6,0) (06) {0};
+\node[b] at (7,0) (07) {-1};
+\node[b] at (8,0) (08) {-5};
+\node[b] at (9,0) (09) {3};
+\node[b] at (10,0) (010) {-4};
+\node[b] at (11,0) (011) {2};
+
+\node[a] at (1,1.5) (10) {\only<2->{3}};
+\only<2->{\draw[choice] (10) to (00);}
+\node[a] at (4,1.5) (11) {\only<2->{4}};
+\only<2->{\draw[choice] (11) to (05);}
+\node[a] at (7,1.5) (12) {\only<2->{0}};
+\only<2->{\draw[choice] (12) to (06);}
+\node[a] at (10,1.5) (13) {\only<2->{3}};
+\only<2->{\draw[choice] (13) to (09);}
+
+\node[b] at (2.5,3) (20) {\only<3->{3}};
+\only<3->{\draw[choice] (20) to (10);}
+\node[b] at (8.5,3) (21) {\only<3->{0}};
+\only<3->{\draw[choice] (21) to (12);}
+
+\node[a] at (5.5,4.5) (30) {\only<4->{3}};
+\only<4->{\draw[choice] (30) to (20);}
+
+\draw (10) to (00);
+\draw (10) to (01);
+\draw (10) to (02);
+\draw (11) to (03);
+\draw (11) to (04);
+\draw (11) to (05);
+\draw (12) to (06);
+\draw (12) to (07);
+\draw (12) to (08);
+\draw (13) to (09);
+\draw (13) to (010);
+\draw (13) to (011);
+
+\draw (20) to (10);
+\draw (20) to (11);
+\draw (21) to (12);
+\draw (21) to (13);
+
+\draw (30) to (20);
+\draw (30) to (21);
+\end{tikzpicture}}
+\end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Minimax implementation}
+\textbf{Implementation 1:} recursive, DFS-style
+\begin{lstlisting}
+int minimax(state u) {
+    if (isEnding(u)) // the game has ended
+        return score(u);
+    int best = -INF;
+    for (state v : nextStates(u)) // possible moves
+        best = max(best, -minimax(v));
+    return best;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Doesn't separate the ``min'' and ``max'' steps
+\item Just takes the opposite of the opponent's score
+\end{itemize}
+~
+
+\textbf{Complexity:} $O(b^d)$, if $d$ is depth and $b$ branches every time.
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Minimax with DP}
+\textbf{Implementation 2:} add DP memoization
+\begin{lstlisting}
+map<state, int> dp; // make it an array if possible
+
+int minimax(state u) {
+    if (isEnding(u)) // the game has ended
+        return score(u);
+    if (dp.count(u)) // already computed before
+        return dp[u];
+    int best = -INF;
+    for (state v : nextStates(u)) // possible moves
+        best = max(best, -minimax(v));
+    return (dp[u] = best); // don't forget to save
+}
+\end{lstlisting}
+\textbf{Complexity:} $O(s)$, where $s$ is the number of possible states.
 \end{frame}
 
 \section{Alpha-Beta pruning}
