@@ -37,7 +37,7 @@
 \maketitle
 
 
-\section{Basics and decision trees}
+\section{Basics and game trees}
 \begin{frame}
 \frametitle{What is game theory?}
 Modelling strategic situations:
@@ -58,7 +58,7 @@ Goal: compute choices, optimal strategies, expected gains
 \end{frame}
 
 \begin{frame}
-\frametitle{Decision trees}
+\frametitle{Game trees}
 A useful tool to examine decisions and their consequences.
 \begin{center}
 \includegraphics[width=.95\linewidth]{img/tictactoe}
@@ -89,9 +89,9 @@ Main focus: two-player zero-sum games:
 \end{frame}
 
 
-\section{Subtraction game}
+\section{Bachet's game}
 \begin{frame}
-\frametitle{Subtraction game: rules}
+\frametitle{Bachet's game: rules}
 ``Jeu des alumettes'' in French, ??? in Dutch
 \begin{itemize}
 \item At the beginning, $n$ matches on the table
@@ -113,7 +113,7 @@ Example with $k=3$:
 \end{frame}
 
 \begin{frame}
-\frametitle{Subtraction game: decision tree}
+\frametitle{Bachet's game: game tree}
 \tikz{\node[a, small, label=right:{\ = A plays}] {?};}
 \quad
 \tikz{\node[b, small, label=right:{\ = B plays}] {?};}
@@ -207,7 +207,7 @@ Example with $k=3$:
 \end{frame}
 
 \begin{frame}
-\frametitle{Subtraction game: winning states}
+\frametitle{Bachet's game: winning states}
 \begin{center}
 \scalebox{0.65}{
 \begin{tikzpicture}
@@ -290,7 +290,7 @@ Observations:
 \end{frame}
 
 \begin{frame}
-\frametitle{Subtraction game: optimal play}
+\frametitle{Bachet's game: optimal play}
 If the number of matches is a multiple of $k+1$:
 \begin{itemize}
     \item all moves are bad;
@@ -319,7 +319,7 @@ Examples of perfect moves (for $k=3$):
 
 \begin{frame}
 \frametitle{Nim game: rules}
-Similar to subtraction game but:
+Similar to Bachet's game but:
 \begin{itemize}
 \item More than one heap: sizes $(2,3)$, $(2,1,9)$.
 \item You can remove as many matches as you want but \emph{from a single heap}.
@@ -504,7 +504,7 @@ Frequent properties of simple win-or-lose games:
 
 ~
 
-Exercise: solve this subtraction/Nim mashup.
+Exercise: solve this Bachet's/Nim mashup.
 \begin{itemize}
 \item Several heaps with sizes $(n_1,\ldots,n_l)$.
 \item You can take $1,2,\ldots,k$ matches from a single heap.
