@@ -402,7 +402,7 @@ We observe that an edge $(u, v)$ is a bridge if and only if:
 
 \vspace{0.5cm}
 
-No node in the sub-tree of $v$ has {\color{cyan} a link to $u$} \textbf{or} {\color{red} one of its ancestors other than $(u, v)$}.
+No node in the sub-tree of $v$ has {\color{cyan} a link to $u$ other than $(u,v)$} \textbf{or} {\color{red} a link to one of its ancestors}.
 
 \vspace{0.5cm}
 
@@ -438,7 +438,7 @@ We will \textbf{timestamp} the nodes as they are visited: $num$
 
 \vspace{0.5cm}
 
-Keep track of the node with minimum timestamp that we see: $low$
+Keep track of the node with minimum timestamp that we see. We define $low[v]$ as the \textbf{lowest timestamp to which any node in the subtree of $v$ has a direct link}.
 
 \vspace{0.5cm}
 
@@ -465,7 +465,7 @@ We observe that a node $u$ is an articulation point if and only if:
 
 \vspace{0.5cm}
 
-No node in the sub-tree of $v$ has a link to {\color{red} one ancestor of $u$ other than $(u, v)$}.
+No node in the sub-tree of $v$ has a link to {\color{red} a (strict) ancestor of $u$}.
 
 \vspace{0.5cm}
 
@@ -502,7 +502,7 @@ What does this mean in terms of $num$ and $low$? \pause
 
 \vspace{0.5cm}
 
-A non-root node $u$ is an articulation point if and only if when we finish $v$, $low[v] \geq num[u]$
+A non-root node $u$ is an articulation point if and only if when we finish $v$, $low[v] \geq num[u]$.\footnote{Note that this might be detected several times with different children $v$, so don't output it directly!}
 
 \begin{center}
 \begin{tikzpicture}[]
@@ -616,7 +616,7 @@ void dfs(int u, int parent) {
     num[u] = low[u] = cnt++;
     vis[u] = true;
     for (int v : adj[u]) {
-        if (!vis[u]) {
+        if (!vis[v]) {
             dfs(v, u);
             if (u == root) rootChildren++;
             if (low[v] >= num[u] && u != root)
