@@ -18,12 +18,16 @@ Complementary notes can be found in section 4.5 of the book Competitive Programm
 
 ## Practice problems
 
-### Floyd-Warshall
+### Easy
 
-- UVa 157 - [Route Finding](https://uva.onlinejudge.org/external/1/157.pdf)
-- UVa 10171 - [Meeting Prof. Miguel...](https://uva.onlinejudge.org/external/101/10171.pdf)
+- UVa 157 - [Risk](https://uva.onlinejudge.org/external/5/567.pdf) (begin with that one)
+- UVa 869 - [Airline Comparison](https://uva.onlinejudge.org/external/8/869.pdf)
 
-### Applications
+### Medium
 
-- UVa 534 - [Frogger](https://uva.onlinejudge.org/external/5/534.pdf)
+- UVa 1247 - [Interstar Transport](https://uva.onlinejudge.org/external/12/1247.pdf) (you need to print the path)
 
+### Harder
+
+- UVa 104 - [Arbitrge](https://uva.onlinejudge.org/external/1/104.pdf) (interesting variant)
+- UVa 12179 - [Arbitrge](https://uva.onlinejudge.org/external/121/12179.pdf) (not a pure Floyd problem)
