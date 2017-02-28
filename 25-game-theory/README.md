@@ -9,6 +9,7 @@ This unit covers the basics of game theory and some classical algorithms:
 
 ## Prerequisites
 - Unit 1: [Complexity](../01-complexity)
+- Unit 13: [Dynamic Programming I](../13-dynamic-programming-i)
 
 ## Practice problems
 

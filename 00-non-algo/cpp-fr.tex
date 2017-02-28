@@ -1,0 +1,179 @@
+\documentclass[12pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings,tikz,amsmath,xcolor}
+\usepackage[frenchb]{babel}
+
+\definecolor{myblue}{rgb}{0,0,0.7}
+\definecolor{mygreen}{rgb}{0,0.5,0}
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+\definecolor{mymauve}{rgb}{0.3,0,0.5}
+
+\lstset{
+    language=C++, basicstyle=\footnotesize, frame=single,
+    literate=%
+        {à}{{\`a}}1
+        {â}{{\^a}}1
+        {É}{{\'E}}1 {é}{{\'e}}1
+        {è}{{\`e}}1
+        {ê}{{\^e}}1
+        {î}{{\^i}}1,
+    commentstyle=\color{mygreen},
+    keywordstyle=\bf\color{myblue},
+    stringstyle=\color{mymauve},
+    showstringspaces=false
+}
+
+\beamertemplatenavigationsymbolsempty
+\AtBeginSection[]
+{
+    \begin{frame}
+    \frametitle{Table des matières}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\title{Crash course de C++}
+\subtitle{Pour programmeurs en n'importe quel langage raisonnable}
+\author{beOI Training}
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Les bases}
+\begin{frame}[fragile]
+\frametitle{Hello world!}
+\begin{lstlisting}
+// Ceci est un commentaire.
+#include <bits/stdc++.h> // importe toute la STL
+using namespace std; // évite de taper std::
+
+// Déclaration de fonction : type nom() { [...] }
+int main() {
+    // Toutes les instructions terminent par ";"
+    cout << "Hello World!" << endl;
+    // endl = retour à la ligne
+}
+\end{lstlisting}
+\begin{itemize}
+\item La fonction \lstinline|int main()| est appelée au lancement.
+\item Le \lstinline|int| veut dire que \lstinline|main()| retourne un entier, mais le \lstinline|return| est implicite.
+\item Le sens des chevrons \lstinline|<<| indique que les mots vont vers \lstinline|cout|, la "sortie standard".
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variables et opérations}
+Une variable doit avoir un type spécifié
+\begin{lstlisting}
+int i = 5; // entiers dans [-2^31, 2^31[
+double j = 5.4; // nombres à virgules
+bool b = true; // booléen (vrai ou faux)
+char ch = 'D'; // caractères seuls
+string s = "abcd"; // chaîne de caractères
+
+// On peut les initialiser plus tard
+int k,l; // plusieurs variables du même type
+
+k = i + 2;
+l = 7 / 3; // division entière => l = 2
+s += ch; // ajout d'un caractère
+j /= 3; // divise j par 3
+i++; l--; // ajoute 1, enlève 1
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conditions}
+\begin{lstlisting}
+int age;
+cout << "Quel est votre âge ? ";
+cin >> age; // lecture d'input
+if (age < 18)
+    cout << "Vous êtes mineur." << endl;
+else if (age <= 120)
+    cout << "Vous êtes majeur." << endl;
+else {
+    int a=3, b=4, c=5;
+    bool rectangle = (a*a + b*b == c*c);
+    if (rectangle && !(a == 0 || b == 0))
+        cout << "Hypoténuse = " << c << endl;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Les accolades \lstinline|{}| sont facultatives pour une seul ligne.
+\item Le sens des chevrons \lstinline|>>| indique que l'entier vient de \lstinline|cin|, "l'entrée standard".
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Boucles}
+\begin{lstlisting}
+// Imprime les nombres de 1 à 5
+for (int i=1; i<=5; i++)
+    cout << i << endl;
+
+string s; // initialement vide
+while (s != "oui") { // pas égal
+    cout << "Aimez-vous programmer ? ";
+    cin >> s;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Les boucles \lstinline|for(;;)| ont trois parties:
+\begin{itemize}
+\item Initialisation: initialise une ou plusieurs variables
+\item Condition: la boucle s'arrête quand elle est fausse
+\item Incrémentation: exécutée à la fin de chaque itération
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonctions}
+\begin{lstlisting}
+// Type obligatoire pour résultat et paramètres
+int square(int x) {
+    return x*x;
+}
+void sayHello(string s) { // void = ne renvoie rien
+    cout << "Bonjour " << s << endl;
+}
+int main() {
+    int y = square(4); // y = 16
+    sayHello("Victor");
+}
+\end{lstlisting}
+\begin{itemize}
+\item Pas imbriquables, et toujours placées \emph{avant} leur appel. Sinon il faut les déclarer avec \lstinline|void sayHello(string s);| et les implémenter après.
+\item Quand une fonction n'est pas \lstinline|void|, toutes les exécutions possibles doivent terminer avec un \lstinline|return|.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tableaux}
+Toutes les cases d'un tableau doivent avoir le même type.
+\begin{lstlisting}
+int maxi(int tab[], int n) { // le [] est toujours
+    int ma = 0;              // après le nom
+    for (int i=0; i<n; i++)
+        ma = max(ma, tab[i]);
+    return ma;
+}
+int main() {
+    int a[5], b[4][3]; // 4 lignes et 3 colonnes
+    for (int i=0; i<5; i++)
+        cin >> a[i];
+    cout << maxi(a, 5) << endl;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Le premier élément est à l'indice \lstinline|[0]|.
+\item Un tableau ne connaît pas sa taille ! Il faut la donner à part quand on l'envoie à une fonction.
+\end{itemize}
+\end{frame}
+
+\end{document}
