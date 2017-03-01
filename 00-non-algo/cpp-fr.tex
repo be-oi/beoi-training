@@ -1,7 +1,7 @@
 \documentclass[12pt]{beamer}
 
 \usepackage[utf8]{inputenc}
-\usepackage{listings,tikz,amsmath,xcolor}
+\usepackage{listings,tabu,tikz,amsmath,xcolor,textcomp}
 \usepackage[frenchb]{babel}
 
 \definecolor{myblue}{rgb}{0,0,0.7}
@@ -178,6 +178,7 @@ int main() {
 \end{itemize}
 \end{frame}
 
+
 \section{La librairie standard}
 
 \begin{frame}[fragile]
@@ -217,7 +218,197 @@ for (int i : v)
 \item Et bien d'autres: copies, recherche binaire, matching, sélection du $i$-ème plus petit élément, ...
 \item Plus d'infos sur les algorithmes: \url{http://en.cppreference.com/w/cpp/algorithm}
 \end{itemize}
+\end{frame}
 
+
+\section{Pointeurs et références}
+
+\begin{frame}
+\frametitle{Disclaimer}
+Attention, à partir de maintenant ça devient hard.
+
+~
+
+Âmes sensibles s'abstenir!
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Mémoire et adresses}
+La mémoire d'un PC est comme un grand tableau, rempli de cases pour stocker les variables.
+\vspace{6pt}
+\begin{columns}[T]
+\begin{column}{.45\textwidth}
+\textbf{Programme}
+\begin{lstlisting}
+...
+int a = 2, b = 3;
+char ch[]{'h','e','y'};
+...
+\end{lstlisting}
+\end{column}
+\begin{column}{.45\textwidth}
+\textbf{Mémoire RAM}
+\vspace{4pt}
+
+\begin{tabu} {r|c|c|c|c|}
+$\cdots$ & \multicolumn{4}{c|}{$\cdots$} \\
+\cline{2-5}
+\lstinline|mem[12]| & \multicolumn{4}{c|}{\lstinline|a = 2|} \\
+\cline{2-5}
+\lstinline|mem[8]| & \multicolumn{4}{c|}{\lstinline|b = 3|} \\
+\cline{2-5}
+\lstinline|mem[4]| & \lstinline|'h'| & \lstinline|'e'| & \lstinline|'y'| & \\
+\cline{2-5}
+$\cdots$ & \multicolumn{4}{c|}{$\cdots$}
+\end{tabu}
+\end{column}
+\end{columns}
+\vspace{4pt}
+
+\begin{itemize}
+\item Chaque case peut contenir un byte (8 bits), une variable peut être étalée sur plusieurs cases (\lstinline|int| 4, \lstinline|double| 8)
+\item Chaque case a une \emph{adresse} (\lstinline|4|, \lstinline|8|, \lstinline|12|, ...).
+\item L'adresse permet d'accéder à la variable
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointeurs}
+\begin{itemize}
+\item Un pointeur est une variable qui contient l'adresse d'une autre variable.
+\item On peut lire ou modifier une variable grâce à son pointeur.
+\end{itemize}
+\vspace{6pt}
+\begin{columns}[T]
+\begin{column}{.6\textwidth}
+\textbf{Programme}
+\begin{lstlisting}
+int a = 2;
+int *b = &a; // type = (int *)
+cout << b << endl;  // 12
+cout << *b << endl; // 2
+*b = 5; // modifie a, pas b
+cout << a << endl;  // 5
+\end{lstlisting}
+\end{column}
+\begin{column}{.3\textwidth}
+\textbf{Mémoire RAM}
+\vspace{7pt}
+
+\begin{tabu}{r|c|}
+$\cdots$ & $\cdots$ \\
+\cline{2-2}
+\lstinline|mem[12]| & \lstinline|a = 2| \\
+\cline{2-2}
+\lstinline|mem[8]| & \lstinline|b = 12| \\
+\cline{2-2}
+$\cdots$ & $\cdots$
+\end{tabu}
+\end{column}
+\end{columns}
+\vspace{3pt}
+\begin{itemize}
+\item \lstinline|&a| = ``indice de \lstinline|a| dans \lstinline|mem[]|''
+\item \lstinline|*b| = \lstinline|mem[b]| (et donc on peut lire et écrire à cet indice)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Passage par pointeur}
+\begin{itemize}
+\item Quand on envoie une variable à une fonction, elle est copiée (passée \emph{par valeur}).
+\item \emph{Si on la modifie, ça ne change pas la variable de base.}
+\end{itemize}
+\vspace{3pt}
+\begin{columns}[T]
+\begin{column}{.45\textwidth}
+\textbf{Passage par valeur}
+\begin{lstlisting}
+void add3(int a) {
+    a += 3;
+}   // a = copie de i
+int main() {
+    int i=2;
+    add3(i);
+    cout << i << endl;
+}   // affiche 2
+\end{lstlisting}
+\end{column}
+\begin{column}{.45\textwidth}
+\textbf{Passage par pointeur}
+\begin{lstlisting}
+void add3(int *p) {
+    *p += 3;
+}   // "mem[p] += 3"
+int main() {
+    int i=2;
+    add3(&i);
+    cout << i << endl;
+}   // affiche 5
+\end{lstlisting}
+\end{column}
+\end{columns}
+\vspace{3pt}
+À droite, l'adresse \lstinline|p| est aussi passée par valeur, \emph{mais on modifie la valeur de \lstinline|i| directement dans la mémoire avec \lstinline|*p|}.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Références}
+Les références permettent d'utiliser un pointeur comme une variable normale (sans écrire \lstinline|&| et \lstinline|*| tout le temps).
+\begin{lstlisting}
+int a = 2;
+int &b = a; // type = (int &)
+cout << b << endl;  // 2
+b = 5; // modifie a à travers b
+cout << a << endl;  // 5
+\end{lstlisting}
+Différences avec les pointeurs:
+\begin{itemize}
+\item Une référence est liée à une seule variable, pour toujours.
+\item \lstinline|b| est comme un autre nom pour \lstinline|a|, c'est un alias.
+\item On n'a pas accès à l'adresse de \lstinline|a|.
+\item Le \lstinline|&| des références n'a \textbf{rien à voir} avec le \lstinline|&| des pointeurs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Passage par référence}
+Quand on passe une variable \emph{par référence}, elle n'est pas copiée, c'est la ``même variable''.
+\vspace{3pt}
+\begin{columns}[T]
+\begin{column}{.45\textwidth}
+\textbf{Passage par valeur}
+\begin{lstlisting}
+void add3(int a) {
+    a += 3;
+}   // a = copie de i
+int main() {
+    int i=2;
+    add3(i);
+    cout << i << endl;
+}   // affiche 2
+\end{lstlisting}
+\end{column}
+\begin{column}{.45\textwidth}
+\textbf{Passage par référence}
+\begin{lstlisting}
+void add3(int &a) {
+    a += 3;
+}   // a = alias de i
+int main() {
+    int i=2;
+    add3(i);
+    cout << i << endl;
+}   // affiche 5
+\end{lstlisting}
+\end{column}
+\end{columns}
+\vspace{3pt}
+\begin{itemize}
+\item La seule différence c'est le \lstinline|&| devant le nom de la variable.
+\item À droite, vu que \lstinline|i| et \lstinline|a| sont deux noms pour une même variable, quand on modifie \lstinline|a|, ça modifie \lstinline|i| aussi.
+\item Ça évite de copier la variable $\Rightarrow$ plus rapide.
+\end{itemize}
 \end{frame}
 
 \end{document}
