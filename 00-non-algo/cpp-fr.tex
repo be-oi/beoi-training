@@ -45,6 +45,7 @@
 
 
 \section{Les bases}
+
 \begin{frame}[fragile]
 \frametitle{Hello world!}
 \begin{lstlisting}
@@ -63,6 +64,30 @@ int main() {
 \item La fonction \lstinline|int main()| est appelée au lancement.
 \item Le \lstinline|int| veut dire que \lstinline|main()| renvoie un entier, mais \lstinline|main()| renvoie \lstinline|0| automatiquement (raisons historiques).
 \item Le sens des chevrons \lstinline|<<| indique que les mots vont vers \lstinline|cout|, la "sortie standard".
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Compilation et lancement}
+Les programmes en C++ doivent d'abord être transformés dans un langage compréhensible par l'ordinateur.
+
+~
+
+\textbf{Compilation} (en ligne de commande)
+\begin{lstlisting}
+g++ -std=c++11 -Wall -Wextra -Wshadow hello.cpp
+\end{lstlisting}
+\begin{itemize}
+\item \lstinline|g++|: nom du compilateur
+\item \lstinline|-std=c++11|: version de C++ utilisée
+\item \lstinline|-Wall -Wextra -Wshadow|: active plein de warnings très utiles pour écrire des programmes sans bugs
+\item \lstinline|hello.cpp|: code source
+\end{itemize}
+
+\textbf{Lancement}: \lstinline|./a.out|
+\begin{itemize}
+\item \lstinline|./|: dossier dans lequel on se trouve
+\item \lstinline|a.out|: nom du fichier exécutable produit par \lstinline|g++|.
 \end{itemize}
 \end{frame}
 
@@ -360,7 +385,7 @@ int a = 2;
 int &b = a; // type = (int &)
 cout << b << endl;  // 2
 b = 5; // modifie a à travers b
-cout << a << endl;  // 5
+cout << a << ' ' << b << endl;  // 5 5
 \end{lstlisting}
 Différences avec les pointeurs:
 \begin{itemize}
