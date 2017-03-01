@@ -37,6 +37,7 @@
 \subtitle{Pour programmeurs en n'importe quel langage raisonnable}
 \author{beOI Training}
 \institute{\includegraphics[height=12em]{../share/beoi-logo}}
+\date{}
 
 \begin{document}
 
@@ -60,7 +61,7 @@ int main() {
 \end{lstlisting}
 \begin{itemize}
 \item La fonction \lstinline|int main()| est appelée au lancement.
-\item Le \lstinline|int| veut dire que \lstinline|main()| retourne un entier, mais le \lstinline|return| est implicite.
+\item Le \lstinline|int| veut dire que \lstinline|main()| renvoie un entier, mais \lstinline|main()| renvoie \lstinline|0| automatiquement (raisons historiques).
 \item Le sens des chevrons \lstinline|<<| indique que les mots vont vers \lstinline|cout|, la "sortie standard".
 \end{itemize}
 \end{frame}
@@ -148,7 +149,7 @@ int main() {
 }
 \end{lstlisting}
 \begin{itemize}
-\item Pas imbriquables, et toujours placées \emph{avant} leur appel. Sinon il faut les déclarer avec \lstinline|void sayHello(string s);| et les implémenter après.
+\item Pas imbriquables, et toujours placées \emph{avant} leur appel. Sinon il faut les déclarer ainsi: \lstinline|void sayHello(string s);| et les implémenter après.
 \item Quand une fonction n'est pas \lstinline|void|, toutes les exécutions possibles doivent terminer avec un \lstinline|return|.
 \end{itemize}
 \end{frame}
@@ -161,7 +162,7 @@ int maxi(int tab[], int n) { // le [] est toujours
     int ma = 0;              // après le nom
     for (int i=0; i<n; i++)
         ma = max(ma, tab[i]);
-    return ma;
+    return ma; // renvoie le maximum de a
 }
 int main() {
     int a[5], b[4][3]; // 4 lignes et 3 colonnes
@@ -172,8 +173,51 @@ int main() {
 \end{lstlisting}
 \begin{itemize}
 \item Le premier élément est à l'indice \lstinline|[0]|.
+\item La taille ne peut pas être modifiée.
 \item Un tableau ne connaît pas sa taille ! Il faut la donner à part quand on l'envoie à une fonction.
 \end{itemize}
+\end{frame}
+
+\section{La librairie standard}
+
+\begin{frame}[fragile]
+\frametitle{STL et conteneurs}
+La librairie standard (STL) contient un tas de structures et fonctions très utiles.
+
+~
+
+Une structure très utile est le \lstinline|vector<>|:
+\begin{lstlisting}
+vector<int> v(3,-1); // 3 éléments initialisés à -1
+v.push_back(7); // ajoute 7 au vecteur
+v[1] = 5; // accès comme un tableau
+for (int i : v) // prend les éléments un par un
+    cout << i << endl; // imprime -1, 5, -1, 7
+\end{lstlisting}
+\begin{itemize}
+\item On met le type des éléments dans les chevrons: \lstinline|<int>|.
+\item Les structures ont des constructeurs qui les initialisent (ici \lstinline|(3,-1)|) et beaucoup de méthodes (ici \lstinline|.push_back()|).
+\item Plus d'infos sur les conteneurs: \url{http://en.cppreference.com/w/cpp/container}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Algorithmes STL}
+La STL contient aussi beaucoup d'algorithmes prêts à l'emploi:
+\begin{lstlisting}
+vector<int> v{4,-1,3,2}; // initialisé avec liste
+sort(v.begin(), v.end()); // trie tout le vecteur
+swap(v[0], v[1]); // échange les contenus
+reverse(v.begin(), v.end()); // renverse le vecteur
+
+for (int i : v)
+    cout << v << endl; // imprime 4, 3, -1, 2
+\end{lstlisting}
+\begin{itemize}
+\item Et bien d'autres: copies, recherche binaire, matching, sélection du $i$-ème plus petit élément, ...
+\item Plus d'infos sur les algorithmes: \url{http://en.cppreference.com/w/cpp/algorithm}
+\end{itemize}
+
 \end{frame}
 
 \end{document}
