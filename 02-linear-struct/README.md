@@ -21,11 +21,13 @@ Aanvullende notities (in het Engels zijn terug te vinden in de volgende secties 
 ## Oefeningen
 
 ### Gemakkelijk
-- UVa 10935 - [Throwing cards away](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1876)
+- UVa 11034 - [Ferry Loading IV](http://uva.onlinejudge.org/external/110/11034.pdf)
+- UVa 10935 - [Throwing cards away](http://uva.onlinejudge.org/external/109/10935.pdf)
 
 ### Minder gemakkelijk
-- UVa 514 - [Rails](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=455)
-- UVa 11988 - [Broken keyboard](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3139)
+- UVa 11988 - [Broken keyboard](http://uva.onlinejudge.org/external/119/11988.pdf)
+- UVa 514 - [Rails](http://uva.onlinejudge.org/external/5/514.pdf)
+- UVa 1062 - [Containers](http://uva.onlinejudge.org/external/10/1062.pdf)
 
 # Unité 2 : Structures de données linéaires
 Cette unité traite des structures de données linéaires de base, et explique comment choisir la structure la plus appropriée pour un problème donné :
@@ -49,8 +51,11 @@ Des notes complémentaires (en anglais) peuvent être retrouvées dans les secti
 ## Exercices
 
 ### Facile
-- UVa 10935 - [Throwing cards away](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1876)
+- UVa 11034 - [Ferry Loading IV](http://uva.onlinejudge.org/external/110/11034.pdf)
+- UVa 10935 - [Throwing cards away](http://uva.onlinejudge.org/external/109/10935.pdf) (attention au cas `n==1`!)
 
 ### Moins facile
-- UVa 514 - [Rails](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=455)
-- UVa 11988 - [Broken keyboard](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3139)
+
+- UVa 11988 - [Broken keyboard](http://uva.onlinejudge.org/external/119/11988.pdf)
+- UVa 514 - [Rails](http://uva.onlinejudge.org/external/5/514.pdf)
+- UVa 1062 - [Containers](http://uva.onlinejudge.org/external/10/1062.pdf)
