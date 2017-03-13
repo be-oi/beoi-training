@@ -26,3 +26,6 @@ This unit covers the basics of game theory and some classical algorithms:
 
 ### Hard
 - Kattis - [Cheating Luck](https://open.kattis.com/problems/cheatingluck)
+
+### Very hard
+- Kattis - [The Leprechaun Hunt](https://open.kattis.com/problems/leprechaunhunt)
