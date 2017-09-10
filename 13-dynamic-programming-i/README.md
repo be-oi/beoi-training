@@ -29,7 +29,7 @@ Complementary notes can be found in section 3.5 of the book Competitive Programm
 
 - UVa 990 - [Diving for gold](https://uva.onlinejudge.org/external/9/990.pdf)
 - UVa 10261 - [Ferry Loading](https://uva.onlinejudge.org/external/102/10261.pdf)
-- Codeforces #358D - [Alyona and Strings](http://codeforces.com/contest/682/problem/D)
+- Codeforces 682D - [Alyona and Strings](http://codeforces.com/contest/682/problem/D)
 - UVa 108 - [Maximum Sum](https://uva.onlinejudge.org/external/1/108.pdf)
 
 ### Not easy
