@@ -15,9 +15,14 @@ The theory covered is:
 
 ## Practice problems
 
-To do in this order:
+### Basic
 - UVa 634 - [Polygon](https://uva.onlinejudge.org/external/6/634.pdf) (check if inside)
 - UVa 10060 - [A Hole to Catch a Man](https://uva.onlinejudge.org/external/100/10060.pdf) (areas)
 - UVa 478 - [Points in Figures: Rectangles, Circles, and Triangles](https://uva.onlinejudge.org/external/4/478.pdf) (check if inside, variants)
 - UVa 681 - [Convex Hull Finding](https://uva.onlinejudge.org/external/6/681.pdf) (I'll let you guess)
+
+### Miscellaneous
+- UVa 920 - [Sunny Mountains](https://uva.onlinejudge.org/external/9/920.pdf)
+- UVa 1111 - [Trash Removal](https://uva.onlinejudge.org/external/11/1111.pdf)
+- UVa 588 - [Video Surveillance](https://uva.onlinejudge.org/external/5/588.pdf)
 - UVa 109 - [SCUD Busters](https://uva.onlinejudge.org/external/1/109.pdf) (convex hull, area)

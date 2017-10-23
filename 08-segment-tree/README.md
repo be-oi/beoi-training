@@ -17,5 +17,5 @@ Complementary notes can be found in section 2.4.3 of the book Competitive Progra
 - UVa 11402 - [Ahoy, Pirates!](https://uva.onlinejudge.org/external/114/11402.pdf)
 
 ### Not easy
+- UVa 1232 - [SKYLINE](https://uva.onlinejudge.org/external/12/1232.pdf)
 - IOI 2014 - [Wall](http://www.ioinformatics.org/locations/ioi14/contest/day1/wall/wall.pdf)
-

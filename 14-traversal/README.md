@@ -13,7 +13,6 @@ This unit covers the basic graph traversal algorithms, and several of their appl
 - Unit 6: [Graph basics](../06-graph-basics)
 
 ## Practice problems
-
 For BFS shortest path exercises, see [unit 17](../17-single-source-shortest-path)
 
 ### Easy
@@ -23,15 +22,16 @@ For BFS shortest path exercises, see [unit 17](../17-single-source-shortest-path
 - UVa 10004 - [Bicoloring](http://uva.onlinejudge.org/external/100/10004.pdf) (bipartite check)
 - UVa 247 - [Calling circles](http://uva.onlinejudge.org/external/2/247.pdf) (SCC)
 
-### Less easy
+### Medium
 - UVa 12442 - [Forwarding emails](http://uva.onlinejudge.org/external/124/12442.pdf)
 - UVa 200 - [Rare Order](http://uva.onlinejudge.org/external/2/200.pdf)
 - UVa 11902 - [Dominator](http://uva.onlinejudge.org/external/119/11902.pdf)
 - UVa 872 - [Ordering](http://uva.onlinejudge.org/external/8/872.pdf)
 - UVa 11396 - [Claw Decomposition](http://uva.onlinejudge.org/external/113/11396.pdf)
-- USD Code Club W3 A - [Cantina of Babel](https://open.kattis.com/contests/vqm6gy/problems/cantinaofbabel)
+- Kattis - [Cantina of Babel](https://open.kattis.com/problems/cantinaofbabel)
 
 ### Hard
+- UVa 705 - [Slash Maze](https://uva.onlinejudge.org/external/7/705.pdf)
 - UVa 11504 - [Dominos](http://uva.onlinejudge.org/external/115/11504.pdf)
 - UVa 295 - [Fatman](https://uva.onlinejudge.org/external/2/295.pdf)
-- NWERC 2015 C - [Cleaning pipes](https://open.kattis.com/contests/nwerc15open/problems/cleaningpipes)
+- Kattis - [Cleaning pipes](https://open.kattis.com/problems/cleaningpipes) (NWERC 2015 C)
