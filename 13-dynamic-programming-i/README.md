@@ -31,4 +31,5 @@ Complementary notes can be found in section 3.5 of the book Competitive Programm
 - UVa 662 - [Fast Food](http://uva.onlinejudge.org/external/6/662.pdf)
 
 ### Not easy
+- Kattis - [Arranging Hat](https://open.kattis.com/problems/arranginghat)
 - UVa 10032 - [Tug of War](https://uva.onlinejudge.org/external/100/10032.pdf)
