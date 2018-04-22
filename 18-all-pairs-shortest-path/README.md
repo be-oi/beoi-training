@@ -20,14 +20,15 @@ Complementary notes can be found in section 4.5 of the book Competitive Programm
 
 ### Easy
 
-- UVa 157 - [Risk](https://uva.onlinejudge.org/external/5/567.pdf) (begin with that one)
+- UVa 567 - [Route Finding](https://uva.onlinejudge.org/external/5/567.pdf) (begin with that one)
 - UVa 869 - [Airline Comparison](https://uva.onlinejudge.org/external/8/869.pdf)
 
 ### Medium
 
 - UVa 1247 - [Interstar Transport](https://uva.onlinejudge.org/external/12/1247.pdf) (you need to print the path)
+- Codeforces 295B - [Greg and Graph](http://codeforces.com/contest/295/problem/B)
 
 ### Harder
 
-- UVa 104 - [Arbitrge](https://uva.onlinejudge.org/external/1/104.pdf) (interesting variant)
-- UVa 12179 - [Arbitrge](https://uva.onlinejudge.org/external/121/12179.pdf) (not a pure Floyd problem)
+- UVa 104 - [Arbitrage](https://uva.onlinejudge.org/external/1/104.pdf) (interesting variant)
+- UVa 12179 - [Randomly-priced Tickets](https://uva.onlinejudge.org/external/121/12179.pdf) (not a pure Floyd problem)
