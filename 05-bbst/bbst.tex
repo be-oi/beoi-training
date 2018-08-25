@@ -8,7 +8,7 @@
 	Treaps are however quite easy to understand and to implement.
 	
 	\begin{block}{Look that up if you are interested}
-		B-trees (including Red-Black and AA trees), AVL trees, splay trees, many others.
+		B-trees (especially AA trees), Red-Black trees, AVL trees, splay trees, many others.
 	\end{block}
 	
 \end{frame}
@@ -307,7 +307,7 @@
 \begin{frame}
 	\frametitle{Insert implementation}
 
-	To insert a node with key $X$, we go down the treap until we find a node with priority $< X$. Then we split that node at $X$.
+	To insert a node with key $X$ we assign it a random priority $P$, we go down the treap until we find a node with priority $< P$. Then we split that node at $X$ and replace it with the node.
 	
 	\begin{center}
 		\lstinputlisting{src/insert.cpp}
@@ -337,7 +337,7 @@
 \begin{frame}
 	\frametitle{Additional queries}
 
-	We can use this information to quickly the index of the element with key $X$.
+	We can use this information to quickly find the index of the element with key $X$.
 
 	\begin{center}
 		\lstinputlisting{src/find_index.cpp}
@@ -347,7 +347,7 @@
 \begin{frame}
 	\frametitle{Additional queries}
 
-	We can also perform range ... queries on a key interval. Here is an rmq example:
+	We can also perform range ... queries on a key interval. Here is a Range Minimum Query example:
 
 	\begin{center}
 		\lstinputlisting{src/range_min.cpp}
