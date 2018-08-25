@@ -72,6 +72,7 @@
 	A (binary) tree is said to be balanced if its height is minimal, that is if its height is $\floor{\log_2(n)}$
 	
 	Most the of the BST are balanced. We will see later why...
+        We can write BBST for \textit{Balanced Binary Search Tree}.
 \end{frame}
 
 \begin{frame}
@@ -229,19 +230,19 @@
 
 \begin{frame}
 	\frametitle{Complexity?}
-	\pause $O(\text{height of the tree})$
-	\pause $= O(\floor{\log(n)})$ if the tree is balanced
+	$O(\text{height of the tree})$
+	$= O(\floor{\log(n)})$ if the tree is balanced
 	\vspace{2cm}
-	\pause Without a balanced tree, all the operations are $O(n)$!
+	Without a balanced tree, all the operations are $O(n)$!
 \end{frame}
 
 \begin{frame}
-	\frametitle{Implementing a balanced BST}
+	\frametitle{Implementing a BBST}
 	Ideas?
 \end{frame}
 
 \begin{frame}
-	\frametitle{Implementing a balanced BST}
+	\frametitle{Implementing a BBST}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.7\linewidth]{toohard}
@@ -249,31 +250,25 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Implementing a balanced BST}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.7\linewidth]{time}
-	\end{figure}
-	
-	\begin{itemize}
-		\pause\item Too complicated to explain right now
-		\pause\item Too complicated to remember
-		\pause\item Too long to implement during a contest
-		\pause\item Very prone to bugs
+	\frametitle{Implementing a BBST}
+	\begin{itemize}   
+		\item Actually, it's not so hard
+                \item But it's not always necessary
+		\item We will see that in another lesson
 	\end{itemize}
-	Still, if you have time, it's very interesting to know, but won't be useful during competitive programming contests
+	BBSTs can support a lot of other (more advanced) operations, but for the operations described above, we don't need to implement a BBST. We can just use an existing one.
 \end{frame}
 
 \begin{frame}
 	\frametitle{Use the STL}
-	(real) languages come with implementations of BST, in two categories
+	(real) languages come with implementations of BBSTs, in two categories
 	\begin{itemize}
-		\item Sets: represents a mathematical set. It is, in fact, a BST with keys==values
+		\item Set: represents a mathematical set. It is, in fact, a BST with keys==values
 			\begin{itemize}
 				\item C++: std::set
 				\item Java: TreeSet
 			\end{itemize}
-		\item Maps: dictionnary
+		\item Map: dictionary
 		\begin{itemize}
 			\item C++: std::map
 			\item Java: TreeMap

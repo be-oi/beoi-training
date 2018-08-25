@@ -1,7 +1,13 @@
 # Unit 5: Balanced Binary Search Tree
-This unit is not done yet, this README is only used to store exercises.
+Treaps and implicit treaps.
+TODO: test code and add O(n) treap construction
 
 ## Practice problems
 
-### Hard
+### To begin with
+- (UVa map/set problems)
+- SPOJ All in One
+- IOI 2018 (practice session) - bubblesort2
+
+### Harder
 - UVa 13138 [Kites](http://uva.onlinejudge.org/external/131/13138.pdf)

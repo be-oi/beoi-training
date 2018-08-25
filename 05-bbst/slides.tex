@@ -1,0 +1,48 @@
+\documentclass[pdf]{beamer}
+\usetheme{Warsaw}
+\mode<presentation>{}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\usepackage{listings}
+\lstset{language=C++, basicstyle=\tiny\ttfamily, keywordstyle=\bfseries\color{orange!20!red!70!black}, commentstyle=\itshape\color{black!50}, tabsize=4}
+
+\setbeamertemplate{footline}[frame number]
+
+%% utility commands
+\renewcommand{\o}[1]{\ensuremath{\mathcal O(#1)}}
+\newcommand{\col}[2]{\color{#1}#2\color{black}{}}
+
+%% preamble
+\title{Balanced Binary Search Trees}
+\author{The be-oi team}
+
+\begin{document}
+
+%% title frame
+\begin{frame}
+\titlepage
+\end{frame}
+
+{
+\begin{frame}{Table of Contents}
+\tableofcontents[]
+\end{frame}
+}
+
+\AtBeginSection[]
+{
+\begin{frame}{Table of Contents}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+\input{bbst.tex}
+
+\end{document}
