@@ -12,9 +12,9 @@ void propagate(pnode t) {
 }
 void range_reverse(pnode& t, int l, int r) {
 	pnode a, b, c;
-	split(t, l-1, a, b);
-	split(b, r, b, c);
+	split(t, r+1, b, c);
+	split(b, l, a, b);
 	reverse(b);
-	merge(b, b, c);
-	merge(t, a, b);
+	merge(b, a, b);
+	merge(t, b, c);
 }

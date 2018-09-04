@@ -8,7 +8,7 @@
 	Treaps are however quite easy to understand and to implement.
 	
 	\begin{block}{Look that up if you are interested}
-		B-trees (especially AA trees), Red-Black trees, AVL trees, splay trees, many others.
+		B-trees, B+ trees, AA trees, Red-Black trees, AVL trees, splay trees, scapegoat trees, B* trees, many others.
 	\end{block}
 	
 \end{frame}
@@ -28,7 +28,7 @@
 	Treaps can be implemented using rotations or using the split/merge helper functions.
 	As they are equivalent, we will only discuss the split/merge strategy because it is shorter. Feel free to look up the other one on the Internet.
 	\begin{itemize}
-		\item $\mathrm{split} (t, X)$ separates treap $t$ into treaps $l$ and $r$ containing elements $\le X$ and $> X$ respectively.
+		\item $\mathrm{split} (t, X)$ separates treap $t$ into treaps $l$ and $r$ containing elements $< X$ and $\ge X$ respectively.
 		\item $\mathrm{merge} (l, r)$ combines treaps $l$ and $r$ into treap $t$ \textit{under the assumption that every value in $l$ is $<$ than any value in $r$}.
 	\end{itemize}
 \end{frame}
@@ -87,7 +87,7 @@
 		\end{tikzpicture}
 	\end{center}
 
-	We see that \col{red!50}{t} has a value of 7, which is $> 4$.
+	We see that \col{red!50}{t} has a value of 7, which is $\ge 4$.
 	Hence \col{red!50}{t} and its right subtree clearly belong to \col{blue!50}{r}.
 \end{frame}
 
@@ -116,7 +116,7 @@
 		\end{tikzpicture}
 	\end{center}
 
-	We see that \col{red!50}{t} has a value of 2, which is $\le 4$.
+	We see that \col{red!50}{t} has a value of 2, which is $< 4$.
 	Hence \col{red!50}{t} and its left subtree clearly belong to \col{green!50}{l}.
 \end{frame}
 
@@ -145,7 +145,7 @@
 		\end{tikzpicture}
 	\end{center}
 
-	We see that \col{red!50}{t} has a value of 5, which is $> 4$.
+	We see that \col{red!50}{t} has a value of 5, which is $\ge 4$.
 	Hence \col{red!50}{t} and its right subtree clearly belong to \col{blue!50}{r}.
 \end{frame}
 
@@ -174,7 +174,7 @@
 		\end{tikzpicture}
 	\end{center}
 
-	We see that \col{red!50}{t} has a value of 3, which is $\le 4$.
+	We see that \col{red!50}{t} has a value of 3, which is $< 4$.
 	Hence \col{red!50}{t} and its left subtree clearly belong to \col{green!50}{l}.
 \end{frame}
 
@@ -218,7 +218,7 @@
 		\lstinputlisting{src/split_naive.cpp}
 	\end{center}
 
-	This is the straightforward implementation of the split function. It should be easy to understand. Note that we need a pointer to a pointer if we want to modify an edge (which is already a pointer by itself).
+	This is a straightforward implementation of the split function. It should be easy to understand. Note that we need a pointer to a pointer if we want to modify an edge (which is already a pointer by itself).
 \end{frame}
 
 \begin{frame}
@@ -238,7 +238,7 @@
 		\lstinputlisting{src/split.cpp}
 	\end{center}
 
-	This is the same compressed version with references instead of pointers. You should use this one in contests. \\~\\
+	This is the same compressed version with references instead of pointers. You should use this one in contests.
 \end{frame}
 
 \begin{frame}
@@ -305,29 +305,50 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Insert implementation}
+	\frametitle{Insert implementation 1}
 
 	To insert a node with key $X$ we assign it a random priority $P$, we go down the treap until we find a node with priority $< P$. Then we split that node at $X$ and replace it with the node.
 	
 	\begin{center}
-		\lstinputlisting{src/insert.cpp}
+		\lstinputlisting[firstline=1,lastline=6]{src/insert.cpp}
 	\end{center}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Erase implementation}
+	\frametitle{Insert implementation 2}
+
+	It's also possible to split the treap at $X$ and then merge twice. Prefer this version because it is easier. It also doesn't need extra updates if you want your treap to support additional operations (we'll talk about that a bit later).
+	
+	\begin{center}
+		\lstinputlisting[firstline=7,lastline=12]{src/insert.cpp}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Erase implementation 1}
 
 	To erase the node with key $X$, we find it and then merge its children.
 
 	\begin{center}
-		\lstinputlisting{src/erase.cpp}
+		\lstinputlisting[firstline=1,lastline=6]{src/erase.cpp}
 	\end{center}
 \end{frame}
 
 \begin{frame}
+	\frametitle{Erase implementation 2}
+
+	It's also possible to split twice and then merge once. Again, prefer this one.
+
+	\begin{center}
+		\lstinputlisting[firstline=8,lastline=13]{src/erase.cpp}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}
 	\frametitle{Keep track of size}
 
-	You can lazily keep track of the size of a treap, with no additional complexity. Add a size field to the node struct and update it at the end of split, merge, insert and erase.
+	You can lazily keep track of the size of a treap, with no additional complexity. Add a size field to the node struct and update it at the end of split and merge. You should also add it to insert and erase if it contains a tree walk (implementations 1).
 
 	\begin{center}
 		\lstinputlisting{src/size.cpp}
@@ -335,7 +356,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Additional queries}
+	\frametitle{Additional queries: index}
 
 	We can use this information to quickly find the index of the element with key $X$.
 
@@ -364,15 +385,18 @@
 
 \begin{frame}
 	\frametitle{Implicit treaps}
-
-	An implicit treap is a treap that uses the index of an element as its (implicit) key, like an array. Additionally, it supports insertion/deletion/modification and all kinds of range updates and queries, just like a standard treap. \\~\\
-	For this to work, we need to keep track of the position of the current element everywhere we would have used the key in a standard treap.
+	An implicit treap is an array that supports lookup/insertion/deletion/modification and all kinds of range updates and queries, in $\o{d}$. \\~\\
+	It's implemented using treaps under the hood. The key of an element is its index in the array. The thing is, we don't need to store it explicitly. We can automatically find it when we need it.
 \end{frame}
 
 \begin{frame}
-	\frametitle{Modified split implementation}
+	\frametitle{Implicit treaps implementation}
 
-	Here is a modified split implementation for reference. Insert and erase are left as an exercise.
+	How do we find the index of an element in a standard treap? Recursively, indeed. What if we could use the index of an element as its key?
+
+	\pause
+
+	Here is a modified split implementation for reference. You can still use insert and erase (implementation 2). Implementation 1 insert and erase are left as an exercise to the reader.
 
 	\begin{center}
 		\lstinputlisting{src/implicit_split.cpp}
@@ -383,7 +407,7 @@
 	\frametitle{Range updates}
 
 	Treaps support range updates with lazy propagation. Just propagate at the beginning of every function. \\~\\
-	Example problem: reverse interval [l, r] up to $10^5$ times. Ideas?
+	Example problem: reverse interval [l, r] up to $10^5$ times.
 \end{frame}
 
 \begin{frame}
@@ -394,3 +418,8 @@
 	\end{center}
 \end{frame}
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "slides"
+%%% End:
