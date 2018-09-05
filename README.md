@@ -1,5 +1,5 @@
 # beOI/beCP Training Resources
-This repository hosts all the course materials created for the [beOI](http://beoi.be-oi.be/) (Belgian Olympiad in Informatics) and [beCP](http://becp.be-oi.be/) (Belgian Competitive Programming) training camps.
+This repository hosts all the course materials created for the [beOI](http://beoi.be-oi.be/) (Belgian Olympiad in Informatics) and [beCP](http://becp.be-oi.be/) (Belgian Competitive Programming) training camps. Remember though that _You don't need advanced topics for bronze and maybe even for silver_ (Bruno Ploumhans, 2018, _Line 21_).
 
 The program is now structured into a set of teaching units, designed to cover the whole IOI syllabus (and some additional material from the [CP3](http://cpbook.net/) book). Each unit contains the slides used and a README which outlines the content of the unit, lists the prerequisites and gives links to related exercises. The units are not originally meant to be in a logical order.
 
