@@ -35,3 +35,4 @@
 *.xdy
 *.tdo
 .DS_Store
+**/auto/*.el
