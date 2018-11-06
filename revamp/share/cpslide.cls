@@ -74,4 +74,13 @@
 \newcommand{\code}[1]{\lstinputlisting{#1}}
 \newcommand{\src}[1]{\code{./src/#1}}
 
+%% Nice looking inline code (`ci` stands for code inline)
+% Thanks to Stack Overflow
+% $https://tex.stackexchange.com/questions/140166/making-inline-code-printing-pretty
+\newcommand{\ci}[1]{%
+  \tikz[baseline=(s.base)]{
+    \node(s)[rounded corners,fill=orange!20,draw=gray]{\texttt{#1}};
+  }%
+}
+
 \makeatother
