@@ -1,0 +1,206 @@
+\documentclass[handout,code=programming-tricks,title={Efficient
+  implementation and debugging}]{../share/cpslide}
+
+\slideinit
+
+\begin{document}
+
+\slidebegin
+
+\section{Why programming tricks?}
+
+\begin{frame}{Why programming tricks?}
+  \begin{itemize}
+  \item During contests, you will have to solve a lot of subtasks when you
+    cannot solve the full problems.
+  \item You have to be able to do this efficiently because you will need as much
+    time as possible to solve other problems/subtasks.
+  \item Here are a few tricks to help you solve problems efficiently.
+  \end{itemize}
+\end{frame}
+
+\section{Bit-level operators}
+
+\begin{frame}{Bit-level operators}
+ As you probably know, computers represent numbers in base two, that is with \ci{0}s
+ and \ci{1}s. Some C++ operators are designed to make use of this. There are shift
+ operators to quickly multiply or divide by powers of 2 and bitwise operators to
+ act on the bits of a number separately.
+\end{frame}
+
+\begin{frame}{Bitshit operators}
+  There are two bitshift operators.
+  \begin{itemize}
+  \item \ci{a\textless{}\textless b} Shift $a$, $b$ bits to the left. This means that
+    $a$ is basically divided by $2^b$ and then rounded down.
+  \item \ci{a\textgreater{}\textgreater b} Shift $a$, $b$ bits to the right. This means that
+    $a$ is basically multiplied by $2^b$.
+  \end{itemize}
+
+  \begin{warning}
+    Type limits apply here. Also, if $b$ is bigger than the number of bits of the
+    type, these two operations are not defined anymore, which means they could
+    return an arbitrary result. Be very careful if you are using variables as
+    shift parameters.
+  \end{warning}
+\end{frame}
+
+\begin{frame}{Bitwise operators}
+  There are four bitwise operators.
+  \begin{itemize}
+  \item \ci{\textasciitilde a} Bitwise NOT. 1 if the input is 0. 0 if the input is 1.
+  \item \ci{a|b} Bitwise OR. 1 if at least one of the inputs is 1. 0 if both
+    inputs are 0.
+  \item \ci{a\^{}b} Bitwise XOR. 1 if both inputs are not equal. 0 if both
+    inputs are equal.
+  \item \ci{a\&b} Bitwise AND. 1 if both inputs are 1. 0 if at least one of the
+    inputs is 1.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bit-level operators}
+  \begin{warning}
+   Bit-level operators have a very low priority compared to other operators, which means you
+   should put them inside parentheses or even create separate functions for
+   them. For example, \ci{a\&1 == 0} is actually equivalent to \ci{a\&(1 == 0)},
+   which is always \ci{false}.
+
+   There is a difference between \ci{\&|} and \ci{\&\&||} for \ci{bool}s. The
+   former always evaluate both operands while the latter \textit{short circuit}:
+   they only evaluate the right operand if necessary. This allows you to write
+   \ci{if(i < n \&\& arr1[i] < arr2[i])}, for example.
+  \end{warning}
+\end{frame}
+
+\begin{frame}{Iterate over all subsets}
+  Use a for loop to iterate over all $2^n$ subsets.
+  \src{allsubsets.cpp}
+
+  \pause
+  \begin{question}{How do we exclude the empty subset? ($\{\}$)}
+    We start the loop at $1$.
+  \end{question}
+\end{frame}
+
+\begin{frame}{Iterate over all permutations}
+  Use \ci{next\_permutation()} to iterate over all $n!$ permutations.
+  \src{allpermutations.cpp}
+
+  \begin{question}{How do we iterate over all combinations (pick $k$ elements among $n$)?}
+    Use permutations of $k$ \ci{1}s and $n-k$ \ci{0}s.
+  \end{question}
+\end{frame}
+
+\section{Debugging}
+
+\begin{frame}{Debugging}
+  Why use a debugger (gdb)?
+  \begin{itemize}
+  \item It allows you to locate where the program segfaults.
+  \item It allows you to print any global and local variable, in any function
+    call.
+  \item It allows you to set breakpoints to inspect variables at any point in
+    time.
+  \item Much more...
+  \end{itemize}
+  Learn to use it now!
+\end{frame}
+
+\begin{frame}{Debugging}
+  How to setup a debugger?
+  \begin{itemize}
+  \item Install \ci{gdb} if you don't have it already. Do it now!
+  \item Add a \ci{-g} flag to your compilation command. For example,
+    \ci{g++ -std=c++14 -g main.cpp}.
+  \item Open \ci{gdb}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Gdb commands}
+  \begin{info}{Common gdb commands}
+    \begin{tabular}{ll}
+      \ci{file <name>} & Load file \\
+      \ci{r} & Run program \\
+      \ci{\^{}C} & Terminate program \\
+      \ci{q} & Quit gdb \\
+      \\
+      \ci{print <x>} & Print variable \\
+      \ci{bt} & Print backtrace \\
+      \ci{up} & Move one frame (one function call) up \\
+      \ci{down} & Move one frame (one function call) down
+    \end{tabular}
+  \end{info}
+  Download \ci{examplecode.cpp} and try these functions now.
+\end{frame}
+
+\begin{frame}{Effective debugging}
+  Great, now you know how to inspect your program? What to do if your program
+  doesn't behave as expected, be it WA on a sample or on the server.
+  \begin{itemize}
+  \item Step 1: Always, always find a test case that breaks your code. As long
+    as you didn't prove that your code isn't correct by building a killer test
+    case, you cannot check that the bug disappeared. I like to name the test
+    cases \ci{x.in} and \ci{x.out} where \ci{x} is the test case number.
+  \item Step 2: Fix the bug by using gdb to find where the code fails.
+  \item Step 3: Test all the test cases you have so far to make sure you did not
+    reintroduce a previous bug.
+  \item Repeat until you get AC.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Effective debugging}
+  What should you do if you cannot find a killer test case or if the test cases
+  are so big that you have no way to compute the result by hand?
+  \begin{itemize}
+  \item Read the problem statement once again.
+  \item Write a bruteforce to test the code (maybe you already have one from a
+    previous subtask).
+  \item If you don't have the time to write a bruteforce, try to find invariants
+    in the input and change the input accordingly. For example, the order of the
+    elements for the knapsack problem is irrelevant, so you could try
+    permutating the elements in the input.\footnote{Credit goes to errichto.}
+  \end{itemize}
+\end{frame}
+
+\section{Extra tips}
+\begin{frame}{Editor choice}
+  \begin{itemize}
+  \item Learn to use Vim now and use it for competitive programming.
+  \item Vim is not an IDE, but it's one of the best text editors.
+  \item Vim has incredibly short keybindings for a lot of editing operations.
+  \item The learning curve is extremely steep, but it's totally worth it. Try
+    not to use arrow keys. \textit{Not even in insert mode.}
+  \item (Bonus) When you will need an IDE and not a text editor, you will be
+    ready to use Spacemacs!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Templates}
+  Use a template. Write it once at the beginning of the contest and reuse it for
+  every single problem. Now, you may be wondering what uses there are for a template.
+  \begin{info}{Killer features}
+    \begin{itemize}
+    \item Macros help you prevent stupid errors like
+      \ci{for(int i = 0; i < n; ++j)} while you code.
+    \item Macros allow you to type less code to get the same result. Compare
+      \ci{V\textless{}V\textless{}int\textgreater{}\textgreater} and
+      \ci{vector\textless{}vector\textless{}int\textgreater{}\textgreater}.
+    \item Macros provide a consistent way to print debug output, combined with a
+      global switch to disable them.
+    \end{itemize}
+  \end{info}
+\end{frame}
+
+\begin{frame}{Example template}
+  \src{template.cpp}
+\end{frame}
+
+\begin{frame}{Aliases}
+  Always use an alias to compile. An alias is a shortcut to some command. You'll
+  probably want to use \ci{-fsanitize=address,undefined} to quickly discover
+  issues with your code, but then you'll want another alias for gdb specifically.
+  Put the following in your \ci{.bashrc}:
+  \lstinputlisting[language=bash]{src/alias.sh}
+  Usage: \ci{g filename.cpp}.
+\end{frame}
+\end{document}
