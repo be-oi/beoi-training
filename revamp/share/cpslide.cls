@@ -36,10 +36,11 @@
 \RequirePackage{listings}
 
 \usetheme{Warsaw}
+\setbeamertemplate{blocks}[rounded][shadow=false]
 
 % Slide stuff
 \newcommand{\slideinit}{
-  \title{Unit \emph{\my@code}: \my@title} 
+  \title{\my@title} 
   \author{The beOI Instructors}
   \titlegraphic{\includegraphics[width=2cm]{../share/beoi-logo.png}}
 }
@@ -83,4 +84,31 @@
   }%
 }
 
+% Custom blocks
+% Warning
+\newenvironment<>{warning}{%
+  \begin{actionenv}#1%
+    \def\insertblocktitle{Warning}%
+    \par%
+    \mode<presentation>{%
+      \setbeamercolor{block title}{fg=white,bg=orange!80}
+      \setbeamercolor{block body}{fg=black,bg=orange!20}
+    }%
+    \usebeamertemplate{block begin}}
+  {\par\usebeamertemplate{block end}\end{actionenv}
+}
+\newenvironment<>{question}[1]{%
+  \begin{actionenv}#2%
+    \def\insertblocktitle{#1}%
+    \par%
+    \mode<presentation>{%
+    }%
+    \usebeamertemplate{block begin}\pause}
+  {\par\usebeamertemplate{block end}\end{actionenv}
+}
+\newenvironment<>{info}[1]{%
+  \begin{exampleblock}{#1}%
+  }{%
+  \end{exampleblock}\ignorespacesafterend%
+}
 \makeatother
