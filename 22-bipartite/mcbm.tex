@@ -34,7 +34,7 @@
 \tikzset{snake it/.style={decorate, decoration=snake}}
 \tikzset{edgelabel/.style = {midway,rectangle, inner sep=0pt, draw=none, fill=white}}
 
-\lstset{language=Java, basicstyle=\footnotesize}
+\lstset{language=C++, basicstyle=\footnotesize}
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   basicstyle=\tiny,  % the size of the fonts that are used for the code
@@ -460,26 +460,32 @@
 
 \begin{frame}[fragile]{Algorithm}
   \begin{lstlisting}
-boolean isBipartite(int n, LinkedList<Integer>[] successors) {
-  //successors[i] contains the successors id of node i
-  int[] color = new int[n];
-  for(int i = 0; i < n; i++) color[i] = -1; //init to -1
-  
-  for(int i = 0; i < n; i++)
-    if(color[i] == -1)  //not visited yet
-      if(!visit(i, successors, color, 1))
-        return false;
-  return true;
+bool visit(int, const vector<vector<int>>&, vector<int>&, int); // defined below
+
+bool isBipartite(int n, const vector<vector<int>>& successors) {
+    //successors[i] contains the successors of node i
+    vector<int> color(n, -1); // initialized to -1
+
+    for (int i = 0; i < n; i++) {
+        if (color[i] == -1)
+            if (!visit(i, successors, color, 1))
+                return false;
+    }
+    return true;
 }
 
-boolean visit(int node, LinkedList<Integer>[] successors, int[] color, int parentColor) {
-  if(color[node] == parentColor) //fail!
-    return false;
-  color[node] = (parentColor+1)%2;
-  for(int next: successors[node])
-    if(!visit(next, successors, color, color[node]))
-      return false;
-  return true;
+bool visit(int node, const vector<vector<int>>& successors, vector<int>& color, int parentColor) {
+    if (color[node] == parentColor) // failure
+        return false;
+
+    if (color[node] != -1) // avoid infinite looping
+        return true;
+
+    color[node] = (parentColor + 1) % 2;
+    for (int next : successors[node])
+        if (!visit(next, successors, node, color[node]))
+            return false;
+    return true;
 }
   \end{lstlisting}
 \end{frame}
@@ -826,23 +832,22 @@ boolean visit(int node, LinkedList<Integer>[] successors, int[] color, int paren
 // succ[i] contains the nodes that can be reached from i
 // initially, all the edges are from U->V
 // inU[i] is true iff i is in U 
-boolean findAndReverse(int n, List<Integer>[] succ, boolean[] inU) {
-    int[] pred = new int[n];
-    boolean[] visited = new boolean[n];
-    Stack<Integer> todo = new Stack<>();
+bool findAndReverse(int n, vector<vector<int>>& succ, vector<bool>& inU) {
+    vector<int> pred(n);
+    vector<bool> visited(n, false);
+    stack<int> todo;
     
     // Find free nodes in U
-    boolean[] isFree = new boolean[n];
-    Arrays.fill(isFree, true);
-    for(int i = 0; i < n; i++)
-        if(!inU[i])
-            for(int s: succ[i])
-                isFree[s] = false;
-    
-    for(int i = 0; i < n; i++) {
-        if(inU[i] && isFree[i]) {
-            todo.add(i);
-            pred[i] = -1.
+    vector<bool> isFree(n, true);
+    for (int i = 0; i < n; i++)
+        if (!inU[i])
+            for (int s : succ[i])
+                    isFree[s] = false;
+
+    for (int i = 0; i < n; i++) {
+        if (inU[i] && isFree[i]) {
+            todo.push(i);
+            pred[i] = -1;
         }
     }\end{lstlisting}
 \end{frame}
@@ -851,8 +856,8 @@ boolean findAndReverse(int n, List<Integer>[] succ, boolean[] inU) {
     \begin{lstlisting}[firstnumber=23]
     // Run the DFS
     int found = -1;
-    while(!todo.isEmpty()) {
-        int node = todo.pop();
+    while(!todo.empty()) {
+        int node = todo.top(); todo.pop();
         if(visited[node])
             continue;
         visited[node] = true;
@@ -865,7 +870,7 @@ boolean findAndReverse(int n, List<Integer>[] succ, boolean[] inU) {
             for(int next: successors[node]) {
                 if(!visited[next]) {
                     pred[next] = node;
-                    todo.add(next);
+                    todo.push(next);
                 }
             }
         }
@@ -874,8 +879,8 @@ boolean findAndReverse(int n, List<Integer>[] succ, boolean[] inU) {
     // Reverse the nodes
     if(found != -1) {
         while(predecessors[found] != -1) {
-            succ[pred[found]].remove(found);
-            succ[found].add(pred[found]);
+            succ[pred[found]].erase(found);
+            succ[found].push_back(pred[found]);
             found = pred[found];
         }
         return true;
@@ -886,7 +891,7 @@ boolean findAndReverse(int n, List<Integer>[] succ, boolean[] inU) {
 
 \begin{frame}[fragile]{Final algorithm}
 \begin{lstlisting}
-void getMCBM(int n, List<Integer>[] succ, boolean[] inU) {
+void getMCBM(int n, vector<vector<int>>& succ, vector<bool>& inU) {
     while(findAndReverse(n, succ, inU)) {}
     //MCBM == edges from nodes in V (in succ)
 }\end{lstlisting}
