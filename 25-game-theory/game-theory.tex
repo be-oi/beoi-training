@@ -106,7 +106,7 @@ Example with $k=3$:
 \begin{itemize}
 \item At the beginning, $n = 8$ matches.
 \item Player A takes 2; remaining: 6.
-\item Player B takes 1; remaining: 4.
+\item Player B takes 2; remaining: 4.
 \item Player A takes 3; remaining: 1.
 \item Player B takes 1 and wins.
 \end{itemize}
@@ -309,7 +309,7 @@ Otherwise:
 Examples of perfect moves (for $k=3$):
 \begin{itemize}
 \item $1 \rightarrow 0 \quad 2 \rightarrow 0 \quad 3 \rightarrow 0$
-\item $5 \rightarrow 5 \quad 6 \rightarrow 4 \quad 7 \rightarrow 4$
+\item $5 \rightarrow 4 \quad 6 \rightarrow 4 \quad 7 \rightarrow 4$
 \item $\cdots$
 \end{itemize}
 \end{frame}
@@ -600,6 +600,7 @@ Exercise: solve this Bachet's/Nim mashup.
 \frametitle{Minimax implementation}
 \textbf{Implementation 1:} recursive, DFS-style
 \begin{lstlisting}
+// Returns score at u for the one who plays next
 int minimax(state u) {
     if (terminal(u)) // the game has ended
         return score(u);
@@ -609,6 +610,8 @@ int minimax(state u) {
     return best;
 }
 \end{lstlisting}
+
+Assumes symmetric, zero-sum, with two players alternating
 \begin{itemize}
 \item Doesn't separate the ``min'' and ``max'' steps
 \item Just takes the opposite of the opponent's score
@@ -772,6 +775,19 @@ int minimax(state u, int alpha, int beta) {
 \item Interval $[\alpha,\beta]$ becomes $[-\beta,-\alpha]$ when switching players
 \item Cutoff when current best is $\geq \beta$
 \begin{itemize} \item maybe there is better, but the opponent has a better choice anyway \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Alpha-beta implementation: comments}
+After thinking carefully about the implementation, you'll realize that:
+\begin{itemize}
+\item Actually,
+    \begin{itemize}
+    \item $\alpha$ is best guaranteed outcome for current player \emph{in any of the nodes on the path from the root to $u$}
+    \item similarly, $\beta$ is (negative of) best guaranteed outcome for the \emph{other} player on that same path
+    \end{itemize}
+\item This is not compatible with DP (at least not in the most immediate way): will give wrong results. Be careful!
 \end{itemize}
 \end{frame}
 

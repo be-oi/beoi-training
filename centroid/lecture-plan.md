@@ -19,4 +19,4 @@ For each step, try and make the students find the key elements on their own (som
 - Live-code this by modifying the previous code. Look up the `centroid()` method beforehand. Code it by first just using it for the size then later modifying it to find the centroid (to make it clear how it's used to spare some code).
   - Test it on your example tree (it should be 16). Do a live-debug because that'll be necessary.
 
-- Give the full Yin-Yang Paths problem as an exercise. A bit complicated maybe. Give them the code because otherwise they'll have significant trouble but insist that they don't just copy-paste it and try to rebuild it by themselves.
+- Give IOI race (explain the trick to share the vector of size K without having to clear it), then the full Yin-Yang Paths problem as an exercise (more tricky). Give them the code because otherwise they'll have significant trouble but insist that they don't just copy-paste it and try to rebuild it by themselves.
