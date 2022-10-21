@@ -1,0 +1,355 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{tabu}
+\usepackage{color}
+\usepackage{booktabs}
+\beamertemplatenavigationsymbolsempty
+\AtBeginSection[]
+{
+    \begin{frame}
+    \frametitle{Table of contents}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+\lstset{language=C++, basicstyle=\footnotesize, frame=single}
+\newcommand{\gray}{\textcolor{gray}}
+
+\title{Algorithms and complexity}
+\subtitle{Definitions, big O notation}
+\author{beOI Training}
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Algorithms}
+
+\begin{frame}
+\frametitle{What's an algorithm?}
+\begin{itemize}
+\item A way to calculate a result
+\item An idea to solve a problem
+\item A series of instructions
+\item The description of a programme
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{What's a \emph{good} algorithm?}
+For a normal programmer:
+\begin{itemize}
+\item Doesn't crash
+\item Halts
+\item Gives the right answer
+\end{itemize}
+
+~
+
+For us:
+\begin{itemize}
+\item Is fast
+\item Uses little memory
+\item \textbf{Is accepted in competitions}
+\end{itemize}
+\end{frame}
+
+\section{Complexity}
+
+\begin{frame}
+\frametitle{Measuring the efficiency}
+Ideas:
+\begin{itemize}
+\item Timing
+\item Measure the RAM usage
+\end{itemize}
+
+~
+
+But this varies depending on:
+\begin{itemize}
+\item The language
+\item The implementation
+\item The machine
+\item The time of the day
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Big O notation}
+
+Finding an \emph{intrinsic} measure of efficiency:
+\begin{itemize}
+\item Grow the input
+\item Observe how the execution speed changes
+\end{itemize}
+
+~
+
+Example: calculating $1+\cdots+n$. If $n$ is multiplied by 2, the execution time:
+\begin{itemize}
+\item Stays constant: $O(1)$
+\item Is multiplied by 2: $O(n)$
+\item Is multiplied by 4: $O(n^2)$
+\end{itemize}
+
+~
+
+It doesn't depend on the constant factors!
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Constant execution time}
+\textbf{Task:} compute the sum $1+2+\cdots+n$.
+
+~
+
+\textbf{Solution 1:} A simple calculation
+\begin{lstlisting}
+int sum = n * (n+1) / 2;
+\end{lstlisting}
+\begin{itemize}
+\item Execution time doesn't change if $n$ doubles
+\item ``Constant'' execution time
+\item $O(1)$ complexity
+\item Execution time ``proportional to $1$''
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Linear execution time}
+\textbf{Solution 2:} A loop
+\begin{lstlisting}
+int sum = 0;
+for (int i = 1; i <= n; i++)
+    sum += i;
+\end{lstlisting}
+\begin{itemize}
+\item Execution time doubles if $n$ doubles
+\item ``Linear'' execution time
+\item $O(n)$ complexity
+\item Execution time ``proportional to $n$''
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Quadratic execution time}
+\textbf{Solution 3:} Two nested loops (useless!)
+\begin{lstlisting}
+int sum = 0;
+for (int i = 1; i <= n; i++)
+    for (int j = 1; j <= i; j++)
+        sum++;
+\end{lstlisting}
+\begin{itemize}
+\item Execution time quadruples if $n$ doubles
+\item ``Quadratic'' execution time
+\item $O(n^2)$ complexity
+\item Execution time ``proportional to $n^2$''
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Powers}
+Definition:
+\begin{itemize}
+\item Successive multiplications
+\item ``3 to the power of $n$''
+\item $3^n = \underbrace{3\times\cdots\times3}_\text{$n$ times}$
+\end{itemize}
+Examples:
+\begin{itemize}
+\item $3^0 = 1$ (by definition)
+\item $3^1 = 3$
+\item $3^2 = 3 \times 3 = 9$ (squared)
+\item $3^3 = 3 \times 3 \times 3 = 27$ (cubed)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithms: intuition (1)}
+Game with two players:
+\begin{itemize}
+\item Alice chooses a number between 1 and 16
+\item During each turn:
+    \begin{itemize}
+    \item Bob gives one or more numbers to Alice
+    \item Alice says if her chosen number is among those given by Bob
+    \end{itemize}
+\item Bob wins when he guesses the correct number
+\item How can he win in as few turns as possible?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithms: intuition (2)}
+\textbf{Strategy:} Give a list with half the total available numbers
+\begin{itemize}
+\item First give 8 numbers among the 16
+\item Then 4 among the 8 remaining
+\item Then 2 among the 4 remaining
+\item Then 1 among the 2 remaining
+\item Found!
+\end{itemize}
+
+~
+
+Thus, 4 questions suffice.
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithms: intuition (3)}
+Generally, if we start with $n$ numbers, how may questions needed?
+
+~
+
+How many times can we cut in half?
+\begin{itemize}
+\item If $n=2$, once
+\item If $n=4$, twice
+\item If $n=8$, three times
+\item If $n=16$, four times
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Logarithm in base 2}
+The function that answers that question is $\log_2$: the logarithm in base 2. For example
+\begin{itemize}
+\item $\log_2 (2) = 1$
+\item $\log_2 (4) = 2$
+\item $\log_2 (8) = 3$
+\item $\log_2 (16) = 4$
+\end{itemize}
+Bob's strategy is $O(\log_2(n)) = O(\log n)$.
+
+~
+
+In other words, the logarithm is the exponent we have to put on the 2 to reach $n$:
+\[ x = \log_2 (n)\ \Leftrightarrow\ 2^x = n \]
+\end{frame}
+
+\begin{frame}
+\frametitle{General logarithm (bonus)}
+This can also apply for numbers other than 2! The logarithm in base $a$, is the number of times we can divide by $a$. For example:
+\begin{itemize}
+\item $\log_3(27) = 3$
+\item $\log_4(16) = 2$
+\item $\log_5(5) = 1$
+\end{itemize}
+
+~
+
+In other words, it's the exponent we have to put on the $a$ to reach $n$:
+\[ x = \log_a (n)\ \Leftrightarrow\ a^x = n \]
+It's sort of the ``inverse'' of powers.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Searching in a sorted array (1)}
+We are given a sorted array (numbers in increasing order):
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & 4 & 6 & 9 & 15 & 23 & 24 \\
+\hline
+\end{tabu}
+\end{center}
+Our task is to check if $x$ is in the array.
+
+~
+
+\textbf{Solution 1:} Go through all the elements: linear, $O(n)$
+\begin{lstlisting}
+bool isIn(int tab[], int n, int x)
+{
+    for (int i = 0; i < n; i++)
+        if (tab[i] == x)
+            return true;
+    return false;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Searching in a sorted array (2)}
+We are searching for 7.
+
+~
+
+\textbf{Idea:} check the middle element and compare:
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & 4 & 6 & \textbf{9} & 15 & 23 & 24 \\
+\hline
+\end{tabu}
+\end{center}
+Too big ($9>7$), go to the left:
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & \textbf{4} & 6 & \gray{9} & \gray{15} & \gray{23} & \gray{24} \\
+\hline
+\end{tabu}
+\end{center}
+To small ($4<7$), go to the right:
+\begin{center}
+\def\arraystretch{1.3}
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+\gray{1} & \gray{4} & \textbf{6} & \gray{9} & \gray{15} & \gray{23} & \gray{24} \\
+\hline
+\end{tabu}
+\end{center}
+Only one element left, but $6\neq7$: hence, 7 is not in the array
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Searching in a sorted array (3)}
+Each time, we cut in half $\Rightarrow \log_2(n)$ tries.
+
+~
+
+\textbf{Solution 2:} Dichotomous search: logarithmic, $O(\log n)$
+\begin{lstlisting}
+bool isIn(int tab[], int n, int x)
+{
+    int left = 0, right = n-1;
+    while (left <= right)
+    {
+        int mid = (left+right) / 2;
+        if (x < tab[mid]) right = mid - 1;
+        else if (x > tab[mid]) left = mid + 1;
+        else return true;
+    }
+    return false;
+}
+\end{lstlisting}
+\emph{Way} faster!
+\end{frame}
+
+\begin{frame}
+\frametitle{Limits in practice}
+Limits on $n$ so that the program can execute in a few seconds:
+\begin{center}
+\begin{tabu}{lll}
+    \toprule
+    Complexity & Limit on $n$ & Example \\
+    \midrule
+    $O(1), O(\log n)$ & $\leq 10^{18}$ & (Maximal integer size) \\
+    $O(n)$ & $\leq$ 100\,M & Going through an array \\
+    $O(n\log n)$ & $\leq$ 1\,M & Sorting an array \\
+    $O(n^2)$ & $\leq$ 10\,k & Loop nested in a loop \\
+    \bottomrule
+\end{tabu}
+\end{center}
+For contests: find the limit on $n$ in the second column, and get the complexity in the first column.
+\end{frame}
+
+\end{document}
