@@ -224,8 +224,8 @@ Verander de wijzer en geef geheugen vrij van de verwijderde knoop
 \begin{lstlisting}
 void removeAfter(Node *node) {
     Node *toRemove = node->next;
-    node->next = node->next-next; // bypass
-    free(toRemove);
+    node->next = node->next->next; // bypass
+    delete toRemove;
 }
 \end{lstlisting}
 \end{frame}

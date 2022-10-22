@@ -225,8 +225,8 @@ Change the link and remove the node
 \begin{lstlisting}
 void removeAfter(Node *node) {
     Node *toRemove = node->next;
-    node->next = node->next-next; // bypass
-    free(toRemove);
+    node->next = node->next->next; // bypass
+    deleted toRemove;
 }
 \end{lstlisting}
 \end{frame}
