@@ -1,0 +1,408 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{tabu}
+\usepackage{booktabs}
+
+\beamertemplatenavigationsymbolsempty
+\AtBeginSection[]
+{
+    \begin{frame}
+    \frametitle{Table of contents}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+\newcommand{\gray}{\textcolor{gray}}
+\newcommand{\bigoh}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\constant}{\bigoh{1}}
+\newcommand{\linear}{\bigoh{n}}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\tiny,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2                      % sets default tabsize to 2 spaces
+}
+
+\title{Linear data structures}
+\subtitle{Arrays, vectors, linked lists}
+\author{beOI Training}
+\institute{\includegraphics[height=12em]{../share/beoi-logo}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Arrays and variants}
+
+\begin{frame}[fragile]
+\frametitle{Array}
+\begin{lstlisting}
+#define MAX_N 10000
+int tab[MAX_N];
+
+int main() {
+    tab[1234] = 100;
+    tab[1234]; // 100
+    tab[5678]; // 0
+}
+\end{lstlisting}
+\begin{itemize}
+\item Size fixed at compile time
+\item Accessing any element: $\constant$
+\item Tip: if declared outside a function, initialised to zero
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bitset}
+C++ : \texttt{bitset} \\
+Java : \texttt{BitSet}
+\begin{lstlisting}
+bitset<MAX_N> tab; // bool tab[MAX_N];
+tab[1234] = true;
+
+bitset<4> b1(string("1100")),
+          b2(string("0101"));
+b1 | b2; // 1101
+b1 & b2; // 0100
+b1 >> 1; // 0110
+\end{lstlisting}
+\begin{itemize}
+\item Like an array of booleans
+\item 8 times more compact
+\item Bitwise operations 64 times faster
+\item See manual for the list of operations
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Dynamic array: logic}
+{\setlength{\parskip}{.9em}
+If out of space, double the capacity
+
+\def\arraystretch{1.3}
+
+\begin{tabu} to .175\textwidth {|X[c]|X[c]|}
+\hline
+1 & \\
+\hline
+\end{tabu}
+\hfill Capacity = 2
+
+\begin{tabu} to .175\textwidth {|X[c]|X[c]|}
+\hline
+1 & 2 \\
+\hline
+\end{tabu}
+
+\begin{tabu} to .35\textwidth {|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & 2 & 3 & \\
+\hline
+\end{tabu}
+\hfill Capacity = 4
+
+\begin{tabu} to .35\textwidth {|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & 2 & 3 & 4 \\
+\hline
+\end{tabu}
+
+\begin{tabu} to .7\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}
+\hline
+1 & 2 & 3 & 4 & 5 & & & \\
+\hline
+\end{tabu}
+\hfill Capacity = 8} %\setlength
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Dynamic array: in practice}
+C++ : \texttt{vector} \\
+Java : \texttt{ArrayList<E>}
+
+\begin{lstlisting}
+vector<int> vec(8, -1); // initialize to -1
+vec[5] += vec[2];       // -2
+vec.push_back(5);
+vec.push_back(19);
+vec.pop_back();
+vec.back();             // 5
+\end{lstlisting}
+\begin{itemize}
+\item Size increases and decreases
+\item Accessing any element: $\constant$
+\item Adding/removing an element \textbf{at the end}: $\constant$
+\item Adding/removing elsewhere: $\linear$
+\end{itemize}
+\end{frame}
+
+\section{Linked lists}
+
+\begin{frame}[fragile]
+\frametitle{Linked list: concept}
+Nodes bound by links (pointers)
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{img/singly-linked}
+\end{figure}
+\begin{itemize}
+\item Every node knows where is the next one
+\item Nodes are not necessarily next to each other in memory
+\end{itemize}
+\begin{lstlisting}
+struct Node {
+    int value;
+    Node *next; // link (pointer)
+};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Linked list: iterating over elements}
+Start at the first node and follow the links
+\begin{figure}
+\centering
+\includegraphics[width=.6\textwidth]{img/singly-linked}
+\end{figure}
+The link in the last node contains NULL:
+\begin{lstlisting}
+Node *cur = start;   // always keep the first node!
+while (cur != NULL) {
+    cur->value;      // access value
+    cur = cur->next; // switch pointer to next
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Linked list: adding elements}
+Only two links have to be changed
+\begin{figure}
+\centering
+\includegraphics[width=.9\textwidth]{img/insert-node}
+\end{figure}
+\begin{lstlisting}
+void insertAfter(Node *node, Node *new_node) {
+    new_node->next = node->next;
+    node->next = new_node;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Linked list: removing elements}
+Change the link and remove the node
+\begin{figure}
+\centering
+\includegraphics[width=.6\textwidth]{img/remove-node}
+\end{figure}
+\begin{lstlisting}
+void removeAfter(Node *node) {
+    Node *toRemove = node->next;
+    node->next = node->next-next; // bypass
+    free(toRemove);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Linked list: limitations}
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{img/singly-linked}
+\end{figure}
+With a (singly) linked list:
+\begin{itemize}
+\item Adding/removing at the beginning: $\constant$
+\item Adding/removing at a \textbf{given} location: $\constant$
+\end{itemize}
+Operations at the back:
+\begin{itemize}
+\item Adding at the back: $\constant$
+\item Removing at the back: impossible to do directly, $\linear$
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Doubly linked list}
+Links in both ways!
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{img/doubly-linked}
+\end{figure}
+\begin{itemize}
+\item Iteration in both ways
+\item Removing at the back $\constant$
+\item A bit more memory-heavy
+\end{itemize}
+\begin{lstlisting}
+struct Node {
+    int value;
+    Node *prev, *next; // two pointers
+};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Linked lists: in practice}
+C++ : \texttt{list} \\
+Java : \texttt{LinkedList<E>}
+\begin{lstlisting}
+list<int> l;
+list<int>::iterator it;
+
+l.push_back(3);  // 3
+it = l.begin();  // ^ points to 3
+l.push_back(4);  // 3 4
+l.push_front(1); // 1 3 4
+l.insert(it, 2); // 1 2 3 4 (inserts before 3)
+l.pop_front();   // 2 3 4
+l.pop_back();    // 2 3
+\end{lstlisting}
+\begin{itemize}
+\item \texttt{list<>} is doubly linked
+\item Remember positions using \texttt{iterators}
+\item Everything is $\constant$
+\end{itemize}
+\end{frame}
+
+\section{Queue and stack}
+
+\begin{frame}
+\frametitle{Queue: concept}
+\begin{itemize}
+\item Queuing in a store
+\item We add at the back, we remove at the front
+\item "First In First Out"
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=.6\textwidth]{img/queue}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Queue: in practice}
+C++ : \texttt{queue} \\
+Java : \texttt{Queue<E>}
+\begin{itemize}
+\item Adding at the back, removing at the front $\Rightarrow$ linked list
+\item Everything is $\constant$
+\end{itemize}
+\begin{lstlisting}
+queue<int> q;
+q.push(1);
+q.push(2);
+q.front(); // 1
+q.pop();
+q.front(); // 2
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stack: concept}
+\begin{itemize}
+\item Stack of pancakes
+\item We add at the top, we remove from the top
+\item "Last In First Out"
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=.5\textwidth]{img/stack}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Stack: in practice}
+C++ : \texttt{stack} \\
+Java : \texttt{Stack<E>}
+\begin{itemize}
+\item Adding and removing at the back $\Rightarrow$ liste chaînée \emph{ou vecteur}
+\item Everything is $\constant$
+\end{itemize}
+\begin{lstlisting}
+stack<int> q;
+q.push(1);
+q.push(2);
+q.top(); // 2
+q.pop();
+q.top(); // 1
+\end{lstlisting}
+\end{frame}
+
+\section{Choosing the right structure}
+
+\begin{frame}
+\frametitle{Choice: special structures}
+Structures for special needs:
+\begin{itemize}
+\item Adding from one side and removing from the other $\Rightarrow$ \textbf{queue}
+\item Adding and removing from the same side $\Rightarrow$ \textbf{stack}
+\item Booleans, bitwise operations (and, or, shift, ...) $\Rightarrow$ \textbf{bitset}
+\end{itemize}
+
+~
+
+Otherwise, see next slide!
+\end{frame}
+
+\begin{frame}
+\frametitle{Choice: arrays, vectors, linked lists}
+``Add'' = adding or removing
+\begin{center}
+\begin{tabu}{l|cccc}
+\toprule
+Structure & Indexation & Add (back) & Add (middle) \\
+\midrule
+Array & $\constant$ & $\linear$ & $\linear$ \\
+Vector & $\constant$ & $\constant$ & $\linear$ \\
+Linked list & $\linear$ & $\constant$ & $\constant$ \\
+\bottomrule
+\end{tabu}
+\end{center}
+\begin{itemize}
+\item Adding in the middle (rare) $\Rightarrow$ \textbf{list}
+\item Unknown maximal size $\Rightarrow$ \textbf{vector}
+\item All other cases $\Rightarrow$ \textbf{array} (faster)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sources of the images}
+\begin{itemize}
+\item \url{https://commons.wikimedia.org/wiki/File:Singly-linked-list.svg}
+\item \url{https://commons.wikimedia.org/wiki/File:CPT-LinkedLists-addingnode.svg}
+\item \url{https://en.wikipedia.org/wiki/File:CPT-LinkedLists-deletingnode.svg}
+\item \url{https://en.wikipedia.org/wiki/File:Doubly-linked-list.svg}
+\item \url{https://en.wikipedia.org/wiki/File:Data_Queue.svg}
+\item \url{https://en.wikipedia.org/wiki/File:Data_stack.svg}
+\end{itemize}
+\end{frame}
+
+\end{document}
