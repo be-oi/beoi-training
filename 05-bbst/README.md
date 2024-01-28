@@ -6,7 +6,7 @@ TODO: test code and add O(n) treap construction
 
 ### To begin with
 - (UVa map/set problems)
-- SPOJ All in One
+- SPOJ ALLIN1 - [All in One](https://www.spoj.com/problems/ALLIN1/)
 - IOI 2018 (practice session) - bubblesort2
 
 ### Harder
