@@ -358,6 +358,7 @@ every edge/.style={draw=red,very thick}]
 	\end{tikzpicture}
 	\\Cost: 13
 \end{frame}
+
 \begin{frame}
 	\frametitle{Check for cycles}
 	Any ideas?\\
@@ -389,7 +390,7 @@ every edge/.style={draw=red,very thick}]
 		\end{itemize}
 		\item Take the node with the smallest value that hasn't been added yet
 		\begin{enumerate}
-			\item Set the value of all adjacent edges to the minimum of the current value and the edge.
+			\item Set the value of all adjacent nodes to the minimum of the current value and the edge.
 		\end{enumerate}
 		\item Repeat \textbf{2} until all nodes have been added
 	\end{enumerate}
@@ -844,14 +845,14 @@ Process function:\\
 
 \begin{frame}
 	\frametitle{Minimax}
-	The minimum of maximum edge weight among all posible paths between two nodes.\\
+	Finding a path between two nodes that minimizes the maximum cost (= minimax) along the path.\\
 	Example: find the minimax for 1 and 4\\
 	\includegraphics[width=0.6\linewidth]{img/minimax-graph}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Minimax}
-	The minimum of maximum edge weight among all posible paths between two nodes.\\
+	Finding a path between two nodes that minimizes the maximum cost (= minimax) along the path.\\
 	Example: find the minimax for 1 and 4\\
 	\includegraphics[width=0.6\linewidth]{img/minimax-graph-correct}\\
 	The minimax in this case is 80.
@@ -859,11 +860,17 @@ Process function:\\
 
 \begin{frame}
 	\frametitle{Minimax}
-	The minimum of maximum edge weight among all posible paths between two nodes.\\~\\
-	How would you solve this?\\
-	Solution: Compute the MST and traverse it from source to target.\\~\\
+	Finding a path between two nodes that minimizes the maximum cost (= minimax) along the path.\\~\\
+	How would you solve this?\\ \pause
+	Solution: Compute the Minimum Spanning Tree and traverse it from source to target.\\~\\
 	\pause
 	Other (shorter) solution: use an adapted version of Floyd-Warshal, where instead of adding, you take the max.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Maximin}
+	Finding a path between two nodes that \textit{maximizes} the \textit{minimum} cost (= maximin) along the path.\\~\\ \pause
+	Analogous: Compute the \textit{Maximum} Spanning Tree and traverse it from source to target.\\~\\
 \end{frame}
 
 \end{document}
