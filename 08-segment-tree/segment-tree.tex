@@ -201,12 +201,21 @@ This is called the \textbf{range sum query} (RSQ) problem.
 
 \begin{frame}
     \frametitle{Let's be lazy!}
-    Key idea behind lazy Segment Tree: don't update everything at once; put a flag on segments that need to be updated, and leave it for another traversal. \\
+    Key idea behind lazy Segment Tree: don't update everything at once; put a flag on segments that need to be updated, and leave it for another traversal.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Let's be lazy!}
+    Keep an array \lstinline{lazy} that stores for each segment by how much each value needs to be incremented.
+
+    \begin{itemize}
+        \item If \lstinline{lazy[p] != 0}, then \lstinline{st[p]} as well as the entire subtree were not updated yet.
+        \item During traversal, if \lstinline{lazy[p] != 0}, we have to update \lstinline{st[p]} and mark the children for lazy updating.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Propagation}
-    Keep an array \lstinline{lazy} that stores for each segment by how much each value needs to be incremented. \\
     Every time we visit a node $p$ (in \lstinline{query} or \lstinline{update}) where \lstinline{lazy[p] != 0},
     \begin{itemize}
         \item increment current segment by \lstinline{lazy[p]} times size of segment;

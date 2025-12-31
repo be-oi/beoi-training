@@ -4,7 +4,7 @@ void update(int p, int L, int R, int i, int j, int dx) {
     // inside  update range
     if (i <= L && R <= j) {
         lazy[p] += dx;
-        propagate(p, L, R);
+        propagate(p, L, R); // to update st[p]
         return;
     }
     // outside update range
